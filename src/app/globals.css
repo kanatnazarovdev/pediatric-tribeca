@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: var(--font-cormorant-garamond);
+  --font-sans: var(--font-inter);
+}
+
+/* REMOVE the * { padding: 0 } reset. Tailwind Preflight already handles this safely. */
+
+html,
+body {
+  scroll-behavior: smooth;
+  scroll-padding-top: 100px; /* Match your header height */
+  max-width: 100vw;
+  overflow-x: hidden;
+  margin: 0; /* Keep margin reset here if you prefer */
+}
+
+body {
+  @apply font-sans antialiased;
+}
+
+@layer components {
+  .btn-luxury {
+    @apply relative bg-transparent py-2 px-0
+           text-[11px] font-light tracking-[0.7em] uppercase
+           transition-all duration-1000 ease-in-out;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  }
+}

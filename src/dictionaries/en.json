@@ -1,0 +1,15 @@
+{
+  "hero": {
+    "badge": "Limited Monthly Intake",
+    "title_main": "The Art of",
+    "title_italic": "Silent Sleep",
+    "cta": "Secure Your $49 Evaluation",
+    "studio_name": "Tribeca Dental Studio"
+  },
+  "science": {
+    "heading": "Diagnostic Precision",
+    "scan": "CBCT Airway Mapping",
+    "price_offer": "$49 Concierge Evaluation",
+    "benefit": "Restore the oxygen you need for the rest you deserve."
+  }
+}

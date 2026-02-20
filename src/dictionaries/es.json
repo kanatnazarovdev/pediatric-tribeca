@@ -1,0 +1,15 @@
+{
+  "hero": {
+    "badge": "Cupos Mensuales Limitados",
+    "title_main": "El Arte del",
+    "title_italic": "Sueño Silencioso",
+    "cta": "Asegure su $49 Evaluación",
+    "studio_name": "Tribeca Dental Studio"
+  },
+  "science": {
+    "heading": "Precisión Diagnóstica",
+    "scan": "Mapeo de Vías Respiratorias CBCT",
+    "price_offer": "Evaluación Concierge por $49",
+    "benefit": "Restaura el oxígeno que necesitas para el descanso que mereces."
+  }
+}
