@@ -6,65 +6,71 @@ interface TestimonialProps {
   lang: string;
 }
 
-export default function Testimonial({ lang }: TestimonialProps) {
+export default function PediatricTestimonial({ lang }: TestimonialProps) {
   const isEs = lang === "es";
 
   const testimonials = [
     {
       quote: isEs 
-        ? "NightLase no solo detuvo mis ronquidos; restauró mi calidad de vida. El arte y la atención en Tribeca Dental Studio son incomparables."
-        : "NightLase didn’t just stop my snoring; it restored the quality of my life. The artistry and care at Tribeca Dental Studio are unmatched.",
-      author: isEs ? "Cliente Privado" : "Private Client"
+        ? "Ver el progreso en el desarrollo de mi hijo ha sido increíble. Ahora duerme profundamente y tiene mucha más energía durante el día."
+        : "Watching the progress in my child’s development has been incredible. They are finally sleeping soundly and have so much more energy during the day.",
+      author: isEs ? "Padre de Familia" : "Family Member"
     },
     {
       quote: isEs
-        ? "El cambio inmediato fue profundo. Por primera vez en años, mi pareja y yo nos despertamos verdaderamente descansados."
-        : "The immediate change was profound. For the first time in years, my partner and I are both waking up truly rested.",
-      author: isEs ? "Miembro de Salud Ejecutiva" : "Executive Health Member"
+        ? "El enfoque preventivo de Tribeca cambió nuestra perspectiva. No solo están tratando a un paciente; están asegurando el futuro de mi hijo."
+        : "The preventative approach at Tribeca changed our perspective. They aren’t just treating a patient; they are securing my child’s future.",
+      author: isEs ? "Cuidado Preventivo" : "Preventative Care Parent"
     },
     {
       quote: isEs
-        ? "Una clase magistral de precisión diagnóstica. Ver mi escaneo 3D de las vías respiratorias fue el momento clave para tomar el control de mi salud."
-        : "A masterclass in diagnostic precision. Seeing my 3D airway scan was the 'aha' moment I needed to take control of my health.",
-      author: isEs ? "Paciente de Salud del Sueño" : "Sleep Health Patient"
+        ? "Un ambiente tan tranquilo y profesional. Mi hija se sintió segura desde el primer momento, y los resultados en su respiración son notables."
+        : "Such a calm and professional environment. My daughter felt safe from the first moment, and the results in her breathing are remarkable.",
+      author: isEs ? "Salud de las Vías Respiratorias" : "Airway Health Patient"
     }
   ];
 
   return (
-    <section className="bg-black py-24 md:py-32">
+    <section className="bg-gray-200 py-24 md:py-40 border-t border-gray-100">
       <Container>
-        <div className="max-w-5xl mx-auto">
-          <div className="flex flex-col items-center text-center mb-20">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex flex-col items-center text-center mb-24">
             <motion.span 
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
-              className="text-[14px] uppercase tracking-[0.8em] text-[#C5A059] block mb-6"
+              className="text-[10px] uppercase tracking-[0.8em] text-[#C5A059] font-bold block mb-6"
             >
-              {isEs ? "La Experiencia del Paciente" : "The Patient Experience"}
+              {isEs ? "Testimonios de Padres" : "Parental Testimonials"}
             </motion.span>
-            <h2 className="text-white font-serif text-5xl italic opacity-80 font-light tracking-wide">
-              {isEs ? "Voces de la Noche Silenciosa" : "Voices of the Silent Night"}
+            <h2 className="text-black font-serif text-5xl md:text-6xl tracking-tight leading-tight">
+              {isEs ? "Confianza en el" : "Confidence in"} <br />
+              <span className="italic font-light text-gray-400">
+                {isEs ? "Crecimiento" : "Development"}
+              </span>
             </h2>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-0">
             {testimonials.map((item, index) => (
               <motion.div 
                 key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, delay: index * 0.2 }}
-                className="flex flex-col items-center text-center space-y-8"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 1.2, delay: index * 0.2 }}
+                className={`flex flex-col items-center text-center space-y-10 px-8 
+                  ${index !== 2 ? "md:border-r border-gray-100" : ""}`}
               >
-                <div className="w-8 h-[1px] bg-[#C5A059]/40" />
+                {/* Visual Icon - Quote Mark */}
+                <span className="text-4xl font-serif text-[#C5A059] opacity-30">“</span>
                 
-                <blockquote className="text-[20px] md:text-[26px] font-serif italic text-white/90 leading-relaxed font-light">
-                  &quot;{item.quote}&quot;
+                <blockquote className="text-[18px] md:text-[20px] font-serif text-black leading-relaxed font-light italic">
+                  {item.quote}
                 </blockquote>
                 
-                <div className="space-y-2 pt-4">
-                  <div className="h-[30px] w-[1px] bg-[#C5A059]/20 mx-auto" />
-                  <cite className="text-[9px] uppercase tracking-[0.4em] not-italic text-[#C5A059] font-medium block">
+                <div className="space-y-4 pt-6">
+                  {/* The long line you liked */}
+                  <div className="h-[40px] w-[1px] bg-[#C5A059] mx-auto" />
+                  <cite className="text-[10px] uppercase tracking-[0.4em] not-italic text-gray-400 font-medium block">
                     — {item.author}
                   </cite>
                 </div>

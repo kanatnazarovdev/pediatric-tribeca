@@ -26,7 +26,7 @@ export default async function Home({
       <Diagnostics dict={dict.science} lang={lang} />
       <Technology lang={lang} />
 
-      <Comparison lang={lang} />
+      {/* <Comparison lang={lang} /> */}
       <Testimonial lang={lang} />
       <FAQ lang={lang} />
       <ContactForm />
