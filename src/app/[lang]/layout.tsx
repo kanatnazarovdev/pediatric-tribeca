@@ -71,7 +71,6 @@ export async function generateMetadata({
   };
 }
 
-// Update 2: Correcting the LayoutProps for Next.js 15
 export default async function RootLayout(props: {
   children: React.ReactNode;
   params: Promise<{ lang: string }>;

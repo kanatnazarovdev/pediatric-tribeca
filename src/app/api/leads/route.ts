@@ -3,7 +3,8 @@ import { NextResponse } from 'next/server';
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { firstName, lastName, email, phone, lang } = body;
+    // Added childName to the destructured body
+    const { firstName, lastName, email, phone, lang, childName } = body;
 
     const cleanPhone = `+1${phone.replace(/\D/g, '').slice(-10)}`;
 
@@ -20,8 +21,11 @@ export async function POST(req: Request) {
         email,
         phone: cleanPhone,
         locationId: process.env.GHL_LOCATION_ID,
-        tags: ['NightLase Landing Page', lang === 'es' ? 'Spanish' : 'English'],
-        source: 'Nightlase Page'
+        tags: ['Pediatric', 'Airway_Inquiry', lang === 'es' ? 'Spanish' : 'English'],
+        source: 'Pediatric Airway Page',
+        customFields: [
+        ],
+        notes: [childName ? `Child's Name: ${childName}` : 'No child name provided']
       }),
     });
 

@@ -43,16 +43,15 @@ export default function PediatricDiagnostics({ dict, lang }: { dict: DictProps, 
                 onClick={() => scrollToId("leadForm")}
                 className="px-10 py-4 border border-[#C5A059] text-[#C5A059] text-[11px] uppercase tracking-[0.4em] hover:bg-[#C5A059] hover:text-black transition-all duration-700"
               >
-                {dict.price_offer}
+              Book evaluation for your kid today 
               </button>
             </div>
           </div>
 
-          {/* Pediatric Image Section */}
           <div className="relative aspect-square bg-black border border-white/5 flex flex-col items-center justify-center p-12 text-center group overflow-hidden">
             <img
               // Suggestion: Use a high-quality pediatric-focused image (child smiling or gentle diagnostic)
-              src="/pediatric-care.png" 
+              src="/pediatricphoto.png" 
               alt="Pediatric Airway Assessment"
               className="absolute inset-0 w-full h-full object-cover opacity-40 grayscale group-hover:grayscale-0 group-hover:opacity-60 group-hover:scale-110 transition-all duration-[2000ms] ease-out"
             />

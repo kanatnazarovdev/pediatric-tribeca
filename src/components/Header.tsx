@@ -44,12 +44,15 @@ export default function Header({ dict, lang }: HeaderProps) {
       <ContainerHeader>
         <div className="flex items-center justify-between">
           <div className="flex flex-col">
-            <span
-              className={`text-[24px] font-serif tracking-tight leading-[1.1] transition-colors duration-500
+            <a href={`https://tribecadentalstudio.com`} target="_blank">
+
+              <span
+                className={`text-[24px] font-serif tracking-tight leading-[1.1] transition-colors duration-500
               ${isScrolled ? "text-black" : "text-white"}`}
-            >
-            Tribeca Dental Studio
-            </span>
+              >
+                Tribeca Dental Studio
+              </span>
+            </a>
           </div>
 
           <div className="hidden md:flex items-center gap-12">
@@ -61,7 +64,7 @@ export default function Header({ dict, lang }: HeaderProps) {
                 onMouseLeave={() => setHoveredItem(null)}
                 className={`relative text-[14px] uppercase tracking-[0.3em] transition-colors duration-500 group
                   ${isScrolled ? "text-black" : "text-white"} 
-                  hover:!text-[#C5A059]`} 
+                  hover:!text-[#C5A059]`}
               >
                 <strong className="font-bold">{item.label}</strong>
 

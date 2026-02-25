@@ -16,7 +16,7 @@ export default function PediatricTechnology({ lang }: TechnologyProps) {
         ? "Intervención temprana para moldear el desarrollo natural, asegurando vías respiratorias amplias y saludables." 
         : "Early intervention to guide natural facial development, ensuring wide and healthy airways for life.",
       step: "01",
-      image: "/pediatric-growth.png" // Replace with your image path
+      image: "/childcbct2.png"
     },
     {
       title: isEs ? "Cuidado Sin Estrés" : "Stress-Free Care",
@@ -24,7 +24,7 @@ export default function PediatricTechnology({ lang }: TechnologyProps) {
         ? "Nuestra tecnología es silenciosa y suave, diseñada para que los niños se sientan seguros." 
         : "Silent, gentle technology specifically designed to make children feel safe and at ease.",
       step: "02",
-      image: "/pediatric-comfort.png" // Replace with your image path
+      image: "/stressfree2.jpg" 
     },
     {
       title: isEs ? "Vitalidad de Por Vida" : "Lifetime Vitality",
@@ -32,7 +32,7 @@ export default function PediatricTechnology({ lang }: TechnologyProps) {
         ? "Mejorar la respiración hoy significa un mejor enfoque y desarrollo para el futuro de su hijo." 
         : "Improving breathing today means better focus, energy, and development for your child's future.",
       step: "03",
-      image: "/pediatric-vitality.png" // Replace with your image path
+      image: "/lifetime.png" 
     }
   ];
 
@@ -63,7 +63,7 @@ export default function PediatricTechnology({ lang }: TechnologyProps) {
                 `}
               >
                 {/* Image Placeholder Section */}
-                <div className="relative w-full aspect-[4/5] mb-12 overflow-hidden bg-gray-50">
+                <div className="relative w-full aspect-[6/5] mb-12 overflow-hidden bg-gray-50">
                    <motion.img
                     whileHover={{ scale: 1.05 }}
                     transition={{ duration: 1.5, ease: "easeOut" }}
