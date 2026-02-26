@@ -23,51 +23,57 @@ export async function generateMetadata({
 
   return {
     title: isEs
-      ? "Tratamiento para Ronquidos NightLase® | Tribeca Dental Studio NYC"
-      : "NightLase® Snoring Treatment | Tribeca Dental Studio NYC",
+      ? "Odontopediatría y Salud de Vías Respiratorias | Tribeca Dental Studio"
+      : "Pediatric Dentistry & Airway Health | Tribeca Dental Studio NYC",
     description: isEs
-      ? "Duerma profundamente y sin ruidos con NightLase®. Tratamiento láser no invasivo para ronquidos y apnea del sueño en Tribeca. Sin cirugía."
-      : "Experience deep, quiet sleep with NightLase®. A non-invasive, laser-based treatment for snoring and sleep apnea in Tribeca. No surgery, no downtime.",
+      ? "Cuidado dental avanzado para niños en Tribeca. Especialistas en desarrollo de vías respiratorias, láser Solea® sin dolor y ortodoncia preventiva."
+      : "Advanced pediatric dental care in Tribeca. Specialists in airway development, pain-free Solea® laser, and preventative orthodontics.",
     icons: {
       icon: "/TribecaLogo.png",
       shortcut: "/TribecaLogo.png",
       apple: "/TribecaLogo.png",
     },
-    verification: {
-      google: "FvXb6KDkt8yxyo6HnbW1yLiHs9YrgSWnt0xbQ2cag0I",
+    robots: {
+      index: false,
+      follow: true,
+      nocache: true,
+      googleBot: {
+        index: false,
+        follow: true,
+      },
     },
     alternates: {
-      canonical: `https://nightlase.tribecadentalstudio.com/${lang}`,
+      canonical: `https://pediatrics.tribecadentalstudio.com/${lang}`, 
       languages: {
-        "en-US": "https://nightlase.tribecadentalstudio.com/en",
-        "es-ES": "https://nightlase.tribecadentalstudio.com/es",
+        "en-US": "https://pediatrics.tribecadentalstudio.com/en",
+        "es-ES": "https://pediatrics.tribecadentalstudio.com/es",
       },
     },
     openGraph: {
       title: isEs
-        ? "NightLase®: La solución de lujo para dormir mejor | NYC"
-        : "NightLase®: The Luxury Solution for Better Sleep | NYC",
+        ? "Salud Dental Infantil: Innovación y Cuidado en Tribeca"
+        : "Pediatric Dental Health: Innovation & Care in Tribeca",
       description: isEs
-        ? "Transforme su sueño y salud en Tribeca Dental. Descubra el poder no invasivo de NightLase®."
-        : "Transform your sleep and health at Tribeca Dental. Discover the non-invasive power of NightLase®.",
-      url: `https://nightlase.tribecadentalstudio.com/${lang}`,
+        ? "Asegure el futuro de su hijo con tecnología dental sin dolor y expertos en desarrollo facial en NYC."
+        : "Secure your child's future with pain-free dental technology and facial development experts in NYC.",
+      url: `https://pediatrics.tribecadentalstudio.com/${lang}`,
       siteName: "Tribeca Dental Studio",
       images: [
         {
-          url: "/After.png",
+          url: "/pediatricImage.jpg", 
           width: 1200,
           height: 630,
           alt: isEs
-            ? "Tratamiento NightLase en Tribeca Dental"
-            : "NightLase Treatment at Tribeca Dental",
+            ? "Clínica de Odontopediatría en Tribeca"
+            : "Pediatric Dental Clinic in Tribeca",
         },
       ],
       locale: isEs ? "es_ES" : "en_US",
       type: "website",
     },
     keywords: isEs
-      ? ["NightLase NYC", "Tratamiento ronquidos Tribeca", "Apnea del sueño láser", "Curar ronquidos NYC"]
-      : ["NightLase NYC", "Snoring treatment Tribeca", "Sleep apnea laser therapy", "Non-invasive snoring cure"],
+      ? ["Dentista para niños Tribeca", "Salud vías respiratorias pediátricas", "Láser Solea NYC", "Ortodoncia interceptiva"]
+      : ["Kids dentist Tribeca", "Pediatric airway health", "Solea laser dentist NYC", "Mouth breathing treatment children"],
   };
 }
 

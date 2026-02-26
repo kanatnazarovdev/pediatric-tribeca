@@ -31,10 +31,23 @@ export default function Header({ dict, lang }: HeaderProps) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navItems = [
-    { id: "technology", label: lang === "es" ? "Tecnología" : "Technology" },
-    { id: "results", label: lang === "es" ? "Resultados" : "Results" },
-    { id: "faq", label: "FAQ" },
+const navItems = [
+    { 
+      id: "pediatric-tech", 
+      label: lang === "es" ? "Desarrollo" : "Development" 
+    },
+    { 
+      id: "diagnostics", 
+      label: lang === "es" ? "Innovación" : "Innovation" 
+    },
+    { 
+      id: "results", 
+      label: lang === "es" ? "Experiencia" : "Experience" 
+    },
+    { 
+      id: "faq", 
+      label: "FAQ" 
+    },
   ];
   return (
     <nav

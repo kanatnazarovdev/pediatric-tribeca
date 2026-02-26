@@ -6,9 +6,8 @@ export default function About({ lang }: { lang: string }) {
   const isEs = lang === "es";
 
   return (
-    <section className="bg-[#F9F8F6] w-full overflow-hidden py-24 md:py-40">
+    <section className="bg-[#F9F8F6] w-full overflow-hidden py-24 md:py-40" id="secondBlock">
       <Container>
-        {/* Header Stack */}
         <div className="relative flex flex-col items-center mb-32">
           <motion.span
             initial={{ opacity: 0, y: 10 }}
@@ -17,8 +16,6 @@ export default function About({ lang }: { lang: string }) {
           >
             {isEs ? "Cuidado Especializado" : "Specialized Pediatric Care"}
           </motion.span>
-
-          {/* Large Centered Title with Asymmetric Subtext */}
           <div className="relative w-full max-w-6xl mx-auto">
             <motion.h2
               className="text-6xl md:text-[110px] font-serif leading-none text-[#1A1A1A] tracking-tighter text-left"

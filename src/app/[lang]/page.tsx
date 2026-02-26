@@ -21,12 +21,9 @@ export default async function Home({
   return (
     <main>
       <Hero dict={dict.hero} />
-
       <About lang={lang} />
       <Diagnostics dict={dict.science} lang={lang} />
       <Technology lang={lang} />
-
-      {/* <Comparison lang={lang} /> */}
       <Testimonial lang={lang} />
       <FAQ lang={lang} />
       <ContactForm />

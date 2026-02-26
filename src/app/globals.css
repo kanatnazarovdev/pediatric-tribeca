@@ -3,7 +3,13 @@
   --font-serif: var(--font-cormorant-garamond);
   --font-sans: var(--font-inter);
 }
-
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
 /* REMOVE the * { padding: 0 } reset. Tailwind Preflight already handles this safely. */
 
 html,

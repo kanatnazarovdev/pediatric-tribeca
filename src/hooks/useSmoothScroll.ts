@@ -13,7 +13,8 @@ export const useSmoothScroll = () => {
 
       window.scrollTo({
         top: offsetPosition,
-        behavior: 'smooth'
+        behavior: 'smooth',
+        
       });
 
       const cleanUrl = window.location.pathname;
