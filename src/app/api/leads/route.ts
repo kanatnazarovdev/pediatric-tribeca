@@ -4,7 +4,7 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
     // Added childName to the destructured body
-    const { firstName, lastName, email, phone, lang, childName } = body;
+    const { firstName, lastName, email, phone, lang } = body;
 
     const cleanPhone = `+1${phone.replace(/\D/g, '').slice(-10)}`;
 
@@ -25,7 +25,6 @@ export async function POST(req: Request) {
         source: 'Pediatric Airway Page',
         customFields: [
         ],
-        notes: [childName ? `Child's Name: ${childName}` : 'No child name provided']
       }),
     });
 
