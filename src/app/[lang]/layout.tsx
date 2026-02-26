@@ -29,9 +29,9 @@ export async function generateMetadata({
       ? "Cuidado dental avanzado para niños en Tribeca. Especialistas en desarrollo de vías respiratorias, láser Solea® sin dolor y ortodoncia preventiva."
       : "Advanced pediatric dental care in Tribeca. Specialists in airway development, pain-free Solea® laser, and preventative orthodontics.",
     icons: {
-      icon: "/TribecaLogo.png",
-      shortcut: "/TribecaLogo.png",
-      apple: "/TribecaLogo.png",
+      icon: "/favicon.png",
+      shortcut: "/favicon.png",
+      apple: "/apple-touch-icon.png",
     },
     robots: {
       index: false,
@@ -43,7 +43,7 @@ export async function generateMetadata({
       },
     },
     alternates: {
-      canonical: `https://pediatrics.tribecadentalstudio.com/${lang}`, 
+      canonical: `https://pediatrics.tribecadentalstudio.com/${lang}`,
       languages: {
         "en-US": "https://pediatrics.tribecadentalstudio.com/en",
         "es-ES": "https://pediatrics.tribecadentalstudio.com/es",
@@ -60,7 +60,7 @@ export async function generateMetadata({
       siteName: "Tribeca Dental Studio",
       images: [
         {
-          url: "/pediatricImage.jpg", 
+          url: "/pediatricImage.jpg",
           width: 1200,
           height: 630,
           alt: isEs
@@ -83,7 +83,7 @@ export default async function RootLayout(props: {
 }) {
   const params = await props.params;
   const children = props.children;
-  
+
   const lang = params.lang === "es" ? "es" : "en";
   const dict = await getDictionary(lang);
 
