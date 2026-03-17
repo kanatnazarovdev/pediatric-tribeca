@@ -24,7 +24,7 @@ export async function generateMetadata({
   return {
     title: isEs
       ? "Tratamiento para Ronquidos NightLase® | Tribeca Dental Studio NYC"
-      : "NightLase® Snoring Treatment | Tribeca Dental Studio NYC",
+      : " Pediatric Dentistry | Tribeca Dental Studio NYC",
     description: isEs
       ? "Duerma profundamente y sin ruidos con NightLase®. Tratamiento láser no invasivo para ronquidos y apnea del sueño en Tribeca. Sin cirugía."
       : "Experience deep, quiet sleep with NightLase®. A non-invasive, laser-based treatment for snoring and sleep apnea in Tribeca. No surgery, no downtime.",

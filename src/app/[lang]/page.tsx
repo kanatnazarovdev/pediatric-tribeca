@@ -25,7 +25,6 @@ export default async function Home({
       <About lang={lang} />
       <Diagnostics dict={dict.science} lang={lang} />
       <Technology lang={lang} />
-
       {/* <Comparison lang={lang} /> */}
       <Testimonial lang={lang} />
       <FAQ lang={lang} />
