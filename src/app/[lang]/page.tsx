@@ -20,6 +20,7 @@ export default async function Home({
   const dict = await getDictionary(lang as "en" | "es");
   return (
     <main>
+      
       <Hero dict={dict.hero} />
 
       <section id="mission">

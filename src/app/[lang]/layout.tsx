@@ -5,13 +5,13 @@ import Header from "@/components/Header";
 import { Metadata } from "next";
 import { getDictionary } from "./dictionaries";
 import { Montserrat } from "next/font/google";
-
+import { brandonGrotesque } from "../fonts";
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
-const montserrat = Montserrat({ 
-  subsets: ["latin"], 
+const montserrat = Montserrat({
+  subsets: ["latin"],
   weight: ["700"], // We only need the bold weight for the header
-  variable: "--font-montserrat" 
+  variable: "--font-montserrat",
 });
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -68,7 +68,7 @@ export default async function RootLayout(props: {
     telephone: "212-561-5303",
     address: {
       "@type": "PostalAddress",
-      streetAddress: "54 Warren stt", 
+      streetAddress: "54 Warren stt",
       addressRegion: "NY",
       postalCode: "10007",
       addressCountry: "US",
@@ -87,9 +87,18 @@ export default async function RootLayout(props: {
   };
 
   return (
-    <html lang={lang} className={`${inter.variable} ${cormorant.variable} ${montserrat.variable}`}>
+    <html
+      lang={lang}
+      className={`
+      ${brandonGrotesque.variable} 
+    `}
+      style={{ fontFamily: "var(--font-brandon)" }}
+    >
       <head>
-        <meta name="google-site-verification" content="nLaRiqhDNEihAjZvM41oA3QZTgOteabWMXMuWiMcSsU" />
+        <meta
+          name="google-site-verification"
+          content="nLaRiqhDNEihAjZvM41oA3QZTgOteabWMXMuWiMcSsU"
+        />
         {/* Render JSON-LD in the head for better SEO indexing */}
         <script
           type="application/ld+json"
@@ -98,6 +107,7 @@ export default async function RootLayout(props: {
       </head>
       <body className="bg-white text-foreground antialiased selection:bg-[#C5A059] selection:text-white">
         {/* @ts-ignore */}
+
         <Header lang={lang} dict={dict} />
         {children}
       </body>

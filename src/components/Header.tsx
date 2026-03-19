@@ -6,7 +6,7 @@ import { ContainerHeader } from "./Container";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSmoothScroll } from "@/hooks/useSmoothScroll";
 import Link from "next/link";
-import { Menu, X } from "lucide-react"; // install lucide-react if not present
+import { Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 
 interface HeaderProps {
@@ -29,11 +29,9 @@ export default function Header({ dict, lang }: HeaderProps) {
 
   const handleBookingClick = (e: React.MouseEvent) => {
     if (isHomePage) {
-      // If on home, prevent default link behavior and smooth scroll
       e.preventDefault();
       scrollToId("leadForm");
     }
-    // If NOT on home, the default <Link> behavior will take us to "/lang#leadForm"
     setIsOpen(false);
   };
   useEffect(() => {
@@ -42,7 +40,6 @@ export default function Header({ dict, lang }: HeaderProps) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close mobile menu on resize if switching to desktop
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth > 768) setIsOpen(false);
@@ -114,7 +111,8 @@ export default function Header({ dict, lang }: HeaderProps) {
               </span>
             </Link>
 
-            <div className="hidden lg:flex items-center gap-12 font-mono">
+            <div className="hidden lg:flex items-center gap-12 font-brandon font-bold">
+              {" "}
               {navItems.map((item) => (
                 <NavItem
                   key={item.id}
@@ -213,12 +211,12 @@ function NavItem({
   scrollToId,
 }: any) {
   const className = `
-    font-sans uppercase font-bold
+    font-brandon font-bold uppercase 
     text-[16px] leading-[18px] tracking-[3px] 
     transition-colors duration-500 group relative 
     ${isScrolled ? "text-black" : "text-white"} 
     hover:text-[#C5A059]
-  `.replace(/\s+/g, " ");
+`.replace(/\s+/g, " ");
   if (item.isExternal) {
     return (
       <Link

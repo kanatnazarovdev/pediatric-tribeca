@@ -71,7 +71,7 @@ export default function CommunityPage({ params }: { params: { lang: string } }) 
               }
             ].map((pillar) => (
               <div key={pillar.num} className="group">
-                <h3 className="text-[#C5A059] text-[11px] font-medium mb-6 uppercase tracking-[0.3em]">
+                <h3 className="text-[#C5A059] text-[13px] font-medium mb-6 uppercase tracking-[0.3em]">
                   {pillar.num} / {pillar.title}
                 </h3>
                 <p className="text-gray-400 font-light leading-relaxed text-base">

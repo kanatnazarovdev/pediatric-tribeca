@@ -70,7 +70,7 @@ export default function Hero({ dict }: HeroProps) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.5, delay: 0.3 }}
-          className="text-5xl md:text-8xl font-serif tracking-tight leading-[1.1] mb-12 drop-shadow-md"
+          className="text-5xl md:text-8xl font-serif tracking-wide leading-[1.1] mb-12 drop-shadow-md"
           aria-label={`${dict.title_main} ${dict.title_italic}`}
         >
           <span className="bg-clip-text text-transparent bg-gradient-to-b from-[#E5D5B7] to-[#C5A059]">
