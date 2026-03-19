@@ -28,19 +28,9 @@ export async function generateMetadata({
     description: isEs
       ? "Cuidado dental avanzado para niños en Tribeca. Especialistas en desarrollo de vías respiratorias, láser Solea® sin dolor y ortodoncia preventiva."
       : "Advanced pediatric dental care in Tribeca. Specialists in airway development, pain-free Solea® laser, and preventative orthodontics.",
-    icons: {
-      icon: "/favicon.png",
-      shortcut: "/favicon.png",
-      apple: "/apple-touch-icon.png",
-    },
     robots: {
-      index: false,
+      index: true,
       follow: true,
-      nocache: true,
-      googleBot: {
-        index: false,
-        follow: true,
-      },
     },
     alternates: {
       canonical: `https://pediatrics.tribecadentalstudio.com/${lang}`,
@@ -49,31 +39,6 @@ export async function generateMetadata({
         "es-ES": "https://pediatrics.tribecadentalstudio.com/es",
       },
     },
-    openGraph: {
-      title: isEs
-        ? "Salud Dental Infantil: Innovación y Cuidado en Tribeca"
-        : "Pediatric Dental Health: Innovation & Care in Tribeca",
-      description: isEs
-        ? "Asegure el futuro de su hijo con tecnología dental sin dolor y expertos en desarrollo facial en NYC."
-        : "Secure your child's future with pain-free dental technology and facial development experts in NYC.",
-      url: `https://pediatrics.tribecadentalstudio.com/${lang}`,
-      siteName: "Tribeca Dental Studio",
-      images: [
-        {
-          url: "/pediatricImage.jpg",
-          width: 1200,
-          height: 630,
-          alt: isEs
-            ? "Clínica de Odontopediatría en Tribeca"
-            : "Pediatric Dental Clinic in Tribeca",
-        },
-      ],
-      locale: isEs ? "es_ES" : "en_US",
-      type: "website",
-    },
-    keywords: isEs
-      ? ["Dentista para niños Tribeca", "Salud vías respiratorias pediátricas", "Láser Solea NYC", "Ortodoncia interceptiva"]
-      : ["Kids dentist Tribeca", "Pediatric airway health", "Solea laser dentist NYC", "Mouth breathing treatment children"],
   };
 }
 
@@ -83,13 +48,47 @@ export default async function RootLayout(props: {
 }) {
   const params = await props.params;
   const children = props.children;
-
   const lang = params.lang === "es" ? "es" : "en";
   const dict = await getDictionary(lang);
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Dentist",
+    name: "Tribeca Dental Studio 4 kids",
+    image: "https://pediatrics.tribecadentalstudio.com/pediatricImage.jpg",
+    "@id": "https://pediatrics.tribecadentalstudio.com",
+    url: "https://pediatrics.tribecadentalstudio.com",
+    telephone: "212-561-5303",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "54 Warren stt", 
+      addressRegion: "NY",
+      postalCode: "10007",
+      addressCountry: "US",
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: 40.714885,
+      longitude: -74.00906,
+    },
+    openingHoursSpecification: {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      opens: "08:00",
+      closes: "17:00",
+    },
+  };
+
   return (
     <html lang={lang} className={`${inter.variable} ${cormorant.variable}`}>
-      <body className="bg-white text-foreground antialiased selection:bg-luxury-gold selection:text-white">
+      <head>
+        {/* Render JSON-LD in the head for better SEO indexing */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
+      <body className="bg-white text-foreground antialiased selection:bg-[#C5A059] selection:text-white">
         {/* @ts-ignore */}
         <Header lang={lang} dict={dict} />
         {children}

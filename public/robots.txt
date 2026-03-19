@@ -1,0 +1,10 @@
+# https://www.robotstxt.org/robotstxt.html
+
+User-agent: *
+Allow: /
+
+# Host
+Host: https://pediatrics.tribecadentalstudio.com
+
+# Sitemaps
+Sitemap: https://pediatrics.tribecadentalstudio.com/sitemap.xml
