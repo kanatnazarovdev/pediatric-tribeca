@@ -38,11 +38,14 @@ export default function Hero({ dict }: HeroProps) {
         ref={videoRef}
         autoPlay
         muted
+        preload="auto"
         loop
-        title="Pediatric Dentistry and Airway Health in Tribeca" // Keyword rich
+        poster="/HeroPhoto.webp"
+        title="Pediatric Dentistry and Airway Health in Tribeca"
         playsInline
         className="absolute inset-0 z-0 h-full w-full object-cover opacity-50 saturate-[1.2] contrast-[1.1]"
       >
+        <source src="/Pediatric.webm" type="video/webm" />{" "}
         <source src="/Pediatric.mp4" type="video/mp4" />
       </video>
 
@@ -125,7 +128,7 @@ export default function Hero({ dict }: HeroProps) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5, duration: 1 }}
-        className="absolute bottom-32 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center cursor-pointer group lg:bottom-12"
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center cursor-pointer group lg:bottom-12"
         onClick={() => scrollToId("secondBlock")}
       >
         <span className="text-[8px] md:text-[9px] uppercase tracking-[0.6em] text-[#C5A059] mb-4 opacity-70 group-hover:opacity-100 transition-opacity duration-500">

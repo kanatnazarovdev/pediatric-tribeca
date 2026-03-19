@@ -48,8 +48,9 @@ export default function CommunityPage({
             autoPlay
             loop
             muted
+            preload="auto"
             playsInline
-            poster="/mission.jpg"
+            poster="/mission.webp"
             className="w-full h-[100%] object-cover object-center opacity-100 transition-all duration-1000 "
           >
             <source src="/mission.mp4" type="video/mp4" />
