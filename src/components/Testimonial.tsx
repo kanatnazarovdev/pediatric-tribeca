@@ -19,7 +19,7 @@ export default function PediatricTestimonial({ lang }: TestimonialProps) {
     {
       quote: isEs
         ? "El enfoque preventivo de Tribeca cambió nuestra perspectiva. No solo están tratando a un paciente; están asegurando el futuro de mi hijo."
-        : "The preventative approach at Tribeca changed our perspective. They aren’t just treating a patient; they are securing my child’s future.",
+        : "The preventative approach at Tribeca Dental Studio 4 kids changed our perspective. They aren’t just treating a patient; they are securing my child’s future.",
       author: isEs ? "Cuidado Preventivo" : "Preventative Care Parent"
     },
     {
