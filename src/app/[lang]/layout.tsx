@@ -6,7 +6,7 @@ import { Metadata } from "next";
 import { getDictionary } from "./dictionaries";
 import { Montserrat } from "next/font/google";
 import { brandonGrotesque } from "../fonts";
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+import Footer from "@/components/Footer";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -110,6 +110,7 @@ export default async function RootLayout(props: {
 
         <Header lang={lang} dict={dict} />
         {children}
+        <Footer />
       </body>
     </html>
   );

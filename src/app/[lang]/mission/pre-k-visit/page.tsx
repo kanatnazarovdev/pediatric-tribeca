@@ -26,7 +26,7 @@ export default function PreKVisitPage({
               </h1>
             </motion.div>
             <p className="text-gray-500 text-[10px] uppercase tracking-widest mt-8 md:mt-0 font-light">
-              TriBeCa Community School — March 2026
+              <a href="https://tribecacommunityschool.com/" target="_blanket" className="hover:text-[#C5A059]">TriBeCa Community School</a>— March 2026
             </p>
           </div>
 
@@ -82,10 +82,7 @@ export default function PreKVisitPage({
       {/* FOOTER CTA: BACK TO STORIES */}
       <section className="pb-32 bg-white border-t border-black/5 pt-20">
         <div className="max-w-6xl mx-auto px-6 flex justify-center">
-          <Link
-            href={`/mission`}
-            className="group flex flex-col items-center"
-          >
+          <Link href={`/mission`} className="group flex flex-col items-center">
             <span className="text-[10px] uppercase tracking-[0.4em] text-gray-400 group-hover:text-[#C5A059] transition-colors">
               Return to Mission
             </span>

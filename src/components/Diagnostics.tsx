@@ -10,7 +10,7 @@ interface DictProps {
   benefit: string;
 }
 
-export default function PediatricDiagnostics({ dict, lang }: { dict: DictProps; lang: string }) {
+export default function PediatricDiagnostics({ lang }: { lang: string }) {
   const scrollToId = useSmoothScroll();
   const isEs = lang === "es";
 

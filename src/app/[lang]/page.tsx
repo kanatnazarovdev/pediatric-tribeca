@@ -28,7 +28,7 @@ export default async function Home({
       </section>
 
       <section id="diagnostics">
-        <Diagnostics dict={dict.science} lang={lang} />
+        <Diagnostics lang={lang} />
       </section>
 
       <section id="pediatric-tech">
@@ -47,7 +47,6 @@ export default async function Home({
         <ContactForm />
       </section>
 
-      <Footer />
     </main>
   );
 }
