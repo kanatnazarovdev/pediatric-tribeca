@@ -16,7 +16,6 @@ export default function PediatricContactForm() {
 
     const formData = new FormData(e.currentTarget);
     
-    // Grabbing explicit first and last names
     const payload = {
       firstName: formData.get("firstName"),
       lastName: formData.get("lastName"),
@@ -46,17 +45,38 @@ export default function PediatricContactForm() {
     <section className="bg-white py-24 md:py-48 border-t border-gray-100" id="leadForm">
       <Container>
         <div className="max-w-2xl mx-auto">
-          <div className="text-center mb-20">
+          {/* Header Section */}
+          <div className="text-center mb-16">
             <span className="text-[10px] uppercase tracking-[0.8em] text-[#C5A059] font-bold block mb-6">
               {lang === 'es' ? 'Atención Especializada' : 'Specialized Care'}
             </span>
-            <h2 className="text-4xl md:text-5xl font-serif text-black leading-tight">
+            <h2 className="text-4xl md:text-5xl font-serif text-black leading-tight mb-8">
               {lang === 'es' ? (
                 <>Programe la <span className="italic font-light text-gray-400">Consulta de su Hijo.</span></>
               ) : (
                 <>Schedule Your <span className="italic font-light text-gray-400">Child&apos;s Consultation.</span></>
               )}
             </h2>
+            
+            {/* Instant Booking Link - Framing the Choice */}
+            <div className="flex flex-col items-center space-y-4">
+              <p className="text-xs uppercase tracking-widest text-gray-500 font-light">
+                {lang === 'es' ? 'Elija su preferencia' : 'Choose your preference'}
+              </p>
+              <div className="flex flex-wrap justify-center gap-6 items-center">
+                <a 
+                  href="https://booking.adit.com/4dcced5c-07a5-4e12-b80f-d470bca99a63" // Replace with actual booking URL
+                  target="_blank"
+                  className="text-[11px] uppercase tracking-[0.3em] font-bold text-[#C5A059] border-b border-[#C5A059] pb-1 hover:text-black hover:border-black transition-all duration-300"
+                >
+                  {lang === 'es' ? 'Reservar al Instante' : 'Book Instantly Online'}
+                </a>
+                <span className="text-gray-300 text-[10px] uppercase tracking-widest italic">{lang === 'es' ? '— o —' : '— or —'}</span>
+                <p className="text-[11px] uppercase tracking-[0.3em] text-gray-400">
+                  {lang === 'es' ? 'Envíe sus datos abajo' : 'Request a Callback Below'}
+                </p>
+              </div>
+            </div>
           </div>
 
           {status === "success" ? (
@@ -74,8 +94,7 @@ export default function PediatricContactForm() {
           ) : (
             <form onSubmit={handleSubmit} className="space-y-12">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-
-                {/* First Name */}
+                {/* Form Fields remain exactly as they were */}
                 <div className="relative border-b border-black/10 focus-within:border-[#C5A059] transition-colors duration-500">
                   <label className="text-[9px] uppercase tracking-[0.4em] text-gray-400 block mb-2">
                     {lang === 'es' ? 'Nombre' : 'First Name'}
@@ -89,7 +108,6 @@ export default function PediatricContactForm() {
                   />
                 </div>
 
-                {/* Last Name */}
                 <div className="relative border-b border-black/10 focus-within:border-[#C5A059] transition-colors duration-500">
                   <label className="text-[9px] uppercase tracking-[0.4em] text-gray-400 block mb-2">
                     {lang === 'es' ? 'Apellido' : 'Last Name'}
@@ -103,7 +121,6 @@ export default function PediatricContactForm() {
                   />
                 </div>
 
-                {/* Child Name */}
                 <div className="relative border-b border-black/10 focus-within:border-[#C5A059] transition-colors duration-500">
                   <label className="text-[9px] uppercase tracking-[0.4em] text-gray-400 block mb-2">
                     {lang === 'es' ? 'Nombre del Niño (Opcional)' : 'Child’s Name (Optional)'}
@@ -116,7 +133,6 @@ export default function PediatricContactForm() {
                   />
                 </div>
 
-                {/* Phone */}
                 <div className="relative border-b border-black/10 focus-within:border-[#C5A059] transition-colors duration-500">
                   <label className="text-[9px] uppercase tracking-[0.4em] text-gray-400 block mb-2">
                     {lang === 'es' ? 'Teléfono Directo' : 'Direct Phone Number'}
@@ -130,7 +146,6 @@ export default function PediatricContactForm() {
                   />
                 </div>
 
-                {/* Email */}
                 <div className="relative border-b border-black/10 focus-within:border-[#C5A059] transition-colors duration-500 md:col-span-2">
                   <label className="text-[9px] uppercase tracking-[0.4em] text-gray-400 block mb-2">
                     {lang === 'es' ? 'Correo Electrónico' : 'Email Address'}
@@ -145,7 +160,7 @@ export default function PediatricContactForm() {
                 </div>
               </div>
 
-              <div className="flex justify-center pt-8">
+              <div className="flex flex-col items-center space-y-6 pt-8">
                 <button
                   type="submit"
                   disabled={status === "submitting"}
@@ -154,10 +169,16 @@ export default function PediatricContactForm() {
                   <span className="relative z-10 text-[11px] uppercase tracking-[0.6em] text-black group-hover:text-white transition-colors duration-700">
                     {status === "submitting"
                       ? (lang === 'es' ? "Enviando..." : "Sending...")
-                      : (lang === 'es' ? "Solicitar Cita" : "Request Appointment")}
+                      : (lang === 'es' ? "Solicitar Seguimiento" : "Request Callback")}
                   </span>
                   <div className="absolute inset-0 bg-[#C5A059] translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-out" />
                 </button>
+                
+                <p className="text-[9px] text-gray-400 uppercase tracking-widest text-center">
+                   {lang === 'es' 
+                     ? "Le responderemos en menos de 2 horas hábiles." 
+                     : "We typically respond in under 2 business hours."}
+                </p>
               </div>
             </form>
           )}
