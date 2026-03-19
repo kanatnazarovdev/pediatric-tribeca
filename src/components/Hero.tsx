@@ -39,6 +39,7 @@ export default function Hero({ dict }: HeroProps) {
         autoPlay
         muted
         loop
+        title="Pediatric Dentistry and Airway Health in Tribeca" // Keyword rich
         playsInline
         className="absolute inset-0 z-0 h-full w-full object-cover opacity-50 saturate-[1.2] contrast-[1.1]"
       >
@@ -70,6 +71,7 @@ export default function Hero({ dict }: HeroProps) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.5, delay: 0.3 }}
           className="text-5xl md:text-8xl font-serif tracking-tight leading-[1.1] mb-12 drop-shadow-md"
+          aria-label={`${dict.title_main} ${dict.title_italic}`}
         >
           <span className="bg-clip-text text-transparent bg-gradient-to-b from-[#E5D5B7] to-[#C5A059]">
             {dict.title_main}
@@ -79,6 +81,11 @@ export default function Hero({ dict }: HeroProps) {
             {dict.title_italic}
           </span>
         </motion.h1>
+        <h2 className="sr-only">
+          Expert pediatric dental care at {dict.studio_name} in NYC,
+          specializing in airway development and painless Solea laser
+          treatments.
+        </h2>
 
         <div className="flex flex-col items-center gap-8">
           <motion.button
@@ -106,45 +113,40 @@ export default function Hero({ dict }: HeroProps) {
       </div>
 
       <div className="absolute bottom-0 left-0 w-full h-[2px] bg-white/10 z-30">
-        <motion.div 
+        <motion.div
           className="h-full bg-[#C5A059]"
           initial={{ width: 0 }}
           animate={{ width: `${progress}%` }}
           transition={{ type: "tween", ease: "linear" }}
         />
       </div>
-      
-      
-      <motion.div 
+
+      <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5, duration: 1 }}
         className="absolute bottom-32 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center cursor-pointer group lg:bottom-12"
-        onClick={() => scrollToId("secondBlock")} 
+        onClick={() => scrollToId("secondBlock")}
       >
-
         <span className="text-[8px] md:text-[9px] uppercase tracking-[0.6em] text-[#C5A059] mb-4 opacity-70 group-hover:opacity-100 transition-opacity duration-500">
           {dict.badge === "Atención Especializada" ? "Descubrir" : "Discover"}
         </span>
-        
 
         <div className="relative w-[22px] h-[38px] border border-[#C5A059]/30 rounded-full flex justify-center p-1.5 transition-colors duration-500 group-hover:border-[#C5A059]/60">
-
-          <motion.div 
-            animate={{ 
+          <motion.div
+            animate={{
               y: [0, 16, 0],
-              opacity: [0, 1, 0]
+              opacity: [0, 1, 0],
             }}
-            transition={{ 
-              duration: 2, 
-              repeat: Infinity, 
-              ease: "easeInOut" 
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeInOut",
             }}
             className="w-1 h-1 bg-[#C5A059] rounded-full"
           />
         </div>
       </motion.div>
-      
     </section>
   );
 }

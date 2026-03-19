@@ -21,12 +21,31 @@ export default async function Home({
   return (
     <main>
       <Hero dict={dict.hero} />
-      <About lang={lang} />
-      <Diagnostics dict={dict.science} lang={lang} />
-      <Technology lang={lang} />
-      <Testimonial lang={lang} />
-      <FAQ lang={lang} />
-      <ContactForm />
+
+      <section id="mission">
+        <About lang={lang} />
+      </section>
+
+      <section id="diagnostics">
+        <Diagnostics dict={dict.science} lang={lang} />
+      </section>
+
+      <section id="pediatric-tech">
+        <Technology lang={lang} />
+      </section>
+
+      <section id="results">
+        <Testimonial lang={lang} />
+      </section>
+
+      <section id="faq">
+        <FAQ lang={lang} />
+      </section>
+
+      <section id="leadForm">
+        <ContactForm />
+      </section>
+
       <Footer />
     </main>
   );

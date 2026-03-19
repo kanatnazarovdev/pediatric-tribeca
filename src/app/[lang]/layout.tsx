@@ -82,6 +82,7 @@ export default async function RootLayout(props: {
   return (
     <html lang={lang} className={`${inter.variable} ${cormorant.variable}`}>
       <head>
+        <meta name="google-site-verification" content="nLaRiqhDNEihAjZvM41oA3QZTgOteabWMXMuWiMcSsU" />
         {/* Render JSON-LD in the head for better SEO indexing */}
         <script
           type="application/ld+json"
