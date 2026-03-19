@@ -128,18 +128,17 @@ export default function Header({ dict, lang }: HeaderProps) {
             </div>
 
             <div className="flex items-center gap-4">
-            
-                <Link
-                  href={`/${lang}#leadForm`}
-                  onClick={handleBookingClick}
-                  className={`px-8 py-3 border transition-all duration-700 text-[10px] uppercase tracking-[0.4em] relative overflow-hidden group
+              <Link
+                href={`/${lang}#leadForm`}
+                onClick={handleBookingClick}
+                className={`px-8 py-3 border transition-all duration-700 text-[10px] uppercase tracking-[0.4em] relative overflow-hidden group
       ${isScrolled || isOpen ? "border-black text-black" : "border-white/30 text-white"}`}
-                >
-                  <span className="relative z-10 group-hover:text-white transition-colors duration-700">
-                    {lang === "es" ? "Reservar" : "Book"}
-                  </span>
-                  <div className="absolute inset-0 bg-[#C5A059] translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-out" />
-                </Link>
+              >
+                <span className="relative z-10 group-hover:text-white transition-colors duration-700">
+                  {lang === "es" ? "Reservar" : "Book"}
+                </span>
+                <div className="absolute inset-0 bg-[#C5A059] translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-out" />
+              </Link>
 
               {/* Burger Button */}
               <button
@@ -213,9 +212,13 @@ function NavItem({
   setHoveredItem,
   scrollToId,
 }: any) {
-  const className = `relative text-[14px] uppercase tracking-[0.3em] transition-colors duration-500 group
-    ${isScrolled ? "text-black" : "text-white"} hover:!text-[#C5A059] font-bold`;
-
+  const className = `
+    font-sans uppercase font-bold
+    text-[16px] leading-[18px] tracking-[3px] 
+    transition-colors duration-500 group relative 
+    ${isScrolled ? "text-black" : "text-white"} 
+    hover:text-[#C5A059]
+  `.replace(/\s+/g, " ");
   if (item.isExternal) {
     return (
       <Link

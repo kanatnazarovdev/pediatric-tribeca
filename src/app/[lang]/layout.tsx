@@ -4,8 +4,15 @@ import "../globals.css";
 import Header from "@/components/Header";
 import { Metadata } from "next";
 import { getDictionary } from "./dictionaries";
+import { Montserrat } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+
+const montserrat = Montserrat({ 
+  subsets: ["latin"], 
+  weight: ["700"], // We only need the bold weight for the header
+  variable: "--font-montserrat" 
+});
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
   weight: ["300", "400", "600"],
@@ -80,7 +87,7 @@ export default async function RootLayout(props: {
   };
 
   return (
-    <html lang={lang} className={`${inter.variable} ${cormorant.variable}`}>
+    <html lang={lang} className={`${inter.variable} ${cormorant.variable} ${montserrat.variable}`}>
       <head>
         <meta name="google-site-verification" content="nLaRiqhDNEihAjZvM41oA3QZTgOteabWMXMuWiMcSsU" />
         {/* Render JSON-LD in the head for better SEO indexing */}
