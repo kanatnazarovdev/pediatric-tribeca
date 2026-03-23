@@ -74,9 +74,7 @@ export default function InnovationPage() {
         </div>
       </section>
 
-      {/* --- CONTENT & GRID SECTION --- */}
       <section className="py-24 px-8 md:px-20 max-w-[1400px] mx-auto">
-        {/* Editorial Quote */}
         <div className="max-w-2xl mb-32">
           <p className="text-xl md:text-2xl text-gray-400 font-light leading-relaxed font-brandon tracking-tight italic border-l-2 border-[#C5A059] pl-10 py-2">
             "We move beyond traditional dentistry, utilizing world-class
@@ -113,15 +111,15 @@ export default function InnovationPage() {
                 <ul className="space-y-6">
                   {cat.services.map((svc, si) => (
                     <li key={si}>
-                      <Link
-                        href={svc.href}
+                      <h5
+                        // href={svc.href}
                         className="flex items-center justify-between text-[11px] uppercase tracking-[0.3em] font-bold text-[#1A1A1A] group/link border-b border-gray-50 pb-3 hover:border-[#C5A059] transition-all duration-500"
                       >
                         {svc.name}
                         <span className="translate-x-[-10px] opacity-0 group-hover/link:translate-x-0 group-hover/link:opacity-100 transition-all duration-500 text-[#C5A059]">
                           →
                         </span>
-                      </Link>
+                      </h5>
                     </li>
                   ))}
                 </ul>

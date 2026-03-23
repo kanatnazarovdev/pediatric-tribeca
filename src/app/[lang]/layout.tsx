@@ -1,18 +1,18 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { Inter, Cormorant_Garamond } from "next/font/google";
+import { Montserrat, Cormorant_Garamond } from "next/font/google";
 import "../globals.css";
 import Header from "@/components/Header";
 import { Metadata } from "next";
 import { getDictionary } from "./dictionaries";
-import { Montserrat } from "next/font/google";
 import { brandonGrotesque } from "../fonts";
 import Footer from "@/components/Footer";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
-  weight: ["700"], // We only need the bold weight for the header
+  weight: ["700"],
   variable: "--font-montserrat",
 });
+
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
   weight: ["300", "400", "600"],
@@ -35,21 +35,20 @@ export async function generateMetadata({
     description: isEs
       ? "Cuidado dental avanzado para niños en Tribeca. Especialistas en desarrollo de vías respiratorias, láser Solea® sin dolor y ortodoncia preventiva."
       : "Advanced pediatric dental care in Tribeca. Specialists in airway development, pain-free Solea® laser, and preventative orthodontics.",
-    icons: {
-      icon: "/favicon.ico",
-      shortcut: "/favicon.ico",
-      apple: "/favicon.ico",
+    metadataBase: new URL("https://pediatrics.tribecadentalstudio.com"),
+    alternates: {
+      canonical: `/${lang}`,
+      languages: {
+        "en-US": "/en",
+        "es-ES": "/es",
+      },
     },
     robots: {
       index: true,
       follow: true,
     },
-    alternates: {
-      canonical: `https://pediatrics.tribecadentalstudio.com/${lang}`,
-      languages: {
-        "en-US": "https://pediatrics.tribecadentalstudio.com/en",
-        "es-ES": "https://pediatrics.tribecadentalstudio.com/es",
-      },
+    icons: {
+      icon: "/favicon.ico",
     },
   };
 }
@@ -59,7 +58,7 @@ export default async function RootLayout(props: {
   params: Promise<{ lang: string }>;
 }) {
   const params = await props.params;
-  const children = props.children;
+  const { children } = props;
   const lang = params.lang === "es" ? "es" : "en";
   const dict = await getDictionary(lang);
 
@@ -73,7 +72,8 @@ export default async function RootLayout(props: {
     telephone: "212-561-5303",
     address: {
       "@type": "PostalAddress",
-      streetAddress: "54 Warren stt",
+      streetAddress: "54 Warren Street",
+      addressLocality: "New York",
       addressRegion: "NY",
       postalCode: "10007",
       addressCountry: "US",
@@ -83,36 +83,28 @@ export default async function RootLayout(props: {
       latitude: 40.714885,
       longitude: -74.00906,
     },
-    openingHoursSpecification: {
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-      opens: "08:00",
-      closes: "17:00",
-    },
   };
 
   return (
     <html
       lang={lang}
       className={`
-      ${brandonGrotesque.variable} 
-    `}
-      style={{ fontFamily: "var(--font-brandon)" }}
+        ${brandonGrotesque.variable} 
+        ${montserrat.variable} 
+        ${cormorant.variable}
+      `}
     >
       <head>
         <meta
           name="google-site-verification"
           content="nLaRiqhDNEihAjZvM41oA3QZTgOteabWMXMuWiMcSsU"
         />
-        {/* Render JSON-LD in the head for better SEO indexing */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="bg-white text-foreground antialiased selection:bg-[#C5A059] selection:text-white">
-        {/* @ts-ignore */}
-
+      <body className="bg-white text-foreground antialiased selection:bg-[#C5A059] selection:text-white font-brandon">
         <Header lang={lang} dict={dict} />
         {children}
         <Footer />
