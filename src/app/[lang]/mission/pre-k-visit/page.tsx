@@ -1,15 +1,15 @@
 "use client";
 import Link from "next/link";
 import { motion } from "framer-motion";
-
+import { useRouter } from "next/navigation"; // Use 'next/navigation' for App Router
 export default function PreKVisitPage({
   params,
 }: {
   params: { lang: string };
 }) {
+  const router = useRouter();
   return (
     <main className="min-h-screen bg-white">
-      {/* PREMIUM BLACK HERO SECTION */}
       <section className="bg-[#0A0A0A] pt-48 pb-32 text-white">
         <div className="max-w-6xl mx-auto px-6">
           <div className="flex flex-col md:flex-row justify-between items-end mb-16">
@@ -26,7 +26,14 @@ export default function PreKVisitPage({
               </h1>
             </motion.div>
             <p className="text-gray-500 text-[10px] uppercase tracking-widest mt-8 md:mt-0 font-light">
-              <a href="https://tribecacommunityschool.com/" target="_blanket" className="hover:text-[#C5A059]">TriBeCa Community School</a>— March 2026
+              <a
+                href="https://tribecacommunityschool.com/"
+                target="_blank"
+                className="hover:text-[#C5A059]"
+              >
+                TriBeCa Community School
+              </a>
+              — March 2026
             </p>
           </div>
 
@@ -78,16 +85,18 @@ export default function PreKVisitPage({
           </div>
         </div>
       </section>
-
-      {/* FOOTER CTA: BACK TO STORIES */}
       <section className="pb-32 bg-white border-t border-black/5 pt-20">
         <div className="max-w-6xl mx-auto px-6 flex justify-center">
-          <Link href={`/mission`} className="group flex flex-col items-center">
+          {/* Trigger router.back() or a clean absolute path */}
+          <button
+            onClick={() => router.push(`/mission`)}
+            className="group flex flex-col items-center cursor-pointer bg-transparent border-none"
+          >
             <span className="text-[10px] uppercase tracking-[0.4em] text-gray-400 group-hover:text-[#C5A059] transition-colors">
               Return to Mission
             </span>
             <div className="w-[1px] h-12 bg-gray-200 mt-4 group-hover:bg-[#C5A059] transition-all"></div>
-          </Link>
+          </button>
         </div>
       </section>
     </main>

@@ -116,9 +116,7 @@ export default function CommunityPage({
         </div>
       </motion.section>
 
-      {/* THE ACTION FEED (WHITE BG) */}
       <section className="max-w-6xl mx-auto px-6 py-24 md:py-48 bg-white relative z-30">
-        {/* Changed to flex-col for mobile, md:flex-row for desktop */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-baseline mb-16 md:mb-32 border-b border-black/10 pb-8 md:pb-12 gap-6">
           <h2 className="text-4xl md:text-6xl font-light tracking-tighter uppercase text-black leading-none">
             Recent <span className="italic font-serif">Stories</span>

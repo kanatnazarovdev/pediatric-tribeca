@@ -11,6 +11,7 @@ interface Story {
 }
 
 export default function StoryCard({ story, lang }: { story: Story; lang: string }) {
+  console.log(story.slug)
   return (
     <Link href={`/mission/${story.slug}`} className="group cursor-pointer block">
       {/* Cinematic Thumbnail Wrapper */}
