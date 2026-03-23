@@ -56,17 +56,18 @@ export default function Header({ dict, lang }: HeaderProps) {
       isExternal: true,
     },
     {
+      id: "innovation",
+      label: lang === "es" ? "Innovación" : "Innovation",
+      href: "innovation",
+      isExternal: true,
+    },
+    {
       id: "pediatric-tech",
       label: lang === "es" ? "Desarrollo" : "Development",
       href: "#pediatric-tech",
       isExternal: false,
     },
-    {
-      id: "diagnostics",
-      label: lang === "es" ? "Innovación" : "Innovation",
-      href: "#diagnostics",
-      isExternal: false,
-    },
+
     {
       id: "results",
       label: lang === "es" ? "Experiencia" : "Experience",

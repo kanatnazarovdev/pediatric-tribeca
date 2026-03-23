@@ -60,13 +60,13 @@ export default function InnovationPage() {
 
         <div className="relative z-10 px-8 md:px-20 w-full">
           <div className="max-w-[1400px] mx-auto">
-            <span className="text-[10px] uppercase tracking-[0.8em] text-[#C5A059] font-bold block mb-10 animate-pulse">
+            <span className="text-[12px] uppercase tracking-[0.8em] text-[#C5A059] font-bold block mb-10 animate-pulse">
               Precision & Artistry
             </span>
 
             <h1 className="text-[14vw] md:text-[10rem] font-serif text-[#1A1A1A] leading-[0.8] tracking-[-0.05em] mb-4">
               Innovation in <br />
-              <span className="italic font-extralight opacity-80">
+              <span className="italic font-extralight opacity-80 text-[#4add30]">
                 Every Breath.
               </span>
             </h1>
@@ -132,11 +132,14 @@ export default function InnovationPage() {
       </section>
 
       {/* Footer-level CTA */}
-      <section className="py-40 text-center">
+      <section className="py-10 text-center">
         <h3 className="text-sm uppercase tracking-[0.6em] text-gray-300 font-bold mb-8">
           Ready to experience the future?
         </h3>
-        <a href="https://booking.adit.com/4dcced5c-07a5-4e12-b80f-d470bca99a63">
+        <a
+          href="https://booking.adit.com/4dcced5c-07a5-4e12-b80f-d470bca99a63"
+          target="_blank"
+        >
           <button className="px-16 py-6 border border-[#1A1A1A] rounded-full text-[10px] uppercase tracking-[0.4em] font-bold hover:bg-[#1A1A1A] hover:text-white transition-all duration-700">
             Book a Consultation
           </button>
