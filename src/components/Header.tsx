@@ -23,9 +23,11 @@ export default function Header({ dict, lang }: HeaderProps) {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const scrollToId = useSmoothScroll();
-  // Check if we are currently on the home page
-  // This matches "/en" or "/es" or just "/"
   const isHomePage = pathname === `/${lang}` || pathname === "/";
+  const isBlogRoute =
+    pathname.includes(`/${lang}/blog`) || pathname.includes(`/blog`);
+
+  const shouldBeActive = isScrolled || isOpen || isBlogRoute;
 
   const handleBookingClick = (e: React.MouseEvent) => {
     if (isHomePage) {
@@ -62,19 +64,18 @@ export default function Header({ dict, lang }: HeaderProps) {
       isExternal: true,
     },
     {
-      id: "pediatric-tech",
-      label: lang === "es" ? "Desarrollo" : "Development",
-      href: "#pediatric-tech",
-      isExternal: false,
+      id: "blog",
+      label: lang === "es" ? "Blog" : "Blog",
+      href: "blog",
+      isExternal: true,
     },
-
-    {
-      id: "results",
-      label: lang === "es" ? "Experiencia" : "Experience",
-      href: "#results",
-      isExternal: false,
-    },
-    { id: "faq", label: "FAQ", href: "#faq", isExternal: false },
+    // {
+    //   id: "results",
+    //   label: lang === "es" ? "Experiencia" : "Experience",
+    //   href: "#results",
+    //   isExternal: false,
+    // },
+    // { id: "faq", label: "FAQ", href: "#faq", isExternal: false },
   ];
 
   const menuVariants = {
@@ -94,7 +95,7 @@ export default function Header({ dict, lang }: HeaderProps) {
     <>
       <nav
         className={`fixed top-0 w-full z-[60] transition-all duration-500 py-2 h-[100px] flex items-center
-        ${isScrolled || isOpen ? "bg-white/90 backdrop-blur-md border-b border-black/5" : "bg-transparent text-white"}`}
+        ${isScrolled || isOpen || shouldBeActive ? "bg-white/90 backdrop-blur-md border-b border-black/5" : "bg-transparent text-white"}`}
       >
         <ContainerHeader>
           <div className="flex items-center justify-between">
@@ -105,7 +106,7 @@ export default function Header({ dict, lang }: HeaderProps) {
             >
               <span
                 className={`text-[20px] md:text-[24px] font-serif tracking-tight leading-[1.1] transition-colors duration-500
-                ${isScrolled || isOpen ? "text-black" : "text-white"}`}
+                ${isScrolled || isOpen || shouldBeActive ? "text-black" : "text-white"}`}
               >
                 Tribeca Dental Studio{" "}
                 <span className="text-[#4add30]">4 kids</span>
@@ -122,6 +123,7 @@ export default function Header({ dict, lang }: HeaderProps) {
                   hoveredItem={hoveredItem}
                   setHoveredItem={setHoveredItem}
                   scrollToId={scrollToId}
+                  shouldBeActive={shouldBeActive}
                 />
               ))}
             </div>
@@ -131,7 +133,7 @@ export default function Header({ dict, lang }: HeaderProps) {
                 href={`/${lang}#leadForm`}
                 onClick={handleBookingClick}
                 className={`px-8 py-3 border transition-all duration-700 text-[10px] uppercase tracking-[0.4em] relative overflow-hidden group
-      ${isScrolled || isOpen ? "border-black text-black" : "border-white/30 text-white"}`}
+      ${isScrolled || isOpen || shouldBeActive ? "border-black text-black" : "border-white/30 text-white"}`}
               >
                 <span className="relative z-10 group-hover:text-white transition-colors duration-700">
                   {lang === "es" ? "Reservar" : "Book"}
@@ -142,7 +144,7 @@ export default function Header({ dict, lang }: HeaderProps) {
               {/* Burger Button */}
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className={`lg:hidden p-2 z-[70] transition-colors duration-500 ${isScrolled || isOpen ? "text-black" : "text-white"}`}
+                className={`lg:hidden p-2 z-[70] transition-colors duration-500 ${isScrolled || isOpen || shouldBeActive ? "text-black" : "text-white"}`}
               >
                 {isOpen ? (
                   <X size={28} strokeWidth={1.5} />
@@ -210,12 +212,13 @@ function NavItem({
   hoveredItem,
   setHoveredItem,
   scrollToId,
+  shouldBeActive,
 }: any) {
   const className = `
     font-brandon font-bold uppercase 
     text-[16px] leading-[18px] tracking-[3px] 
     transition-colors duration-500 group relative 
-    ${isScrolled ? "text-black" : "text-white"} 
+    ${isScrolled || shouldBeActive ? "text-black" : "text-white"} 
     hover:text-[#C5A059]
 `.replace(/\s+/g, " ");
   if (item.isExternal) {

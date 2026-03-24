@@ -4,7 +4,7 @@ import "../globals.css";
 import Header from "@/components/Header";
 import { Metadata } from "next";
 import { getDictionary } from "./dictionaries";
-import { brandonGrotesque } from "../fonts";
+import { brandonGrotesque, dDin } from "../fonts";
 import Footer from "@/components/Footer";
 
 export async function generateMetadata({
@@ -79,7 +79,7 @@ export default async function RootLayout(props: {
       lang={lang}
       className={`
         ${brandonGrotesque.variable} 
-     
+        ${dDin.variable}
       `}
       style={{ fontFamily: "var(--font-brandon)" }}
     >

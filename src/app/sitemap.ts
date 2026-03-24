@@ -1,18 +1,19 @@
 import { MetadataRoute } from "next";
+import { client } from "@/sanity/lib/client";
+import { groq } from "next-sanity";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://pediatrics.tribecadentalstudio.com";
   const languages = ["en", "es"];
   
-  // FIXED: Ensure these match your folder structure exactly
-  // Added /innovation to the list
-  const pages = ["", "/mission", "/mission/pre-k-visit", "/innovation"];
+  const pages = ["", "/mission", "/mission/pre-k-visit", "/innovation", "/blog"];
 
-  const routes = languages.flatMap((lang) =>
+  const query = groq`*[_type == "post" && defined(slug.current)]{ "slug": slug.current }`;
+  const posts = await client.fetch(query);
+
+  const staticRoutes = languages.flatMap((lang) =>
     pages.map((page) => {
-      // Create the path, ensuring no double slashes
       const path = page === "" ? `/${lang}` : `/${lang}${page}`;
-      
       return {
         url: `${baseUrl}${path}`,
         lastModified: new Date(),
@@ -22,5 +23,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })
   );
 
-  return routes;
+  // 3. Generate dynamic blog routes
+  const blogRoutes = languages.flatMap((lang) =>
+    posts.map((post: { slug: string }) => ({
+      url: `${baseUrl}/${lang}/blog/${post.slug}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    }))
+  );
+
+  return [...staticRoutes, ...blogRoutes];
 }

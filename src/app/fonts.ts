@@ -21,3 +21,13 @@ export const brandonGrotesque = localFont({
   ],
   variable: "--font-brandon",
 });
+export const dDin = localFont({
+  src: [
+    {
+      path: "./fonts/D-DIN-Bold.woff",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  variable: "--font-D-DIN",
+});
