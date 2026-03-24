@@ -1,10 +1,60 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { client } from "@/sanity/lib/client";
 import { groq } from "next-sanity";
 import { urlFor } from "@/sanity/lib/image";
 import Image from "next/image";
 import Link from "next/link"; //
 import { PortableText } from "@portabletext/react";
-
+const components = {
+  block: {
+    // Customizing the Studio Aesthetic for Headings
+    h2: ({ children }: any) => (
+      <h2
+        className="text-3xl font-light uppercase tracking-tight text-black mt-12 mb-6"
+        style={{ fontFamily: "var(--font-D-DIN)" }}
+      >
+        {children}
+      </h2>
+    ),
+    h3: ({ children }: any) => (
+      <h3 className="text-xl font-medium uppercase tracking-widest text-zinc-800 mt-8 mb-4">
+        {children}
+      </h3>
+    ),
+    normal: ({ children }: any) => (
+      <p className="mb-8 leading-relaxed text-zinc-800 font-light">
+        {children}
+      </p>
+    ),
+    blockquote: ({ children }: any) => (
+      <blockquote className="border-l-2 border-[#C5A059] pl-6 my-10 italic text-zinc-600">
+        {children}
+      </blockquote>
+    ),
+  },
+  marks: {
+    // This fixes your missing links
+    link: ({ children, value }: any) => {
+      const rel = !value.href.startsWith("/")
+        ? "noreferrer noopener"
+        : undefined;
+      const target = !value.href.startsWith("/") ? "_blank" : undefined;
+      return (
+        <Link
+          href={value.href}
+          rel={rel}
+          target={target}
+          className="text-[#C5A059] underline decoration-zinc-300 underline-offset-4 hover:decoration-[#C5A059] transition-all"
+        >
+          {children}
+        </Link>
+      );
+    },
+    strong: ({ children }: any) => (
+      <strong className="font-bold text-black">{children}</strong>
+    ),
+  },
+};
 async function getPost(slug: string) {
   return client.fetch(
     groq`*[_type == "post" && slug.current == $slug][0]{
@@ -64,7 +114,7 @@ export default async function PostPage({
       {/* Body Content */}
       <div className="max-w-3xl mx-auto px-6 font-light leading-relaxed text-lg text-zinc-800">
         <div className="prose prose-zinc lg:prose-xl prose-p:mb-8 prose-headings:font-normal mb-20">
-          <PortableText value={post.body} />
+          <PortableText value={post.body} components={components} />
         </div>
 
         {/* Navigation Footer */}
