@@ -24,6 +24,7 @@ export default function Header({ dict, lang }: HeaderProps) {
   const [isOpen, setIsOpen] = useState(false);
   const scrollToId = useSmoothScroll();
   const isHomePage = pathname === `/${lang}` || pathname === "/";
+  
   const isBlogRoute =
     pathname.includes(`/${lang}/blog`) || pathname.includes(`/blog`);
 
@@ -49,7 +50,11 @@ export default function Header({ dict, lang }: HeaderProps) {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+// 1. ADD THIS CHECK:
+  const isStudio = pathname.startsWith(`/${lang}/studio`) || pathname.startsWith('/studio');
 
+  // 2. RETURN NULL IF IN STUDIO
+  if (isStudio) return null;
   const navItems = [
     {
       id: "mission",

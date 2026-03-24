@@ -1,12 +1,16 @@
 "use client";
 import { useParams } from "next/navigation";
 import Container from "./Container";
+import { usePathname } from "next/navigation";
 
 export default function Footer() {
   const params = useParams();
+  const pathname = usePathname();
   const lang = (params.lang as string) || "en";
   const isEs = lang === "es";
+  const isStudio = pathname.startsWith(`/${lang}/studio`) || pathname.startsWith('/studio');
 
+  if (isStudio) return null;
   return (
     <footer
       id="contact"

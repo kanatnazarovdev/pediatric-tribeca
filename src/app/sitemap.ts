@@ -23,7 +23,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })
   );
 
-  // 3. Generate dynamic blog routes
   const blogRoutes = languages.flatMap((lang) =>
     posts.map((post: { slug: string }) => ({
       url: `${baseUrl}/${lang}/blog/${post.slug}`,
