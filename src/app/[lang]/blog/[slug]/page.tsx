@@ -7,7 +7,6 @@ import Link from "next/link"; //
 import { PortableText } from "@portabletext/react";
 const components = {
   block: {
-    // Customizing the Studio Aesthetic for Headings
     h2: ({ children }: any) => (
       <h2
         className="text-3xl font-light uppercase tracking-tight text-black mt-12 mb-6"

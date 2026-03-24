@@ -55,34 +55,28 @@ export default function Header({ dict, lang }: HeaderProps) {
 
   // 2. RETURN NULL IF IN STUDIO
   if (isStudio) return null;
-  const navItems = [
+ const navItems = [
     {
       id: "mission",
       label: lang === "es" ? "Misión" : "Mission",
-      href: `mission`,
+      // Add /${lang}/ to make the path absolute from the root
+      href: `/${lang}/mission`, 
       isExternal: true,
     },
     {
       id: "innovation",
       label: lang === "es" ? "Innovación" : "Innovation",
-      href: "innovation",
+      href: `/${lang}/innovation`,
       isExternal: true,
     },
     {
       id: "blog",
       label: lang === "es" ? "Blog" : "Blog",
-      href: "blog",
+      href: `/${lang}/blog`,
       isExternal: true,
     },
-    // {
-    //   id: "results",
-    //   label: lang === "es" ? "Experiencia" : "Experience",
-    //   href: "#results",
-    //   isExternal: false,
-    // },
-    // { id: "faq", label: "FAQ", href: "#faq", isExternal: false },
   ];
-
+ 
   const menuVariants = {
     closed: {
       opacity: 0,
@@ -226,37 +220,27 @@ function NavItem({
     ${isScrolled || shouldBeActive ? "text-black" : "text-white"} 
     hover:text-[#C5A059]
 `.replace(/\s+/g, " ");
-  if (item.isExternal) {
-    return (
-      <Link
-        href={item.href}
-        onMouseEnter={() => setHoveredItem(item.id)}
-        onMouseLeave={() => setHoveredItem(null)}
-        className={className}
-      >
-        {item.label}
-        <Underline isActive={hoveredItem === item.id} />
-      </Link>
-    );
-  }
 
+  // ALWAYS use Link for internal routing to ensure smooth transitions
   return (
-    <a
+    <Link
       href={item.href}
-      onClick={(e) => {
-        e.preventDefault();
-        scrollToId(item.id);
-      }}
       onMouseEnter={() => setHoveredItem(item.id)}
       onMouseLeave={() => setHoveredItem(null)}
       className={className}
+      // If it's a hash link on the same page, you can still trigger scrollToId
+      onClick={(e) => {
+        if (item.href.startsWith('#')) {
+          e.preventDefault();
+          scrollToId(item.id);
+        }
+      }}
     >
       {item.label}
       <Underline isActive={hoveredItem === item.id} />
-    </a>
+    </Link>
   );
 }
-
 function Underline({ isActive }: { isActive: boolean }) {
   return (
     <motion.div
