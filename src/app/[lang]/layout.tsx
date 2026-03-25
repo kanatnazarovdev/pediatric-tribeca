@@ -18,8 +18,8 @@ export async function generateMetadata({
 
   return {
     title: isEs
-      ? "Odontopediatría y Salud de Vías Respiratorias | Tribeca Dental Studio"
-      : "Pediatric Dentistry & Airway Health | Tribeca Dental Studio NYC",
+      ? "Odontopediatría y Salud de Vías Respiratorias | Tribeca Dental Studio 4 kids"
+      : "Pediatric Dentistry & Airway Health | Tribeca Dental Studio 4 kids",
     description: isEs
       ? "Cuidado dental avanzado para niños en Tribeca. Especialistas en desarrollo de vías respiratorias, láser Solea® sin dolor y ortodoncia preventiva."
       : "Advanced pediatric dental care in Tribeca. Specialists in airway development, pain-free Solea® laser, and preventative orthodontics.",
@@ -59,10 +59,11 @@ export default async function RootLayout(props: {
     "@id": "https://pediatrics.tribecadentalstudio.com",
     url: "https://pediatrics.tribecadentalstudio.com",
     telephone: "212-561-5303",
+    "priceRange": "$$",
     address: {
       "@type": "PostalAddress",
       streetAddress: "54 Warren Street",
-      addressLocality: "New York", // Added for better Local SEO
+      addressLocality: "New York",
       addressRegion: "NY",
       postalCode: "10007",
       addressCountry: "US",

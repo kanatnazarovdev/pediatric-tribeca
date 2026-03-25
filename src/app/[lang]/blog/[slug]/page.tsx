@@ -5,19 +5,18 @@ import { urlFor } from "@/sanity/lib/image";
 import Image from "next/image";
 import Link from "next/link"; //
 import { PortableText } from "@portabletext/react";
-const components = {
+const portableTextComponents: any = {
   block: {
-    // Customizing the Studio Aesthetic for Headings
     h2: ({ children }: any) => (
       <h2
-        className="text-3xl font-light uppercase tracking-tight text-black mt-12 mb-6"
+        className="text-3xl font-light uppercase tracking-tight text-black mt-16 mb-6"
         style={{ fontFamily: "var(--font-D-DIN)" }}
       >
         {children}
       </h2>
     ),
     h3: ({ children }: any) => (
-      <h3 className="text-xl font-medium uppercase tracking-widest text-zinc-800 mt-8 mb-4">
+      <h3 className="text-xl font-medium uppercase tracking-widest text-zinc-800 mt-10 mb-4">
         {children}
       </h3>
     ),
@@ -33,18 +32,14 @@ const components = {
     ),
   },
   marks: {
-    // This fixes your missing links
     link: ({ children, value }: any) => {
-      const rel = !value.href.startsWith("/")
-        ? "noreferrer noopener"
-        : undefined;
-      const target = !value.href.startsWith("/") ? "_blank" : undefined;
+      const isExternal = !value.href.startsWith("/");
       return (
         <Link
           href={value.href}
-          rel={rel}
-          target={target}
-          className="text-[#C5A059] underline decoration-zinc-300 underline-offset-4 hover:decoration-[#C5A059] transition-all"
+          target={isExternal ? "_blank" : undefined}
+          rel={isExternal ? "noopener noreferrer" : undefined}
+          className="text-[#4add30] underline decoration-zinc-300 underline-offset-4 hover:text-[#C5A059] transition-all duration-300 font-medium"
         >
           {children}
         </Link>
@@ -114,7 +109,7 @@ export default async function PostPage({
       {/* Body Content */}
       <div className="max-w-3xl mx-auto px-6 font-light leading-relaxed text-lg text-zinc-800">
         <div className="prose prose-zinc lg:prose-xl prose-p:mb-8 prose-headings:font-normal mb-20">
-          <PortableText value={post.body} components={components} />
+          <PortableText value={post.body} components={portableTextComponents} />
         </div>
 
         {/* Navigation Footer */}
