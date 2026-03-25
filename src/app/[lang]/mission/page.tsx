@@ -2,6 +2,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import StoryCard from "./StoryCard";
+import { getAlternates } from "@/hooks/helper";
 
 const STORIES = [
   {
@@ -13,7 +14,13 @@ const STORIES = [
     thumbnail: "/stills/thumbnail.png",
   },
 ];
+export async function generateMetadata({ params }:any) {
+  const { lang } = await params;
 
+  return {
+    alternates: getAlternates(lang, "mission"),
+  };
+}
 export default function CommunityPage({
   params,
 }: {

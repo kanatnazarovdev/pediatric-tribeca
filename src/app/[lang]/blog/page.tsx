@@ -4,7 +4,14 @@ import { postsQuery } from "@/sanity/lib/queries";
 import Image from "next/image";
 import Link from "next/link";
 import { urlFor } from "@/sanity/lib/image";
+import { getAlternates } from "@/hooks/helper";
+export async function generateMetadata({ params }:any) {
+  const { lang } = await params;
 
+  return {
+    alternates: getAlternates(lang, "blog"),
+  };
+}
 export default async function BlogPage({
   params,
 }: {

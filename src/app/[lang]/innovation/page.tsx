@@ -1,5 +1,8 @@
 /* eslint-disable react/no-unescaped-entities */
 "use client";
+
+import { getAlternates } from "@/hooks/helper";
+
 const categories = [
   {
     label: "Shield",
@@ -35,8 +38,15 @@ const categories = [
     ],
   },
 ];
+export async function generateMetadata({ params }:any) {
+  const { lang } = await params;
 
+  return {
+    alternates: getAlternates(lang, "innovation"),
+  };
+}
 export default function InnovationPage() {
+  
   return (
     <main className="bg-[#F9F8F6] min-h-screen selection:bg-[#C5A059] selection:text-white">
       {/* --- HERO SECTION --- */}

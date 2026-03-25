@@ -7,8 +7,8 @@ export function getAlternates(lang: string, path: string = "") {
   return {
     canonical: `${baseUrl}/${lang}${segment}`,
     languages: {
-      "en": `${baseUrl}/en${segment}`,
-      "es": `${baseUrl}/es${segment}`,
+      en: `${baseUrl}/en${segment}`,
+      es: `${baseUrl}/es${segment}`,
       "x-default": `${baseUrl}/en${segment}`,
     },
   };
