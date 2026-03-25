@@ -32,6 +32,22 @@ export async function generateMetadata({
         "es-ES": "/es",
       },
     },
+    openGraph: {
+      title: "Pediatric Dentistry & Airway Health",
+      description: "Advanced pediatric dental care in Tribeca.",
+      url: "https://pediatrics.tribecadentalstudio.com",
+      siteName: "Tribeca Dental Studio 4 kids",
+      images: [
+        {
+          url: "https://pediatrics.tribecadentalstudio.com/pediatricImage.jpg", // Must be an absolute URL
+          width: 1200,
+          height: 630,
+          alt: "Tribeca Dental Studio 4 kids Interior",
+        },
+      ],
+      locale: lang === "es" ? "es_ES" : "en_US",
+      type: "website",
+    },
     robots: {
       index: true,
       follow: true,
@@ -59,7 +75,7 @@ export default async function RootLayout(props: {
     "@id": "https://pediatrics.tribecadentalstudio.com",
     url: "https://pediatrics.tribecadentalstudio.com",
     telephone: "212-561-5303",
-    "priceRange": "$$",
+    priceRange: "$$",
     address: {
       "@type": "PostalAddress",
       streetAddress: "54 Warren Street",
