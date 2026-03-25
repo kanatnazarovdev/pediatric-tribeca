@@ -1,7 +1,7 @@
 "use client";
 import { getAlternates } from "@/hooks/helper";
 import { motion } from "framer-motion";
-import { useRouter } from "next/navigation"; 
+import { useRouter } from "next/navigation"; // Use 'next/navigation' for App Router
 export async function generateMetadata({ params }:any) {
   const { lang } = await params;
 
@@ -10,9 +10,9 @@ export async function generateMetadata({ params }:any) {
   };
 }
 export default function PreKVisitPage({
-  lang,
+  params,
 }: {
-  lang: string;
+  params: { lang: string };
 }) {
   const router = useRouter();
   return (

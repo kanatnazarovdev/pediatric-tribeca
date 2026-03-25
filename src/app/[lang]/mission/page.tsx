@@ -9,6 +9,6 @@ export function generateMetadata({ params }: { params: { lang: string } }) {
   };
 }
 
-export default function Page({ params }: { params: { lang: string } }) {
-  return <CommunityPage lang={params.lang} />;
+export default function Page({ params }: { params: any }) {
+  return <CommunityPage params={params} />;
 }

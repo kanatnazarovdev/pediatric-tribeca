@@ -38,13 +38,7 @@ const categories = [
     ],
   },
 ];
-export async function generateMetadata({ params }:any) {
-  const { lang } = await params;
 
-  return {
-    alternates: getAlternates(lang, "innovation"),
-  };
-}
 export default function InnovationPage() {
   
   return (

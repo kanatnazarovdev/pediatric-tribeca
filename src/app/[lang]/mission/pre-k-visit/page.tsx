@@ -10,5 +10,5 @@ export function generateMetadata({ params }: { params: { lang: string } }) {
 }
 
 export default function Page({ params }: { params: { lang: string } }) {
-  return <PreKVisit lang={params.lang} />;
+  return <PreKVisit params={params} />;
 }
