@@ -7,9 +7,13 @@ import { urlFor } from "@/sanity/lib/image";
 import { getAlternates } from "@/hooks/helper";
 export async function generateMetadata({ params }:any) {
   const { lang } = await params;
-
+const isEs = lang === "es";
   return {
     alternates: getAlternates(lang, "blog"),
+    title: isEs ? "Blog de Odontopediatría | Tribeca" : "Pediatric Dental Blog | Tribeca",
+    description: isEs 
+      ? "Lea las últimas noticias sobre salud dental infantil, consejos de higiene y tecnología dental en nuestro blog."
+      : "Read the latest news on children's dental health, hygiene tips, and dental technology on our blog.",
   };
 }
 export default async function BlogPage({

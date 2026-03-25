@@ -1,14 +1,6 @@
 "use client";
-import { getAlternates } from "@/hooks/helper";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation"; 
-export async function generateMetadata({ params }:any) {
-  const { lang } = await params;
-
-  return {
-    alternates: getAlternates(lang, "pre-k-visit"),
-  };
-}
 export default function PreKVisitPage({
   params,
 }: {
