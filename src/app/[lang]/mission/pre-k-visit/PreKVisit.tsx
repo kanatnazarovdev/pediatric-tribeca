@@ -1,7 +1,7 @@
 "use client";
 import { getAlternates } from "@/hooks/helper";
 import { motion } from "framer-motion";
-import { useRouter } from "next/navigation"; // Use 'next/navigation' for App Router
+import { useRouter } from "next/navigation"; 
 export async function generateMetadata({ params }:any) {
   const { lang } = await params;
 
@@ -14,6 +14,7 @@ export default function PreKVisitPage({
 }: {
   params: { lang: string };
 }) {
+console.log(params.lang)
   const router = useRouter();
   return (
     <main className="min-h-screen bg-white">

@@ -18,6 +18,7 @@ interface HeaderProps {
 }
 
 export default function Header({ dict, lang }: HeaderProps) {
+  console.log(lang)
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);

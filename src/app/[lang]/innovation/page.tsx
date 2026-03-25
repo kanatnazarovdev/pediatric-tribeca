@@ -8,7 +8,6 @@ export function generateMetadata({ params }: { params: { lang: string } }) {
     alternates: getAlternates(lang, "innovation"),
   };
 }
-
 export default function Page() {
   return <InnovationPage />;
 }
