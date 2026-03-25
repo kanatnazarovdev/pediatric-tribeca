@@ -22,7 +22,6 @@ export default function CommunityPage({
   const { lang } = params;
   const containerRef = useRef(null);
 
-  // Subtle parallax effect for the background image
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"],
@@ -54,7 +53,6 @@ export default function CommunityPage({
             className="w-full h-[100%] object-cover object-center opacity-100 transition-all duration-1000 "
           >
             <source src="/mission.mp4" type="video/mp4" />
-            {/* <source src="/mission-bg.webm" type="video/webm" /> */}
           </video>
         </motion.div>
 

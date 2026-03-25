@@ -5,7 +5,6 @@ export async function POST(req: Request) {
     const body = await req.json();
     const { firstName, lastName, email, phone, lang } = body;
 
-    // Standardizing phone format to E.164
     const cleanPhone = `+1${phone.replace(/\D/g, '').slice(-10)}`;
 
     const [ghlResponse, seebResponse] = await Promise.all([

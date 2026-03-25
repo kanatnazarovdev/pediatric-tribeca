@@ -1,12 +1,11 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { Montserrat, Cormorant_Garamond } from "next/font/google";
 import "../globals.css";
 import Header from "@/components/Header";
 import { Metadata } from "next";
 import { getDictionary } from "./dictionaries";
 import { brandonGrotesque, dDin } from "../fonts";
 import Footer from "@/components/Footer";
-
+import NextTopLoader from "nextjs-toploader";
 export async function generateMetadata({
   params,
 }: {
@@ -111,6 +110,17 @@ export default async function RootLayout(props: {
         />
       </head>
       <body className="bg-white text-foreground antialiased selection:bg-[#C5A059] selection:text-white font-brandon">
+        <NextTopLoader
+          color="#C5A059" 
+          initialPosition={0.08}
+          crawlSpeed={200}
+          height={3}
+          crawl={true}
+          showSpinner={false} 
+          easing="ease"
+          speed={200}
+          shadow="0 0 10px #C5A059,0 0 5px #C5A059"
+        />
         <Header lang={lang} dict={dict} />
         {children}
         <Footer />

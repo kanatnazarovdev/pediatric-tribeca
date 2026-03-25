@@ -8,7 +8,8 @@ export default function Footer() {
   const pathname = usePathname();
   const lang = (params.lang as string) || "en";
   const isEs = lang === "es";
-  const isStudio = pathname.startsWith(`/${lang}/studio`) || pathname.startsWith('/studio');
+  const isStudio =
+    pathname.startsWith(`/${lang}/studio`) || pathname.startsWith("/studio");
 
   if (isStudio) return null;
   return (
@@ -37,7 +38,10 @@ export default function Footer() {
                 </span>
                 <h3 className="text-2xl font-serif">
                   Tribeca <br />
-                  <span className="italic font-light">Dental Studio</span>
+                  <span className="italic font-light">
+                    {" "}
+                    Dental Studio <span className="text-[#4add30]">4 kids</span>
+                  </span>
                 </h3>
                 <p className="text-[14px] text-gray-500 font-light leading-relaxed">
                   54 Warren Street

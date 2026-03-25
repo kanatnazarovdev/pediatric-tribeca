@@ -13,7 +13,6 @@ export default async function BlogPage({
   const posts = await client.fetch(postsQuery);
 
   return (
-    // Flex-col stacks the header and grid vertically, items-center aligns them to the middle
     <div className="flex flex-col items-center justify-center min-h-screenpy-24 px-6 bg-[#fafaf4]">
       {/* Header Section */}
       <div className=" bg-[#1a1a1a] w-[100vw] h-[38vh] flex items-end justify-center lg:h-[33vh]">
