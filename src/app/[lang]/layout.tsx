@@ -6,13 +6,14 @@ import { getDictionary } from "./dictionaries";
 import { brandonGrotesque, dDin } from "../fonts";
 import Footer from "@/components/Footer";
 import NextTopLoader from "nextjs-toploader";
+import { baseUrl, getAlternates } from "@/hooks/helper";
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ lang: string }>;
 }): Promise<Metadata> {
   const { lang: rawLang } = await params;
-  const lang = rawLang || "en";
+  const lang = rawLang === "es" ? "es" : "en";
   const isEs = lang === "es";
 
   return {
@@ -22,29 +23,25 @@ export async function generateMetadata({
     description: isEs
       ? "Cuidado dental avanzado para niños en Tribeca. Especialistas en desarrollo de vías respiratorias, láser Solea® sin dolor y ortodoncia preventiva."
       : "Advanced pediatric dental care in Tribeca. Specialists in airway development, pain-free Solea® laser, and preventative orthodontics.",
-    metadataBase: new URL("https://pediatrics.tribecadentalstudio.com"),
-    alternates: {
-      canonical: `https://pediatrics.tribecadentalstudio.com/${lang}`,
-      languages: {
-        "en": `https://pediatrics.tribecadentalstudio.com/en`,
-        "es": `https://pediatrics.tribecadentalstudio.com/es`,
-        "x-default": `https://pediatrics.tribecadentalstudio.com/en`,
-      },
-    },
+    metadataBase: new URL(baseUrl),
+    
+    // THIS FIXES THE SEMRUSH HREFLANG ERRORS
+    alternates: getAlternates(lang), 
+    
     openGraph: {
       title: "Pediatric Dentistry & Airway Health",
       description: "Advanced pediatric dental care in Tribeca.",
-      url: "https://pediatrics.tribecadentalstudio.com",
+      url: baseUrl,
       siteName: "Tribeca Dental Studio 4 kids",
       images: [
         {
-          url: "https://pediatrics.tribecadentalstudio.com/pediatricImage.jpg", // Must be an absolute URL
+          url: `${baseUrl}/pediatricImage.jpg`, 
           width: 1200,
           height: 630,
           alt: "Tribeca Dental Studio 4 kids Interior",
         },
       ],
-      locale: lang === "es" ? "es_ES" : "en_US",
+      locale: isEs ? "es_ES" : "en_US",
       type: "website",
     },
     robots: {

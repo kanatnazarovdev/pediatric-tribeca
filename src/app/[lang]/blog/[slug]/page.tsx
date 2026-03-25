@@ -3,14 +3,42 @@ import { client } from "@/sanity/lib/client";
 import { groq } from "next-sanity";
 import { urlFor } from "@/sanity/lib/image";
 import Image from "next/image";
-import Link from "next/link"; //
+import Link from "next/link";
 import { PortableText } from "@portabletext/react";
+import { Metadata } from "next";
+import { getAlternates, baseUrl } from '@/hooks/helper'
+// --- 1. DYNAMIC METADATA (The "Fix") ---
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string; lang: string }>;
+}): Promise<Metadata> {
+  const { slug, lang } = await params;
+  const post = await getPost(slug);
+
+  if (!post) return {};
+
+  return {
+    title: `${post.title} | Tribeca Dental Studio 4 kids`,
+    description: post.excerpt || post.title, // Add an excerpt field to Sanity for better SEO
+    alternates: getAlternates(lang, `blog/${slug}`), // This solves the SEMrush errors
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      url: `${baseUrl}/${lang}/blog/${slug}`,
+      images: post.mainImage ? [{ url: urlFor(post.mainImage).url() }] : [],
+    },
+  };
+}
+
+// --- 2. THE COMPONENT ---
+
 const portableTextComponents: any = {
   block: {
     h2: ({ children }: any) => (
       <h2
         className="text-3xl font-light uppercase tracking-tight text-black mt-16 mb-6"
-        style={{ fontFamily: "var(--font-D-DIN)" }}
+        style={{ fontFamily: "var(--font-d-din)" }}
       >
         {children}
       </h2>
@@ -21,7 +49,7 @@ const portableTextComponents: any = {
       </h3>
     ),
     normal: ({ children }: any) => (
-      <p className="mb-8 leading-relaxed text-zinc-800 font-light">
+      <p className="mb-8 leading-relaxed text-zinc-800 font-light text-lg">
         {children}
       </p>
     ),
@@ -39,7 +67,7 @@ const portableTextComponents: any = {
           href={value.href}
           target={isExternal ? "_blank" : undefined}
           rel={isExternal ? "noopener noreferrer" : undefined}
-          className="text-[#4add30] underline decoration-zinc-300 underline-offset-4 hover:text-[#C5A059] transition-all duration-300 font-medium"
+          className="text-[#C5A059] underline decoration-zinc-300 underline-offset-4 hover:text-black transition-all duration-300 font-medium"
         >
           {children}
         </Link>
@@ -50,15 +78,27 @@ const portableTextComponents: any = {
     ),
   },
 };
+
 async function getPost(slug: string) {
   return client.fetch(
     groq`*[_type == "post" && slug.current == $slug][0]{
       title,
       mainImage,
       body,
-      publishedAt
+      publishedAt,
+      "excerpt": array::join(string::split((pt::text(body)), "")[0..160], ""),
+      // Fetch the slug of the post published immediately AFTER this one
+      "next": *[_type == "post" && publishedAt > ^.publishedAt] | order(publishedAt asc)[0]{ 
+        "slug": slug.current, 
+        title 
+      },
+      // Fetch the slug of the post published immediately BEFORE this one
+      "previous": *[_type == "post" && publishedAt < ^.publishedAt] | order(publishedAt desc)[0]{ 
+        "slug": slug.current, 
+        title 
+      }
     }`,
-    { slug },
+    { slug }
   );
 }
 
@@ -74,11 +114,10 @@ export default async function PostPage({
 
   return (
     <article className="bg-[#fafaf4] text-zinc-900 min-h-screen pt-24 pb-32">
-      {/* Header Section */}
       <div className="max-w-4xl mx-auto px-6 text-center mb-5 mt-10 lg:mt-20">
         <h1
           className="text-4xl md:text-5xl font-light tracking-tight uppercase mb-4 text-black"
-          style={{ fontFamily: "var(--font-D-DIN)" }}
+          style={{ fontFamily: "var(--font-d-din)" }}
         >
           {post.title}
         </h1>
@@ -91,7 +130,6 @@ export default async function PostPage({
         </p>
       </div>
 
-      {/* Featured Image */}
       <div className="max-w-5xl mx-auto px-6 mb-10 lg:mb-10">
         <div className="relative aspect-[16/9] w-full overflow-hidden shadow-sm">
           {post.mainImage && (
@@ -106,25 +144,58 @@ export default async function PostPage({
         </div>
       </div>
 
-      {/* Body Content */}
-      <div className="max-w-3xl mx-auto px-6 font-light leading-relaxed text-lg text-zinc-800">
-        <div className="prose prose-zinc lg:prose-xl prose-p:mb-8 prose-headings:font-normal mb-20">
+      <div className="max-w-3xl mx-auto px-6 font-light leading-relaxed text-zinc-800">
+        <div className="prose prose-zinc lg:prose-xl max-w-none mb-20">
           <PortableText value={post.body} components={portableTextComponents} />
         </div>
 
         {/* Navigation Footer */}
-        <div className="pt-12 border-t border-zinc-200 flex justify-center">
-          <Link
-            href={`/${lang}/blog`}
-            className="group flex flex-col items-center gap-3 transition-colors duration-300"
-          >
-            <span className="text-zinc-400 text-[10px] uppercase tracking-[0.4em]">
-              {lang === "es" ? "Explorar más" : "Continue Reading"}
-            </span>
-            <span className="text-black text-sm uppercase tracking-[0.2em] font-medium group-hover:text-[#C5A059] transition-colors">
-              {lang === "es" ? "← Volver al Blog" : "← Back to Blog"}
-            </span>
-          </Link>
+        <div className="pt-12 mt-20 border-t border-zinc-200">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 items-center">
+
+            {/* Previous Post */}
+            <div className="text-left">
+              {post.previous ? (
+                <Link href={`/${lang}/blog/${post.previous.slug}`} className="group block">
+                  <span className="text-zinc-400 text-[10px] uppercase tracking-[0.3em] block mb-2">
+                    {lang === "es" ? "Anterior" : "Previous"}
+                  </span>
+                  <span className="text-black text-sm font-medium group-hover:text-[#C5A059] transition-colors line-clamp-1">
+                    {post.previous.title}
+                  </span>
+                  <span> ←</span>
+                </Link>
+              ) : <div />}
+            </div>
+
+            {/* Center: Back to Blog */}
+            <div className="flex justify-center order-first md:order-none">
+              <Link href={`/${lang}/blog`} className="group flex flex-col items-center gap-2">
+                <div className="w-10 h-10 border border-zinc-200 rounded-full flex items-center justify-center group-hover:border-[#C5A059] transition-colors">
+                  <span className="text-zinc-400 group-hover:text-[#C5A059]">▦</span>
+                </div>
+                <span className="text-zinc-400 text-[10px] uppercase tracking-[0.4em]">
+                  {lang === "es" ? "Blog" : "Blog Page"}
+                </span>
+              </Link>
+            </div>
+
+            {/* Next Post */}
+            <div className="text-right">
+              {post.next ? (
+                <Link href={`/${lang}/blog/${post.next.slug}`} className="group block">
+                  <span className="text-zinc-400 text-[10px] uppercase tracking-[0.3em] block mb-2">
+                    {lang === "es" ? "Siguiente" : "Next"}
+                  </span>
+                  <span className="text-black text-sm font-medium group-hover:text-[#C5A059] transition-colors line-clamp-1">
+                    {post.next.title}
+                  </span>
+                  <span>→</span>
+                </Link>
+              ) : <div />}
+            </div>
+
+          </div>
         </div>
       </div>
     </article>
