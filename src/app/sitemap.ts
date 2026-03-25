@@ -4,9 +4,8 @@ import { groq } from "next-sanity"
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://pediatrics.tribecadentalstudio.com'
-  const languages = ['en', 'es'] // Add all supported languages here
+  const languages = ['en', 'es']
 
-  // 1. Define Static Routes for all languages
   const staticRoutes: MetadataRoute.Sitemap = languages.flatMap((lang) => [
     {
       url: `${baseUrl}/${lang}`,
@@ -15,7 +14,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 1,
     },
     {
-      url: `${baseUrl}/${lang}/our-mission`,
+      url: `${baseUrl}/${lang}/mission`, 
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
@@ -34,19 +33,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ])
 
-  // 2. Fetch all Dynamic Blog Posts from Sanity
   const posts = await client.fetch(
     groq`*[_type == "post" && defined(slug.current)]{
       "slug": slug.current,
-      publishedAt
+      "updatedAt": _updatedAt // Use updatedAt for more accurate lastModified
     }`
   )
 
-  // 3. Create entries for each post (mapped across languages)
   const dynamicBlogRoutes: MetadataRoute.Sitemap = languages.flatMap((lang) => 
     posts.map((post: any) => ({
       url: `${baseUrl}/${lang}/blog/${post.slug}`,
-      lastModified: new Date(post.publishedAt || new Date()),
+      lastModified: new Date(post.updatedAt || new Date()),
       changeFrequency: 'monthly',
       priority: 0.6,
     }))
