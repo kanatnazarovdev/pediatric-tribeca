@@ -24,11 +24,11 @@ export async function generateMetadata({
       : "Advanced pediatric dental care in Tribeca. Specialists in airway development, pain-free Solea® laser, and preventative orthodontics.",
     metadataBase: new URL("https://pediatrics.tribecadentalstudio.com"),
     alternates: {
-      // This ensures the canonical matches the specific language route
-      canonical: `/${lang}`,
+      canonical: `https://pediatrics.tribecadentalstudio.com/${lang}`,
       languages: {
-        "en-US": "/en",
-        "es-ES": "/es",
+        "en": `https://pediatrics.tribecadentalstudio.com/en`,
+        "es": `https://pediatrics.tribecadentalstudio.com/es`,
+        "x-default": `https://pediatrics.tribecadentalstudio.com/en`,
       },
     },
     openGraph: {
@@ -111,12 +111,12 @@ export default async function RootLayout(props: {
       </head>
       <body className="bg-white text-foreground antialiased selection:bg-[#C5A059] selection:text-white font-brandon">
         <NextTopLoader
-          color="#C5A059" 
+          color="#C5A059"
           initialPosition={0.08}
           crawlSpeed={200}
           height={3}
           crawl={true}
-          showSpinner={false} 
+          showSpinner={false}
           easing="ease"
           speed={200}
           shadow="0 0 10px #C5A059,0 0 5px #C5A059"

@@ -221,14 +221,12 @@ function NavItem({
     hover:text-[#C5A059]
 `.replace(/\s+/g, " ");
 
-  // ALWAYS use Link for internal routing to ensure smooth transitions
   return (
     <Link
       href={item.href}
       onMouseEnter={() => setHoveredItem(item.id)}
       onMouseLeave={() => setHoveredItem(null)}
       className={className}
-      // If it's a hash link on the same page, you can still trigger scrollToId
       onClick={(e) => {
         if (item.href.startsWith('#')) {
           e.preventDefault();
