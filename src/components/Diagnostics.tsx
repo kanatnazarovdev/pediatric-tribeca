@@ -76,7 +76,7 @@ export default function PediatricDiagnostics({ lang }: { lang: string }) {
           <div className="relative">
             <div className="relative aspect-[4/5] md:aspect-square bg-neutral-900 border border-white/5 flex flex-col items-center justify-center p-12 text-center group overflow-hidden">
               <img
-                src="/pediatricImage.jpg" 
+                src="/pediatricImage.webp" 
                 alt="Tribeca Dental Studio 4 Kids"
                 className="absolute inset-0 w-full h-full object-cover opacity-50 grayscale group-hover:grayscale-0 group-hover:opacity-70 group-hover:scale-105 transition-all duration-[2000ms] ease-out"
               />

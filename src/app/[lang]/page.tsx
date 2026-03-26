@@ -20,47 +20,50 @@ export default async function Home({
 
   return (
     <main>
-      {/* 1. HERO SECTION */}
       <Hero dict={dict.hero} />
 
-      {/* 2. SEO TEXT BLOCK (Fixes Low Text/HTML Ratio) */}
-      <section className="sr-only" aria-hidden="true">
-        {isEs ? (
-          <article>
-            <h1>Odontopediatría de Alta Gama en Tribeca, Manhattan</h1>
-            <p>
-              Bienvenido a Tribeca Dental Studio 4 kids, el centro líder en salud bucal 
-              infantil en Nueva York. Nos especializamos en odontología preventiva, 
-              desarrollo de las vías respiratorias y tecnología láser Biolase sin dolor. 
-              Nuestra misión es transformar la experiencia dental de sus hijos a través 
-              de la educación y la transparencia clínica.
-            </p>
-            <h2>Tecnología Dental Avanzada para Niños</h2>
-            <p>
-              Utilizamos diagnósticos de última generación y odontología mínimamente 
-              invasiva para asegurar sonrisas saludables. Desde nuestra clínica en 
-              Tribeca, servimos a familias de todo Manhattan con un enfoque en el 
-              bienestar integral y el crecimiento funcional.
-            </p>
-          </article>
-        ) : (
-          <article>
-            <h1>High-End Pediatric Dentistry in Tribeca, Manhattan</h1>
-            <p>
-              Welcome to Tribeca Dental Studio 4 kids, the leading center for children's 
-              oral health in New York City. We specialize in preventative dentistry, 
-              airway development, and pain-free Biolase laser technology. Our mission 
-              is to transform your child's dental experience through education and 
-              clinical transparency.
-            </p>
-            <h2>Advanced Dental Technology for Children</h2>
-            <p>
-              We utilize state-of-the-art diagnostics and minimally invasive dentistry 
-              to ensure healthy smiles. From our Tribeca clinic, we serve families 
-              across Manhattan with a focus on holistic wellness and functional growth.
-            </p>
-          </article>
-        )}
+     <section className="sr-only" aria-hidden="true">
+        <article>
+          {isEs ? (
+            <>
+              <h1>Especialistas en Odontopediatría en Tribeca y Manhattan</h1>
+              <p>
+                Tribeca Dental Studio 4 kids ofrece una experiencia dental revolucionaria para niños en el corazón de la ciudad de Nueva York. 
+                Nuestro enfoque combina la odontología pediátrica de alta gama con un compromiso profundo con la salud de las vías respiratorias 
+                y el desarrollo funcional. Entendemos que la salud bucal infantil es la base del bienestar general.
+              </p>
+              <p>
+                Utilizamos tecnología láser Biolase para tratamientos sin dolor y sin agujas, eliminando la ansiedad dental desde la primera visita. 
+                Nuestros servicios incluyen limpiezas preventivas, selladores, frenectomías láser y monitoreo del crecimiento maxilofacial para 
+                asegurar una respiración adecuada y un sueño reparador para su hijo en Manhattan.
+              </p>
+              <h2>Por qué elegir nuestro estudio dental en Tribeca</h2>
+              <p>
+                Ubicados en el área de Tribeca, servimos a comunidades en todo Manhattan, incluyendo SoHo, Battery Park City y el Financial District. 
+                Nuestra clínica está diseñada para ser un entorno acogedor donde la tecnología se encuentra con el cuidado humano.
+              </p>
+            </>
+          ) : (
+            <>
+              <h1>Premier Pediatric Dentist in Tribeca & Manhattan, NYC</h1>
+              <p>
+                Tribeca Dental Studio 4 kids provides a revolutionary dental experience for children in the heart of New York City. 
+                Our approach combines high-end pediatric dentistry with a deep commitment to airway health and functional development. 
+                We believe that childhood oral health is the cornerstone of lifelong wellness.
+              </p>
+              <p>
+                Using Biolase laser technology, we provide pain-free, needle-free treatments that eliminate dental anxiety from the very first visit. 
+                Our services include preventative cleanings, sealants, laser frenectomies, and maxillofacial growth monitoring to ensure proper 
+                breathing and restful sleep for your child in Manhattan.
+              </p>
+              <h2>Why Choose Our Tribeca Dental Studio</h2>
+              <p>
+                Located in the TriBeCa area, we serve families throughout Manhattan, including SoHo, Battery Park City, and the Financial District. 
+                Our clinic is designed to be a calming environment where state-of-the-art technology meets compassionate, patient-centered care.
+              </p>
+            </>
+          )}
+        </article>
       </section>
 
       <section id="mission">

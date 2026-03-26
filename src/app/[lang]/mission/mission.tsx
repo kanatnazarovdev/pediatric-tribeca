@@ -10,7 +10,7 @@ const STORIES = [
     title: "The Pre-K Workshop",
     location: "TriBeCa Preschool",
     date: "MARCH 2026",
-    thumbnail: "/stills/thumbnail.png",
+    thumbnail: "/stills/thumbnail.webp",
   },
 ];
 export default function CommunityPage({

@@ -35,7 +35,7 @@ export async function generateMetadata({
       siteName: "Tribeca Dental Studio 4 kids",
       images: [
         {
-          url: `${baseUrl}/pediatricImage.jpg`, 
+          url: `${baseUrl}/pediatricImage.webp`, 
           width: 1200,
           height: 630,
           alt: "Tribeca Dental Studio 4 kids Interior",
@@ -67,7 +67,7 @@ export default async function RootLayout(props: {
     "@context": "https://schema.org",
     "@type": "Dentist",
     name: "Tribeca Dental Studio 4 kids",
-    image: "https://pediatrics.tribecadentalstudio.com/pediatricImage.jpg",
+    image: "https://pediatrics.tribecadentalstudio.com/pediatricImage.webp",
     "@id": "https://pediatrics.tribecadentalstudio.com",
     url: "https://pediatrics.tribecadentalstudio.com",
     telephone: "212-561-5303",
