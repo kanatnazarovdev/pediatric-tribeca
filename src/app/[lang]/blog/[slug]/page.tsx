@@ -131,7 +131,7 @@ export default async function PostPage({
       </div>
 
       <div className="max-w-5xl mx-auto px-6 mb-10 lg:mb-10">
-        <div className="relative aspect-[16/9] w-full overflow-hidden shadow-sm">
+        <div className="relative aspect-[16/11] w-full overflow-hidden shadow-sm ">
           {post.mainImage && (
             <Image
               src={urlFor(post.mainImage).url()}
