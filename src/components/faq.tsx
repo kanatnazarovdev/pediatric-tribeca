@@ -25,8 +25,8 @@ export default function FAQ({ lang }: FAQProps) {
         ? "¿En qué se diferencia su tecnología láser para niños?" 
         : "How is your laser technology different for kids?",
       a: isEs
-        ? "Utilizamos el láser Solea®, lo que significa que la mayoría de las caries se pueden tratar sin agujas, sin ruidos de taladro y sin entumecimiento. Es una experiencia virtualmente libre de dolor que elimina la ansiedad dental y permite que su hijo regrese a la escuela o juegue inmediatamente después de su cita."
-        : "We use the Solea® laser, which means most cavities can be treated with no needles, no drill sounds, and no numbness. It is a virtually pain-free experience that eliminates dental anxiety and allows your child to return to school or play immediately after their appointment.",
+        ? "Utilizamos el láser Biolase, lo que significa que la mayoría de las caries se pueden tratar sin agujas, sin ruidos de taladro y sin entumecimiento. Es una experiencia virtualmente libre de dolor que elimina la ansiedad dental y permite que su hijo regrese a la escuela o juegue inmediatamente después de su cita."
+        : "We use the Biolase laser, which means most cavities can be treated with no needles, no drill sounds, and no numbness. It is a virtually pain-free experience that eliminates dental anxiety and allows your child to return to school or play immediately after their appointment.",
     },
     {
       q: isEs

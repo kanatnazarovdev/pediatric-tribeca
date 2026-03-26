@@ -21,8 +21,8 @@ export async function generateMetadata({
       ? "Odontopediatría y Salud de Vías Respiratorias | Tribeca Dental Studio 4 kids"
       : "Pediatric Dentistry & Airway Health | Tribeca Dental Studio 4 kids",
     description: isEs
-      ? "Cuidado dental avanzado para niños en Tribeca. Especialistas en desarrollo de vías respiratorias, láser Solea® sin dolor y ortodoncia preventiva."
-      : "Advanced pediatric dental care in Tribeca. Specialists in airway development, pain-free Solea® laser, and preventative orthodontics.",
+      ? "Cuidado dental avanzado para niños en Tribeca. Especialistas en desarrollo de vías respiratorias, láser Biolase sin dolor y ortodoncia preventiva."
+      : "Advanced pediatric dental care in Tribeca. Specialists in airway development, pain-free Biolase laser, and preventative orthodontics.",
     metadataBase: new URL(baseUrl),
     
     // THIS FIXES THE SEMRUSH HREFLANG ERRORS

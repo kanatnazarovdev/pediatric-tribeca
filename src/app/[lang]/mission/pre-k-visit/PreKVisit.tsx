@@ -6,7 +6,6 @@ export default function PreKVisitPage({
 }: {
   params: { lang: string };
 }) {
-console.log(params.lang)
   const router = useRouter();
   return (
     <main className="min-h-screen bg-white">

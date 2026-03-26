@@ -97,7 +97,7 @@ export default function PediatricDiagnostics({ lang }: { lang: string }) {
 
                 {/* TECH TAGS */}
                 <div className="flex flex-wrap justify-center gap-2">
-                  {["Solea® Laser", "Icon Resin", "Myobrace®"].map((tech) => (
+                  {["Biolase Laser", "Icon Resin", "Myobrace®"].map((tech) => (
                     <span key={tech} className="px-3 py-1 border border-white/10 text-[9px] uppercase tracking-widest text-white/40">
                       {tech}
                     </span>

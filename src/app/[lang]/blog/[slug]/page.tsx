@@ -19,7 +19,7 @@ export async function generateMetadata({
   if (!post) return {};
 
   return {
-    title: `${post.title} | Tribeca Dental Studio 4 kids`,
+    title: `${post.title} | TDS 4 Kids`,
     description: post.excerpt || post.title, // Add an excerpt field to Sanity for better SEO
     alternates: getAlternates(lang, `blog/${slug}`), // This solves the SEMrush errors
     openGraph: {

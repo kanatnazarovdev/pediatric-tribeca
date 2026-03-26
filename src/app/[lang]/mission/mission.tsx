@@ -1,6 +1,6 @@
 "use client";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, use } from "react"; // Use 'use' to unwrap the params promise
 import StoryCard from "./StoryCard";
 
 const STORIES = [
@@ -16,9 +16,11 @@ const STORIES = [
 export default function CommunityPage({
   params,
 }: {
-  params: any;
+  // params: any;
+params: Promise<{ lang: string | any }>; // Typed as Promise for Next.js 15
+
 }) {
-  const { lang } = params;
+  const { lang } = use(params);
   const containerRef = useRef(null);
 
   const { scrollYProgress } = useScroll({
@@ -62,9 +64,9 @@ export default function CommunityPage({
             transition={{ duration: 0.8, delay: 0.4 }}
             className="border-l border-[#C5A059]/40 pl-10 mb-28"
           >
-            <h2 className="text-[#C5A059] text-[11px] uppercase tracking-[0.8em] mb-14 font-bold block">
-              Our Impact
-            </h2>
+            <h1 className="text-[#C5A059] text-[11px] uppercase tracking-[0.8em] mb-14 font-bold block">
+              Our Mission
+            </h1>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -119,7 +121,6 @@ export default function CommunityPage({
             Recent <span className="italic font-serif">Stories</span>
           </h2>
 
-          {/* This will now sit on its own line on mobile */}
           <span className="text-[9px] md:text-[11px] uppercase tracking-[0.3em] md:tracking-[0.5em] text-gray-400 font-medium">
             Documentation Series
           </span>

@@ -86,7 +86,7 @@ export default function Hero({ dict }: HeroProps) {
         </motion.h1>
         <h2 className="sr-only">
           Expert pediatric dental care at {dict.studio_name} in NYC,
-          specializing in airway development and painless Solea laser
+          specializing in airway development and painless Biolase laser
           treatments.
         </h2>
 
