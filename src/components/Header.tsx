@@ -25,9 +25,9 @@ export default function Header({ dict, lang }: HeaderProps) {
   const [isOpen, setIsOpen] = useState(false);
   const scrollToId = useSmoothScroll();
   const isHomePage = pathname === `/${lang}` || pathname === "/";
-  
+
   const isBlogRoute =
-    pathname.includes(`/${lang}/blog`) || pathname.includes(`/blog`);
+    pathname.includes(`/${lang}/blog`) || pathname.includes(`/blog`) || pathname.includes(`/${lang}/testimonials`) || pathname.includes(`/testimonials`)
 
   const shouldBeActive = isScrolled || isOpen || isBlogRoute;
 
@@ -51,17 +51,17 @@ export default function Header({ dict, lang }: HeaderProps) {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-// 1. ADD THIS CHECK:
+  // 1. ADD THIS CHECK:
   const isStudio = pathname.startsWith(`/${lang}/studio`) || pathname.startsWith('/studio');
 
   // 2. RETURN NULL IF IN STUDIO
   if (isStudio) return null;
- const navItems = [
+  const navItems = [
     {
       id: "mission",
       label: lang === "es" ? "Misión" : "Mission",
       // Add /${lang}/ to make the path absolute from the root
-      href: `/${lang}/mission`, 
+      href: `/${lang}/mission`,
       isExternal: true,
     },
     {
@@ -75,9 +75,14 @@ export default function Header({ dict, lang }: HeaderProps) {
       label: lang === "es" ? "Blog" : "Blog",
       href: `/${lang}/blog`,
       isExternal: true,
+    }, {
+      id: "testimonials",
+      label: lang === "es" ? "Testimonials" : "Testimonials",
+      href: `/${lang}/testimonials`,
+      isExternal: true,
     },
   ];
- 
+
   const menuVariants = {
     closed: {
       opacity: 0,

@@ -14,7 +14,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 1,
     },
     {
-      url: `${baseUrl}/${lang}/mission`, 
+      url: `${baseUrl}/${lang}/mission`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
@@ -31,6 +31,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'daily',
       priority: 0.7,
     },
+    {
+      url: `${baseUrl}/${lang}/testimonials`, 
+      lastModified: new Date(),
+      changeFrequency: 'weekly', 
+      priority: 0.9,
+    },
   ])
 
   const posts = await client.fetch(
@@ -40,7 +46,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }`
   )
 
-  const dynamicBlogRoutes: MetadataRoute.Sitemap = languages.flatMap((lang) => 
+  const dynamicBlogRoutes: MetadataRoute.Sitemap = languages.flatMap((lang) =>
     posts.map((post: any) => ({
       url: `${baseUrl}/${lang}/blog/${post.slug}`,
       lastModified: new Date(post.updatedAt || new Date()),

@@ -9,3 +9,10 @@ export const postsQuery = groq`*[_type == "post"] | order(publishedAt desc) {
   publishedAt,
   "authorName": author->name
 }`;
+// src/lib/queries.ts
+export const testimonialsQuery = `*[_type == "testimonial"] | order(_createdAt desc) {
+  childName,
+  description,
+  videoUrl,
+  "imageUrl": thumbnail.asset->url
+}`;
