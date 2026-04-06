@@ -18,16 +18,15 @@ export async function generateMetadata({
 
   return {
     title: isEs
-      ? "Odontopediatría y Salud de Vías Respiratorias | Tribeca Dental Studio 4 kids"
-      : "Pediatric Dentistry & Airway Health | Tribeca Dental Studio 4 kids",
+      ? "Tribeca Dental Studio 4 Kids ® | Odontopediatría en NYC"
+      : "Tribeca Dental Studio 4 Kids ® | Pediatric Dentist Tribeca NYC",
     description: isEs
-      ? "Cuidado dental avanzado para niños en Tribeca. Especialistas en desarrollo de vías respiratorias, láser Biolase sin dolor y ortodoncia preventiva."
-      : "Advanced pediatric dental care in Tribeca. Specialists in airway development, pain-free Biolase laser, and preventative orthodontics.",
+      ? "Especialistas en odontopediatría en Tribeca. Láser Biolase sin dolor y salud de vías respiratorias. ¡Reserva el 'Smile Reset' de tu hijo!"
+      : "Expert pediatric dentist in Tribeca, NYC. Pain-free Biolase laser dentistry & airway health. Book your child's 'Smile Reset' today!",
     metadataBase: new URL(baseUrl),
-    
-    // THIS FIXES THE SEMRUSH HREFLANG ERRORS
-    alternates: getAlternates(lang), 
-    
+
+    alternates: getAlternates(lang),
+
     openGraph: {
       title: "Pediatric Dentistry & Airway Health",
       description: "Advanced pediatric dental care in Tribeca.",
@@ -35,7 +34,7 @@ export async function generateMetadata({
       siteName: "Tribeca Dental Studio 4 kids",
       images: [
         {
-          url: `${baseUrl}/pediatricImage.webp`, 
+          url: `${baseUrl}/pediatricImage.webp`,
           width: 1200,
           height: 630,
           alt: "Tribeca Dental Studio 4 kids Interior",
@@ -71,6 +70,7 @@ export default async function RootLayout(props: {
     "@id": "https://pediatrics.tribecadentalstudio.com",
     url: "https://pediatrics.tribecadentalstudio.com",
     telephone: "212-561-5303",
+    knowsAbout: ["Pediatric Dentistry", "Airway Health", "Laser Dentistry", "Orthodontics"],
     priceRange: "$$",
     address: {
       "@type": "PostalAddress",
