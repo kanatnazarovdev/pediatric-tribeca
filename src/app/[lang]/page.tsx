@@ -8,6 +8,7 @@ import Testimonial from "@/components/Testimonial";
 import { getDictionary } from "./dictionaries";
 import Diagnostics from "@/components/Diagnostics";
 import Link from "next/link";
+import Reviews from "@/components/Reviews";
 
 export default async function Home({
   params,
@@ -29,11 +30,13 @@ export default async function Home({
             <>
               <h1>Especialistas en Odontopediatría en Tribeca y Manhattan</h1>
               <p>
-          Tribeca Dental Studio 4 kids ofrece una experiencia dental revolucionaria. 
-          Explore nuestra <Link href="/es/mission">misión</Link>, aprenda sobre nuestra 
-          <Link href="/es/innovation">innovación tecnológica</Link> y vea nuestros 
-          <Link href="/es/testimonials">testimonios de pacientes</Link>.
-        </p>
+                Tribeca Dental Studio 4 kids ofrece una experiencia dental
+                revolucionaria. Explore nuestra{" "}
+                <Link href="/es/mission">misión</Link>, aprenda sobre nuestra
+                <Link href="/es/innovation">innovación tecnológica</Link> y vea
+                nuestros
+                <Link href="/es/testimonials">testimonios de pacientes</Link>.
+              </p>
               <p>
                 Tribeca Dental Studio 4 kids ofrece una experiencia dental
                 revolucionaria para niños en el corazón de la ciudad de Nueva
@@ -114,6 +117,9 @@ export default async function Home({
 
       <section id="results">
         <Testimonial lang={lang} />
+      </section>
+      <section id="reviews">
+        <Reviews />
       </section>
 
       <section id="faq">
