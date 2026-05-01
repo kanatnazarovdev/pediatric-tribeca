@@ -1,10 +1,8 @@
 /* eslint-disable react/no-unescaped-entities */
 "use client";
 import React from "react";
-import Link from "next/link";
 import { useParams } from "next/navigation";
 
-// Data defined outside to keep component clean
 const categories = (lang: string) => [
   {
     label: "Shield",
@@ -13,10 +11,10 @@ const categories = (lang: string) => [
       ? "Arquitectando un futuro libre de caries utilizando barreras moleculares avanzadas."
       : "Architecting a future free of cavities using advanced molecular barriers.",
     services: [
-      { name: "Pediatric Sealants", href: `/${lang}/innovation/dental-sealants` },
-      { name: "SDF Treatments", href: `/${lang}/innovation/sdf` },
-      { name: "Proactive Hygiene", href: `/${lang}/innovation/hygiene` },
-      { name: "Curodont Repair Fluoride Plus", href: `/${lang}/innovation/curodont` },
+      "Pediatric Sealants", 
+      "SDF Treatments", 
+      "Proactive Hygiene", 
+      "Curodont™ Repair Fluoride Plus"
     ],
   },
   {
@@ -26,9 +24,9 @@ const categories = (lang: string) => [
       ? "Eliminando el miedo a la odontología con precisión láser sin agujas."
       : "Eliminating the fear of dentistry with needle-free laser precision.",
     services: [
-      { name: "Biolase Laser", href: `/${lang}/innovation/solea-laser` },
-      { name: "Digital Impressioning", href: `/${lang}/innovation/itero` },
-      { name: "AI Diagnostics", href: `/${lang}/innovation/ai-imaging` },
+      "Biolase Laser", 
+      "Digital Impressioning", 
+      "AI Diagnostics"
     ],
   },
   {
@@ -38,9 +36,9 @@ const categories = (lang: string) => [
       ? "Optimizando las vías respiratorias y la estructura facial para la salud neural a largo plazo."
       : "Optimizing the airway and facial structure for long-term neural health.",
     services: [
-      { name: "Palatal Expanders", href: `/${lang}/innovation/expanders` },
-      { name: "Airway Assessment", href: `/${lang}/innovation/airway` },
-      { name: "Myofunctional Therapy", href: `/${lang}/innovation/myo` },
+      "Palatal Expanders", 
+      "Airway Assessment", 
+      "Myofunctional Therapy"
     ],
   },
 ];
@@ -93,12 +91,12 @@ export default function InnovationPage() {
           </p>
         </div>
 
-        {/* --- CATEGORY GRID --- */}
+        {/* --- CATEGORY GRID (No dead links) --- */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           {data.map((cat, i) => (
             <div
               key={i}
-              className="group relative bg-white p-10 md:p-14 rounded-[40px] shadow-[0_40px_100px_rgba(0,0,0,0.03)] border border-gray-100 hover:border-gray-200 transition-all duration-1000 ease-[cubic-bezier(0.23,1,0.32,1)] hover:-translate-y-4"
+              className="group relative bg-white p-10 md:p-14 rounded-[40px] shadow-[0_40px_100px_rgba(0,0,0,0.03)] border border-gray-100 transition-all duration-1000"
             >
               <div className="h-full flex flex-col justify-between">
                 <div>
@@ -109,7 +107,7 @@ export default function InnovationPage() {
                     </span>
                   </div>
 
-                  <h2 className="text-4xl font-serif text-[#1A1A1A] mb-8 group-hover:italic transition-all duration-500">
+                  <h2 className="text-4xl font-serif text-[#1A1A1A] mb-8">
                     {cat.title}
                   </h2>
                   <p className="text-base text-gray-400 font-light leading-relaxed mb-16 font-brandon">
@@ -117,18 +115,15 @@ export default function InnovationPage() {
                   </p>
                 </div>
 
+                {/* Refined List without 404 links */}
                 <ul className="space-y-6">
-                  {cat.services.map((svc, si) => (
-                    <li key={si}>
-                      <Link
-                        href={svc.href}
-                        className="flex items-center justify-between text-[11px] uppercase tracking-[0.3em] font-bold text-[#1A1A1A] group/link border-b border-gray-50 pb-3 hover:border-[#C5A059] transition-all duration-500"
-                      >
-                        {svc.name}
-                        <span className="translate-x-[-10px] opacity-0 group-hover/link:translate-x-0 group-hover/link:opacity-100 transition-all duration-500 text-[#C5A059]">
-                          →
-                        </span>
-                      </Link>
+                  {cat.services.map((svcName, si) => (
+                    <li 
+                      key={si}
+                      className="flex items-center justify-between text-[11px] uppercase tracking-[0.3em] font-bold text-[#1A1A1A] border-b border-gray-50 pb-3"
+                    >
+                      {svcName}
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#C5A059] opacity-20" />
                     </li>
                   ))}
                 </ul>
