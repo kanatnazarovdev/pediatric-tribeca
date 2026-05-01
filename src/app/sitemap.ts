@@ -10,24 +10,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   
   const currentCrawlDate = new Date();
 
-  // 1. Static Routes (Localized)
+  // 1. Static Routes (Localized) - NO TRAILING SLASHES
   const staticRoutes: MetadataRoute.Sitemap = languages.flatMap((lang) => {
-    // Start with the language root (e.g., /en or /es)
     const routes: MetadataRoute.Sitemap = [
       {
-        url: `${baseUrl}/${lang}`, 
+        url: `${baseUrl}/${lang}`, // Correct: No slash
         lastModified: currentCrawlDate,
         changeFrequency: "monthly",
         priority: 1.0,
       },
     ];
 
-    // Add specific static pages
     staticPages.forEach((page) => {
       routes.push({
-        url: `${baseUrl}/${lang}/${page}`,
+        url: `${baseUrl}/${lang}/${page}`, // Correct: No slash
         lastModified: currentCrawlDate,
-        // If it's the blog list, it updates more often
         changeFrequency: page === "blog" ? "daily" : "weekly",
         priority: page === "innovation" ? 0.9 : 0.8,
       });
@@ -36,7 +33,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     return routes;
   });
 
-  // 2. Dynamic Blog Routes from Sanity
+  // 2. Dynamic Blog Routes from Sanity - NO TRAILING SLASHES
   const posts = await client.fetch(
     groq`*[_type == "post" && defined(slug.current)]{
       "slug": slug.current,
@@ -46,8 +43,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const dynamicBlogRoutes: MetadataRoute.Sitemap = languages.flatMap((lang) =>
     posts.map((post: any) => ({
-      url: `${baseUrl}/${lang}/blog/${post.slug}`,
-      // Use actual Sanity update time, or fallback to current date
+      url: `${baseUrl}/${lang}/blog/${post.slug}`, // Correct: No slash
       lastModified: post.updatedAt ? new Date(post.updatedAt) : currentCrawlDate,
       changeFrequency: "monthly",
       priority: 0.7,

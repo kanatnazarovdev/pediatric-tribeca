@@ -24,7 +24,7 @@ export default function Header({ dict, lang }: HeaderProps) {
   const scrollToId = useSmoothScroll();
   
   const isHomePage = pathname === `/${lang}` || pathname === "/";
-  const isBlogRoute = pathname.includes(`/blog`) || pathname.includes(`/testimonials`);
+  const isBlogRoute = pathname.includes(`/blog`) || pathname.includes(`/testimonials`) || pathname.includes(`/innovation/curodont`)
   const shouldBeActive = isScrolled || isOpen || isBlogRoute;
 
   // Function to switch language while keeping the same sub-path
