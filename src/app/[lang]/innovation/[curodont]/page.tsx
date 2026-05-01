@@ -2,11 +2,21 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { getAlternates } from "@/hooks/helper";
 
 interface CurodontProps {
   lang: string;
 }
-
+export async function generateMetadata({ params }: { params: { lang: string } }) {
+  const { lang } = await params;
+  
+  return {
+    // Ensure the second argument matches the route exactly with NO trailing slash
+    alternates: getAlternates(lang, "innovation/curodont"),
+    title: "Curodont™ Repair | Tribeca Dental Studio 4 Kids",
+    // ...
+  };
+}
 const Curodont = ({ lang }: CurodontProps) => {
   const isEs = lang === "es";
 

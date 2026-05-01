@@ -26,8 +26,7 @@ export async function generateMetadata({
       : "Expert pediatric dentist in Tribeca, NYC. Pain-free Biolase laser dentistry & airway health. Book your child's 'Smile Reset' today!",
     metadataBase: new URL(baseUrl),
 
-    alternates: getAlternates(lang),
-
+alternates: getAlternates(lang, ""),
     openGraph: {
       title: "Pediatric Dentistry & Airway Health",
       description: "Advanced pediatric dental care in Tribeca.",
