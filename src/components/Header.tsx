@@ -19,12 +19,12 @@ interface HeaderProps {
 export default function Header({ dict, lang }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
-  const router = useRouter(); // Added for language switching
+  const router = useRouter(); 
   const [isOpen, setIsOpen] = useState(false);
   const scrollToId = useSmoothScroll();
   
   const isHomePage = pathname === `/${lang}` || pathname === "/";
-  const isBlogRoute = pathname.includes(`/blog`) || pathname.includes(`/testimonials`) || pathname.includes(`/innovation/curodont`)
+  const isBlogRoute = pathname.includes(`/blog`) || pathname.includes(`/testimonials`) || pathname.includes(`/innovation/curodont`) || pathname.includes(`/team/`)
   const shouldBeActive = isScrolled || isOpen || isBlogRoute;
 
   const toggleLanguage = (newLang: string) => {
