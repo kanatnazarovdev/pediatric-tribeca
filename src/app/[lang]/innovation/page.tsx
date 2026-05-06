@@ -31,9 +31,7 @@ export default async function Page({
 
   return (
     <>
-      {/* This hidden div is only for SEO crawlers to find 300+ words. 
-          The 'sr-only' class (Tailwind) keeps it hidden from users but visible to bots.
-      */}
+
       <div className="sr-only">
         {isEs ? (
           <article>

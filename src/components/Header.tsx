@@ -27,7 +27,6 @@ export default function Header({ dict, lang }: HeaderProps) {
   const isBlogRoute = pathname.includes(`/blog`) || pathname.includes(`/testimonials`) || pathname.includes(`/innovation/curodont`)
   const shouldBeActive = isScrolled || isOpen || isBlogRoute;
 
-  // Function to switch language while keeping the same sub-path
   const toggleLanguage = (newLang: string) => {
     const segments = pathname.split('/');
     segments[1] = newLang; // Replace 'en' with 'es' or vice versa
@@ -49,6 +48,7 @@ export default function Header({ dict, lang }: HeaderProps) {
     { id: "innovation", label: lang === "es" ? "Innovación" : "Innovation", href: `/${lang}/innovation` },
     { id: "blog", label: "Blog", href: `/${lang}/blog` }, 
     { id: "testimonials", label: lang === "es" ? "Testimonios" : "Testimonials", href: `/${lang}/testimonials` },
+    { id: "team", label: lang === "es" ? "Equipo" : "Team", href: `/${lang}/team` },
   ];
 
   return (
