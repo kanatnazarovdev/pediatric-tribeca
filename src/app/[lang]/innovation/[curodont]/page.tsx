@@ -7,7 +7,11 @@ import { getAlternates } from "@/hooks/helper";
 interface CurodontProps {
   lang: string;
 }
-export async function generateMetadata({ params }: { params: { lang: string } }) {
+export async function generateMetadata({
+  params,
+}: {
+  params: { lang: string };
+}) {
   const { lang } = await params;
   const isEs = lang === "es";
 
@@ -23,9 +27,21 @@ export async function generateMetadata({ params }: { params: { lang: string } })
     title,
     description,
     alternates: getAlternates(lang, "innovation/curodont"),
-    keywords: isEs 
-      ? ["caries sin torno NYC", "odontología sin dolor para niños", "Curodont español Tribeca", "regeneración de esmalte dental", "dentista pediátrico Tribeca"]
-      : ["drill-free cavity treatment NYC", "no-shot dentistry for kids", "Curodont Tribeca", "tooth enamel regeneration", "painless pediatric dentist Manhattan"],
+    keywords: isEs
+      ? [
+          "caries sin torno NYC",
+          "odontología sin dolor para niños",
+          "Curodont español Tribeca",
+          "regeneración de esmalte dental",
+          "dentista pediátrico Tribeca",
+        ]
+      : [
+          "drill-free cavity treatment NYC",
+          "no-shot dentistry for kids",
+          "Curodont Tribeca",
+          "tooth enamel regeneration",
+          "painless pediatric dentist Manhattan",
+        ],
     openGraph: {
       title,
       description,
@@ -34,7 +50,9 @@ export async function generateMetadata({ params }: { params: { lang: string } })
           url: "/curodont.png",
           width: 1200,
           height: 630,
-          alt: isEs ? "Regeneración Dental Biológica" : "Biological Tooth Regeneration",
+          alt: isEs
+            ? "Regeneración Dental Biológica"
+            : "Biological Tooth Regeneration",
         },
       ],
     },
@@ -75,11 +93,11 @@ const Curodont = ({ lang }: CurodontProps) => {
             <div className="space-y-4">
               <div className="flex items-center gap-3">
                 <span className="h-[1px] w-8 bg-[#C5A059]" />
-                <span className="text-[#C5A059] font-medium tracking-[0.3em] uppercase text-[11px]">
+                <h1 className="text-[#C5A059] font-medium tracking-[0.3em] uppercase text-[11px]">
                   {isEs
-                    ? "Cuidado Biológico Superior"
-                    : "Superior Biological Care"}
-                </span>
+                    ? "Tratamiento de Caries Sin Torno"
+                    : "Drill-Free Cavity Treatment"}
+                </h1>
               </div>
 
               <h2 className="text-5xl lg:text-6xl font-serif text-[#1A1A1A] leading-[1.1] lowercase">

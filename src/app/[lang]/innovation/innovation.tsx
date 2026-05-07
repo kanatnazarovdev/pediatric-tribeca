@@ -2,43 +2,44 @@
 "use client";
 import React from "react";
 import { useParams } from "next/navigation";
+import Link from "next/link";
 
 const categories = (lang: string) => [
   {
     label: "Shield",
     title: lang === "es" ? "Innovación Preventiva" : "Preventive Innovation",
-    description: lang === "es" 
-      ? "Arquitectando un futuro libre de caries utilizando barreras moleculares avanzadas."
-      : "Architecting a future free of cavities using advanced molecular barriers.",
+    description:
+      lang === "es"
+        ? "Arquitectando un futuro libre de caries utilizando barreras moleculares avanzadas."
+        : "Architecting a future free of cavities using advanced molecular barriers.",
     services: [
-      "Pediatric Sealants", 
-      "SDF Treatments", 
-      "Proactive Hygiene", 
-      "Curodont™ Repair Fluoride Plus"
+      "Pediatric Sealants",
+      "SDF Treatments",
+      "Proactive Hygiene",
+      "Curodont™ Repair Fluoride Plus",
     ],
   },
   {
     label: "Precision",
     title: lang === "es" ? "Vanguardia Tecnológica" : "Technological Edge",
-    description: lang === "es"
-      ? "Eliminando el miedo a la odontología con precisión láser sin agujas."
-      : "Eliminating the fear of dentistry with needle-free laser precision.",
-    services: [
-      "Biolase Laser", 
-      "Digital Impressioning", 
-      "AI Diagnostics"
-    ],
+    description:
+      lang === "es"
+        ? "Eliminando el miedo a la odontología con precisión láser sin agujas."
+        : "Eliminating the fear of dentistry with needle-free laser precision.",
+    services: ["Biolase Laser", "Digital Impressioning", "AI Diagnostics"],
   },
   {
     label: "Vitality",
-    title: lang === "es" ? "Crecimiento del Desarrollo" : "Developmental Growth",
-    description: lang === "es"
-      ? "Optimizando las vías respiratorias y la estructura facial para la salud neural a largo plazo."
-      : "Optimizing the airway and facial structure for long-term neural health.",
+    title:
+      lang === "es" ? "Crecimiento del Desarrollo" : "Developmental Growth",
+    description:
+      lang === "es"
+        ? "Optimizando las vías respiratorias y la estructura facial para la salud neural a largo plazo."
+        : "Optimizing the airway and facial structure for long-term neural health.",
     services: [
-      "Palatal Expanders", 
-      "Airway Assessment", 
-      "Myofunctional Therapy"
+      "Palatal Expanders",
+      "Airway Assessment",
+      "Myofunctional Therapy",
     ],
   },
 ];
@@ -85,9 +86,9 @@ export default function InnovationPage() {
       <section className="py-24 px-8 md:px-20 max-w-[1400px] mx-auto">
         <div className="max-w-2xl mb-32">
           <p className="text-xl md:text-2xl text-gray-400 font-light leading-relaxed font-brandon tracking-tight italic border-l-2 border-[#C5A059] pl-10 py-2">
-            {isEs 
-              ? "\"Nos movemos más allá de la odontología tradicional, utilizando tecnología de clase mundial para asegurar que la experiencia de su hijo sea tan cinematográfica como clínica.\""
-              : "\"We move beyond traditional dentistry, utilizing world-class technology to ensure your child’s experience is as cinematic as it is clinical.\""}
+            {isEs
+              ? '"Nos movemos más allá de la odontología tradicional, utilizando tecnología de clase mundial para asegurar que la experiencia de su hijo sea tan cinematográfica como clínica."'
+              : '"We move beyond traditional dentistry, utilizing world-class technology to ensure your child’s experience is as cinematic as it is clinical."'}
           </p>
         </div>
 
@@ -115,17 +116,44 @@ export default function InnovationPage() {
                   </p>
                 </div>
 
-                {/* Refined List without 404 links */}
+                {/* --- Inside the CATEGORY GRID map loop --- */}
+
                 <ul className="space-y-6">
-                  {cat.services.map((svcName, si) => (
-                    <li 
-                      key={si}
-                      className="flex items-center justify-between text-[11px] uppercase tracking-[0.3em] font-bold text-[#1A1A1A] border-b border-gray-50 pb-3"
-                    >
-                      {svcName}
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#C5A059] opacity-20" />
-                    </li>
-                  ))}
+                  {cat.services.map((svcName, si) => {
+                    // Check if the service is Curodont to make it a link
+                    const isCurodont =
+                      svcName === "Curodont™ Repair Fluoride Plus";
+
+                    // Content structure
+                    const content = (
+                      <>
+                        {svcName}
+                        <span
+                          className={`w-1.5 h-1.5 rounded-full bg-[#C5A059] ${isCurodont ? "opacity-100 animate-pulse" : "opacity-20"}`}
+                        />
+                      </>
+                    );
+
+                    return (
+                      <li
+                        key={si}
+                        className="text-[11px] uppercase tracking-[0.3em] font-bold text-[#1A1A1A] border-b border-gray-50 pb-3"
+                      >
+                        {isCurodont ? (
+                          <Link
+                            href={`/${lang}/innovation/curodont`}
+                            className="flex items-center justify-between hover:text-[#C5A059] transition-colors duration-300"
+                          >
+                            {content}
+                          </Link>
+                        ) : (
+                          <div className="flex items-center justify-between opacity-60">
+                            {content}
+                          </div>
+                        )}
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
             </div>
@@ -136,7 +164,9 @@ export default function InnovationPage() {
       {/* --- CTA SECTION --- */}
       <section className="py-20 text-center">
         <h3 className="text-sm uppercase tracking-[0.6em] text-gray-300 font-bold mb-8">
-          {isEs ? "¿Listo para experimentar el futuro?" : "Ready to experience the future?"}
+          {isEs
+            ? "¿Listo para experimentar el futuro?"
+            : "Ready to experience the future?"}
         </h3>
         <a
           href="https://booking.adit.com/4dcced5c-07a5-4e12-b80f-d470bca99a63"
