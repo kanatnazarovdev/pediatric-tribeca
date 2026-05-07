@@ -6,7 +6,7 @@ import { groq } from "next-sanity";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://pediatrics.tribecadentalstudio.com";
   const languages = ["en", "es"];
-  const staticPages = ["mission", "innovation", "blog", "testimonials"];
+  const staticPages = ["mission", "innovation", "blog", "testimonials", "team"];
 
   const currentCrawlDate = new Date();
 
