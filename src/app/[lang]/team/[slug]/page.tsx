@@ -1,7 +1,7 @@
 // src/app/[lang]/team/[slug]/page.tsx
 
 import Image from "next/image";
-import Link from "next/link"; // Use Link for faster internal navigation
+import Link from "next/link"; 
 import { client } from "@/sanity/lib/client";
 import { PortableText } from "@portabletext/react";
 
@@ -19,6 +19,48 @@ async function getDoctor(slug: string) {
   );
 }
 
+import { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string; lang: string };
+}): Promise<Metadata> {
+  const { slug, lang } = await params;
+  const isEs = lang === "es";
+
+  const doctor = await client.fetch(
+    `*[_type == "doctor" && slug.current == $slug][0]{ name, role }`,
+    { slug }
+  );
+
+  if (!doctor) return { title: "Doctor Not Found" };
+
+  const title = isEs
+    ? `${doctor.name} | ${doctor.role} en Tribeca NYC`
+    : `${doctor.name} | ${doctor.role} in Tribeca NYC`;
+
+  const description = isEs
+    ? `Conozca a ${doctor.name}, ${doctor.role} en Tribeca Dental Studio 4 kids. Especialista en odontopediatría y cuidado dental para niños en Manhattan.`
+    : `Meet ${doctor.name}, a specialized ${doctor.role} at Tribeca Dental Studio 4 kids. Providing expert pediatric dental care and airway health in Tribeca, NYC.`;
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: `https://pediatrics.tribecadentalstudio.com/${lang}/team/${slug}`,
+      languages: {
+        "en-US": `https://pediatrics.tribecadentalstudio.com/en/team/${slug}`,
+        "es-ES": `https://pediatrics.tribecadentalstudio.com/es/team/${slug}`,
+      },
+    },
+    openGraph: {
+      title,
+      description,
+      type: "profile",
+    },
+  };
+}
 export default async function DoctorProfile({
   params,
 }: {
@@ -37,10 +79,8 @@ export default async function DoctorProfile({
   return (
     <main className="bg-[#FCFCFC] min-h-screen">
       <div className="flex flex-col lg:flex-row items-stretch">
-        {/* LEFT SIDE: Content */}
         <div className="w-full lg:w-1/2 flex flex-col justify-center p-8 md:p-20 lg:p-32 lg:pr-16">
           <div className="max-w-xl w-full mx-auto">
-            {/* NAVIGATION: Replaces <a> with <Link> for instant back navigation */}
             <nav className="mb-20">
               <Link
                 href={`/${lang}/team`}
@@ -98,12 +138,11 @@ export default async function DoctorProfile({
           </div>
         </div>
 
-        {/* RIGHT SIDE: Smaller, Aligned Image */}
         <div className="w-full lg:w-1/2 min-h-[60vh] lg:h-screen lg:sticky lg:top-0 flex items-center justify-center lg:justify-start lg:pl-10 p-10 lg:p-0 bg-white lg:mt-20">
           <div className="relative w-full max-w-[480px] aspect-[1/1.25] bg-[#F3F3F3] overflow-hidden">
             <Image
               src={doctor.imageUrl}
-              alt={doctor.name}
+              alt={`${doctor.name} - ${doctor.role} at Tribeca Dental Studio 4 Kids`} 
               fill
               priority
               sizes="(max-width: 1024px) 100vw, 50vw"

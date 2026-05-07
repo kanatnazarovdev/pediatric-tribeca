@@ -13,8 +13,8 @@ export async function generateMetadata({
 
   return {
     title: isEs 
-      ? "Historias de Éxito y Reseñas | Tribeca Dental Studio 4Kids" 
-      : "Real Patient Stories & Reviews | Tribeca Dental Studio 4Kids",
+      ? "Historias de Éxito y Reseñas | Tribeca Dental Studio 4 Kids" 
+      : "Real Patient Stories & Reviews | Tribeca Dental Studio 4 Kids",
     
     description: isEs
       ? "Vea por qué los padres de NYC confían en nuestra tecnología láser Biolase. Historias reales de visitas dentales sin dolor y sin lágrimas para niños en Tribeca."

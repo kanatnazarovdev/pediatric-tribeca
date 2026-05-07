@@ -9,12 +9,35 @@ interface CurodontProps {
 }
 export async function generateMetadata({ params }: { params: { lang: string } }) {
   const { lang } = await params;
-  
+  const isEs = lang === "es";
+
+  const title = isEs
+    ? "Curodont™ Repair | Caries Sin Torno en Tribeca | Tribeca Dental Studio 4 kids"
+    : "Curodont™ Repair | Drill-Free Cavity Treatment Tribeca | Tribeca Dental Studio 4 kids";
+
+  const description = isEs
+    ? "Elimine las caries de su hijo sin fresado ni dolor. Curodont™ en Tribeca utiliza biotecnología suiza para regenerar el esmalte dental de forma natural y sin agujas."
+    : "Heal your child's early cavities without drilling or shots. Curodont™ at Tribeca Dental Studio uses Swiss biotechnology to naturally regrow enamel for pain-free pediatric care.";
+
   return {
-    // Ensure the second argument matches the route exactly with NO trailing slash
+    title,
+    description,
     alternates: getAlternates(lang, "innovation/curodont"),
-    title: "Curodont™ Repair | Tribeca Dental Studio 4 Kids",
-    // ...
+    keywords: isEs 
+      ? ["caries sin torno NYC", "odontología sin dolor para niños", "Curodont español Tribeca", "regeneración de esmalte dental", "dentista pediátrico Tribeca"]
+      : ["drill-free cavity treatment NYC", "no-shot dentistry for kids", "Curodont Tribeca", "tooth enamel regeneration", "painless pediatric dentist Manhattan"],
+    openGraph: {
+      title,
+      description,
+      images: [
+        {
+          url: "/curodont.png",
+          width: 1200,
+          height: 630,
+          alt: isEs ? "Regeneración Dental Biológica" : "Biological Tooth Regeneration",
+        },
+      ],
+    },
   };
 }
 const Curodont = ({ lang }: CurodontProps) => {

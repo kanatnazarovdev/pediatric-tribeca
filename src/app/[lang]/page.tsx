@@ -9,6 +9,49 @@ import { getDictionary } from "./dictionaries";
 import Diagnostics from "@/components/Diagnostics";
 import Link from "next/link";
 import Reviews from "@/components/Reviews";
+import { Metadata } from "next";
+
+export async function generateMetadata({ params }: { params: { lang: string } }): Promise<Metadata> {
+  const { lang } = await params;
+  const isEs = lang === "es";
+
+  const title = isEs 
+    ? "Odontopediatra en Tribeca | Dentista para Niños en Manhattan NYC" 
+    : "Pediatric Dentist Tribeca | Leading Kids Dentistry Manhattan NYC";
+  
+  const description = isEs
+    ? "Especialistas en odontopediatría en Tribeca. Ofrecemos odontología sin dolor con láser, salud de las vías respiratorias y cuidado dental infantil de alta gama en NYC."
+    : "Expert pediatric dentistry in Tribeca, NYC. We specialize in pain-free laser dentistry, airway health, and growth-centric dental care for children and infants.";
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: `https://pediatrics.tribecadentalstudio.com/${lang}`,
+      languages: {
+        "en-US": "https://pediatrics.tribecadentalstudio.com/en",
+        "es-ES": "https://pediatrics.tribecadentalstudio.com/es",
+      },
+    },
+    openGraph: {
+      title,
+      description,
+      url: `https://pediatrics.tribecadentalstudio.com/${lang}`,
+      siteName: "Tribeca Dental Studio 4 Kids",
+      images: [
+        {
+          url: "/pediatricImage.webp", 
+          width: 1200,
+          height: 630,
+          alt: "Tribeca Dental Studio Pediatric Office",
+        },
+      ],
+      locale: isEs ? "es_US" : "en_US",
+      type: "website",
+    },
+  };
+}
+
 
 export default async function Home({
   params,

@@ -7,7 +7,6 @@ import Link from "next/link";
 import { PortableText } from "@portabletext/react";
 import { Metadata } from "next";
 import { getAlternates, baseUrl } from '@/hooks/helper'
-// --- 1. DYNAMIC METADATA (The "Fix") ---
 export async function generateMetadata({
   params,
 }: {
@@ -20,8 +19,8 @@ export async function generateMetadata({
 
   return {
     title: `${post.title} | TDS 4 Kids`,
-    description: post.excerpt || post.title, // Add an excerpt field to Sanity for better SEO
-    alternates: getAlternates(lang, `blog/${slug}`), // This solves the SEMrush errors
+    description: post.excerpt || post.title, 
+    alternates: getAlternates(lang, `blog/${slug}`), 
     openGraph: {
       title: post.title,
       description: post.excerpt,
@@ -31,7 +30,6 @@ export async function generateMetadata({
   };
 }
 
-// --- 2. THE COMPONENT ---
 
 const portableTextComponents: any = {
   block: {
