@@ -1,7 +1,7 @@
 // src/sanity/lib/queries.ts
 import { groq } from "next-sanity";
 
-export const postsQuery = groq`*[_type == "post"] | order(publishedAt desc) {
+export const postsQuery = `*[_type == "post" && language == $lang] | order(publishedAt desc) {
   title,
   slug,
   excerpt,
