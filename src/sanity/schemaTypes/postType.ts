@@ -6,11 +6,25 @@ export const postType = defineType({
   title: 'Post',
   type: 'document',
   icon: DocumentTextIcon,
-  // Using fieldsets to organize the UI in your Studio
   fieldsets: [
     { name: 'seo', title: 'SEO & Social Media Metadata' }
   ],
   fields: [
+    // 1. ADD THE LANGUAGE FIELD
+    // This allows you to differentiate between 'en' and 'es' documents
+    defineField({
+      name: 'language',
+      type: 'string',
+      title: 'Language',
+      initialValue: 'en',
+      options: {
+        list: [
+          {title: 'English', value: 'en'},
+          {title: 'Spanish', value: 'es'},
+        ],
+      },
+      validation: (Rule) => Rule.required(),
+    }),
     defineField({
       name: 'title',
       type: 'string',
@@ -33,6 +47,17 @@ export const postType = defineType({
       description: 'The 1-2 sentence summary used for blog cards and Google results (Max 160 chars).',
       validation: (Rule) => Rule.max(160).warning('Longer descriptions will be truncated by Google.'),
     }),
+    // 2. TRANSLATION REFERENCE (Optional but highly recommended)
+    // This connects the Spanish version to its English counterpart
+    defineField({
+      name: 'translationOf',
+      title: 'Translation of',
+      type: 'reference',
+      to: [{type: 'post'}],
+      description: 'If this is a Spanish post, link it to the original English version.',
+      // Hide this field if we are on the English version to keep UI clean
+      hidden: ({document}) => document?.language === 'en',
+    }),
     defineField({
       name: 'author',
       type: 'reference',
@@ -42,7 +67,7 @@ export const postType = defineType({
       name: 'mainImage',
       type: 'image',
       options: {
-        hotspot: true, // Crucial for responsive design
+        hotspot: true,
       },
       fields: [
         defineField({
@@ -73,14 +98,12 @@ export const postType = defineType({
       name: 'readTime',
       type: 'number',
       title: 'Estimated Reading Time',
-      description: 'In minutes (e.g., 5). Great for user engagement.',
     }),
     defineField({
       name: 'body',
       type: 'blockContent',
       description: 'The main content of your post.',
     }),
-    // SEO OVERRIDES
     defineField({
       name: 'seoTitle',
       title: 'Custom SEO Title',
@@ -94,10 +117,16 @@ export const postType = defineType({
       title: 'title',
       author: 'author.name',
       media: 'mainImage',
+      lang: 'language', 
     },
     prepare(selection) {
-      const {author} = selection
-      return {...selection, subtitle: author ? `by ${author}` : 'No author assigned'}
+      const {author, lang} = selection
+      const flag = lang === 'es' ? '🇪🇸' : '🇺🇸'
+      return {
+        ...selection, 
+        title: `${flag} ${selection.title}`,
+        subtitle: author ? `by ${author}` : 'No author assigned'
+      }
     },
   },
 })
