@@ -6,21 +6,21 @@ import Image from "next/image";
 import Link from "next/link";
 import { PortableText } from "@portabletext/react";
 import { Metadata } from "next";
-import { getAlternates, baseUrl } from '@/hooks/helper'
+import { getAlternates, baseUrl } from "@/hooks/helper";
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ slug: string; lang: string }>;
 }): Promise<Metadata> {
   const { slug, lang } = await params;
-  const post = await getPost(slug);
+  const post = await getPost(slug, lang);
 
   if (!post) return {};
 
   return {
     title: `${post.title} | TDS 4 Kids`,
-    description: post.excerpt || post.title, 
-    alternates: getAlternates(lang, `blog/${slug}`), 
+    description: post.excerpt || post.title,
+    alternates: getAlternates(lang, `blog/${slug}`),
     openGraph: {
       title: post.title,
       description: post.excerpt,
@@ -29,7 +29,6 @@ export async function generateMetadata({
     },
   };
 }
-
 
 const portableTextComponents: any = {
   block: {
@@ -77,26 +76,28 @@ const portableTextComponents: any = {
   },
 };
 
-async function getPost(slug: string) {
+async function getPost(slug: string, lang: string) {
   return client.fetch(
-    groq`*[_type == "post" && slug.current == $slug][0]{
+    groq`*[_type == "post" && slug.current == $slug && language == $lang][0]{
       title,
       mainImage,
       body,
       publishedAt,
       "excerpt": array::join(string::split((pt::text(body)), "")[0..160], ""),
-      // Fetch the slug of the post published immediately AFTER this one
-      "next": *[_type == "post" && publishedAt > ^.publishedAt] | order(publishedAt asc)[0]{ 
+      
+      // Filter next post by SAME language
+      "next": *[_type == "post" && language == $lang && publishedAt > ^.publishedAt] | order(publishedAt asc)[0]{ 
         "slug": slug.current, 
         title 
       },
-      // Fetch the slug of the post published immediately BEFORE this one
-      "previous": *[_type == "post" && publishedAt < ^.publishedAt] | order(publishedAt desc)[0]{ 
+      
+      // Filter previous post by SAME language
+      "previous": *[_type == "post" && language == $lang && publishedAt < ^.publishedAt] | order(publishedAt desc)[0]{ 
         "slug": slug.current, 
         title 
       }
     }`,
-    { slug }
+    { slug, lang }, // Pass lang to the query
   );
 }
 
@@ -106,7 +107,7 @@ export default async function PostPage({
   params: Promise<{ slug: string; lang: string }>;
 }) {
   const { slug, lang } = await params;
-  const post = await getPost(slug);
+  const post = await getPost(slug, lang);
 
   if (!post) return <div className="py-24 text-center">Post not found</div>;
 
@@ -120,11 +121,14 @@ export default async function PostPage({
           {post.title}
         </h1>
         <p className="text-zinc-500 text-sm uppercase tracking-widest">
-          {new Date(post.publishedAt).toLocaleDateString(lang, {
-            month: "long",
-            day: "numeric",
-            year: "numeric",
-          })}
+          {new Date(post.publishedAt).toLocaleDateString(
+            lang === "zh" ? "zh-CN" : lang,
+            {
+              month: "long",
+              day: "numeric",
+              year: "numeric",
+            },
+          )}
         </p>
       </div>
 
@@ -150,30 +154,47 @@ export default async function PostPage({
         {/* Navigation Footer */}
         <div className="pt-12 mt-20 border-t border-zinc-200">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 items-center">
-
             {/* Previous Post */}
             <div className="text-left">
               {post.previous ? (
-                <Link href={`/${lang}/blog/${post.previous.slug}`} className="group block">
+                <Link
+                  href={`/${lang}/blog/${post.previous.slug}`}
+                  className="group block"
+                >
                   <span className="text-zinc-400 text-[10px] uppercase tracking-[0.3em] block mb-2">
-                    {lang === "es" ? "Anterior" : "Previous"}
+                    {lang === "zh"
+                      ? "上一篇"
+                      : lang === "es"
+                        ? "Anterior"
+                        : "Previous"}
                   </span>
                   <span className="text-black text-sm font-medium group-hover:text-[#C5A059] transition-colors line-clamp-1">
                     {post.previous.title}
                   </span>
                   <span> ←</span>
                 </Link>
-              ) : <div />}
+              ) : (
+                <div />
+              )}
             </div>
 
             {/* Center: Back to Blog */}
             <div className="flex justify-center order-first md:order-none">
-              <Link href={`/${lang}/blog`} className="group flex flex-col items-center gap-2">
+              <Link
+                href={`/${lang}/blog`}
+                className="group flex flex-col items-center gap-2"
+              >
                 <div className="w-10 h-10 border border-zinc-200 rounded-full flex items-center justify-center group-hover:border-[#C5A059] transition-colors">
-                  <span className="text-zinc-400 group-hover:text-[#C5A059]">▦</span>
+                  <span className="text-zinc-400 group-hover:text-[#C5A059]">
+                    ▦
+                  </span>
                 </div>
                 <span className="text-zinc-400 text-[10px] uppercase tracking-[0.4em]">
-                  {lang === "es" ? "Blog" : "Blog Page"}
+                  {lang === "zh"
+                    ? "博客首页"
+                    : lang === "es"
+                      ? "Blog"
+                      : "Blog Page"}
                 </span>
               </Link>
             </div>
@@ -181,18 +202,26 @@ export default async function PostPage({
             {/* Next Post */}
             <div className="text-right">
               {post.next ? (
-                <Link href={`/${lang}/blog/${post.next.slug}`} className="group block">
+                <Link
+                  href={`/${lang}/blog/${post.next.slug}`}
+                  className="group block"
+                >
                   <span className="text-zinc-400 text-[10px] uppercase tracking-[0.3em] block mb-2">
-                    {lang === "es" ? "Siguiente" : "Next"}
+                    {lang === "zh"
+                      ? "下一篇"
+                      : lang === "es"
+                        ? "Siguiente"
+                        : "Next"}
                   </span>
                   <span className="text-black text-sm font-medium group-hover:text-[#C5A059] transition-colors line-clamp-1">
                     {post.next.title}
                   </span>
                   <span>→</span>
                 </Link>
-              ) : <div />}
+              ) : (
+                <div />
+              )}
             </div>
-
           </div>
         </div>
       </div>

@@ -7,14 +7,22 @@ import { urlFor } from "@/sanity/lib/image";
 import { getAlternates } from "@/hooks/helper";
 
 export async function generateMetadata({ params }: any) {
-  const { lang } = await params;
+  const { lang: rawLang } = await params;
+  const lang = rawLang === "es" ? "es" : rawLang === "zh" ? "zh" : "en";
+  
   const isEs = lang === "es";
+  const isZh = lang === "zh";
+
   return {
     alternates: getAlternates(lang, "blog"),
-    title: isEs
+    title: isZh 
+      ? "儿童牙科博客 | 曼哈顿翠贝卡专家资讯" 
+      : isEs
       ? "Blog de Odontopediatría | Tribeca"
       : "Pediatric Dental Blog | Tribeca",
-    description: isEs
+    description: isZh
+      ? "探索关于儿童口腔健康、预防性正畸、气道发育以及翠贝卡先进牙科技术的专业文章。"
+      : isEs
       ? "Explora artículos sobre salud bucal infantil, ortodoncia preventiva y tecnología dental avanzada en Tribeca."
       : "Explore articles on children's oral health, preventative orthodontics, and advanced dental tech at Tribeca.",
   };
@@ -23,12 +31,16 @@ export async function generateMetadata({ params }: any) {
 export default async function BlogPage({
   params,
 }: {
-  params: { lang: string };
+  params: Promise<{ lang: string }>; // Fixed type to match Next.js 15 async params if needed
 }) {
   const resolvedParams = await params;
   const lang = resolvedParams.lang;
+  
   const isEs = lang === "es";
+  const isZh = lang === "zh";
+  
   const posts = await client.fetch(postsQuery, { lang });
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-24 px-6 bg-[#fafaf4]">
       {/* Header Section */}
@@ -38,10 +50,10 @@ export default async function BlogPage({
             className="text-5xl font-light mb-6 tracking-tight uppercase text-white"
             style={{ fontFamily: "var(--font-D-DIN)" }}
           >
-            {isEs ? "Nuestro Blog" : "Blog"}
+            {isZh ? "工作室日志" : isEs ? "Nuestro Blog" : "Blog"}
           </h1>
           <p className="text-[18px] font-light tracking-[6px] text-zinc-400">
-            {isEs ? "NOTAS DESDE EL ESTUDIO" : "NOTES FROM THE STUDIO"}
+            {isZh ? "来自工作室的专业见解" : isEs ? "NOTAS DESDE EL ESTUDIO" : "NOTES FROM THE STUDIO"}
           </p>
         </header>
       </div>
@@ -52,13 +64,19 @@ export default async function BlogPage({
           className="text-2xl font-light uppercase tracking-widest mb-6 text-black"
           style={{ fontFamily: "var(--font-D-DIN)" }}
         >
-          {isEs
+          {isZh 
+            ? "赋能健康的笑容" 
+            : isEs
             ? "Educación para Sonrisas Saludables"
             : "Education for Healthy Smiles"}
         </h2>
-        <p className="text-zinc-600 leading-relaxed font-light">
-          {isEs ? (
-            <>
+        <div className="text-zinc-600 leading-relaxed font-light">
+          {isZh ? (
+            <p>
+              欢迎来到 <strong>Tribeca Dental Studio 4 kids</strong> 的官方资源中心。我们坚信，健康的笑容始于教育。在此博客中，我们的专家将分享关于气道发育、Biolase 无痛激光技术的优势，以及从小培养孩子口腔卫生习惯的专业建议。我们的目标是为曼哈顿家庭提供必要的资讯，助力孩子拥有一生的口腔健康。
+            </p>
+          ) : isEs ? (
+            <p>
               Bienvenidos al recurso oficial de{" "}
               <strong>Tribeca Dental Studio 4 kids</strong>. Creemos que una
               sonrisa saludable comienza con la educación. En este blog,
@@ -66,22 +84,18 @@ export default async function BlogPage({
               desarrollo de las vías respiratorias, los beneficios de la
               tecnología láser Biolase sin dolor y consejos prácticos para
               mantener la higiene bucal de sus hijos desde una edad temprana.
-              Nuestro objetivo es empoderar a las familias de Manhattan con la
-              información necesaria para una vida de salud dental óptima.
-            </>
+            </p>
           ) : (
-            <>
+            <p>
               Welcome to the official resource hub of{" "}
               <strong>Tribeca Dental Studio 4 kids</strong>. We believe a
               healthy smile begins with education. In this blog, our specialists
               share deep insights into airway development, the benefits of
               pain-free Biolase laser technology, and practical tips for
-              maintaining your child’s oral hygiene from an early age. Our goal
-              is to empower Manhattan families with the information needed for a
-              lifetime of optimal dental health.
-            </>
+              maintaining your child’s oral hygiene from an early age.
+            </p>
           )}
-        </p>
+        </div>
       </div>
 
       <div className="max-w-7xl w-full mt-10 lg:mt-15 mb-10 lg:mb-18">
@@ -104,7 +118,7 @@ export default async function BlogPage({
                 </div>
                 <div className="space-y-3">
                   <h2
-                    className="text-xl font-medium text-black leading-tight group-hover:text-[#8ed1fc] transition-colors uppercase"
+                    className="text-xl font-medium text-black leading-tight group-hover:text-[#C5A059] transition-colors uppercase"
                     style={{ fontFamily: "var(--font-D-DIN)" }}
                   >
                     {post.title}
@@ -113,7 +127,7 @@ export default async function BlogPage({
                     {post.excerpt}
                   </p>
                   <div className="pt-2 text-[10px] uppercase tracking-widest text-zinc-600">
-                    {new Date(post.publishedAt).toLocaleDateString(lang)} —{" "}
+                    {new Date(post.publishedAt).toLocaleDateString(lang === 'zh' ? 'zh-CN' : lang)} —{" "}
                     {post.authorName}
                   </div>
                 </div>
