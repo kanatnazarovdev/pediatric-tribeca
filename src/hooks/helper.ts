@@ -10,8 +10,8 @@ export function getAlternates(lang: string, path: string = "") {
     languages: {
       "en-US": `${baseUrl}/en${segment}`,
       "es-ES": `${baseUrl}/es${segment}`,
-      "zh-Hans": `${baseUrl}/zh${segment}`, // Added Simplified Chinese for NYC market
-      "x-default": `${baseUrl}/en${segment}`, // Keeps English as the global fallback
+      "zh-Hans": `${baseUrl}/zh${segment}`, 
+      "x-default": `${baseUrl}/en${segment}`, 
     },
   };
 }

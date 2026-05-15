@@ -9,7 +9,6 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { lang: rawLang } = await params;
   
-  // Logic to handle en, es, and zh
   const lang = rawLang === "es" ? "es" : rawLang === "zh" ? "zh" : "en";
   const isEs = lang === "es";
   const isZh = lang === "zh";

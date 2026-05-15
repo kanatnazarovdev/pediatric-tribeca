@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { PortableText } from "@portabletext/react";
 import { Metadata } from "next";
-import { getAlternates, baseUrl } from "@/hooks/helper";
+import { getAlternates } from "@/hooks/helper";
 export async function generateMetadata({
   params,
 }: {
@@ -24,7 +24,6 @@ export async function generateMetadata({
     openGraph: {
       title: post.title,
       description: post.excerpt,
-      url: `${baseUrl}/${lang}/blog/${slug}`,
       images: post.mainImage ? [{ url: urlFor(post.mainImage).url() }] : [],
     },
   };
