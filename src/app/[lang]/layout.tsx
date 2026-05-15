@@ -14,19 +14,25 @@ export async function generateMetadata({
   params: Promise<{ lang: string }>;
 }): Promise<Metadata> {
   const { lang: rawLang } = await params;
-  const lang = rawLang === "es" ? "es" : "en";
+
+  const lang = rawLang === "es" ? "es" : rawLang === "zh" ? "zh" : "en";
   const isEs = lang === "es";
+  const isZh = lang === "zh";
 
   return {
-    title: isEs
-      ? "Tribeca Dental Studio 4 Kids ® | Odontopediatría en NYC"
-      : "Tribeca Dental Studio 4 Kids ® | Pediatric Dentist Tribeca NYC",
-    description: isEs
-      ? "Especialistas en odontopediatría en Tribeca. Láser Biolase sin dolor y salud de vías respiratorias. ¡Reserva el 'Smile Reset' de tu hijo!"
-      : "Expert pediatric dentist in Tribeca, NYC. Pain-free Biolase laser dentistry & airway health. Book your child's 'Smile Reset' today!",
+    title: isZh
+      ? "纽约翠贝卡高端儿童牙科 | 曼哈顿下城专业儿童牙医"
+      : isEs
+        ? "Tribeca Dental Studio 4 Kids ® | Odontopediatría en NYC"
+        : "Tribeca Dental Studio 4 Kids ® | Pediatric Dentist Tribeca NYC",
+    description: isZh
+      ? "纽约翠贝卡专业儿童牙科。我们专注于无痛激光牙科、气道健康和功能发育评估。"
+      : isEs
+        ? "Especialistas en odontopediatría en Tribeca. Láser Biolase sin dolor y salud de vías respiratorias. ¡Reserva el 'Smile Reset' de tu hijo!"
+        : "Expert pediatric dentist in Tribeca, NYC. Pain-free Biolase laser dentistry & airway health. Book your child's 'Smile Reset' today!",
     metadataBase: new URL(baseUrl),
 
-alternates: getAlternates(lang, ""),
+    alternates: getAlternates(lang, ""),
     openGraph: {
       title: "Pediatric Dentistry & Airway Health",
       description: "Advanced pediatric dental care in Tribeca.",
@@ -40,7 +46,7 @@ alternates: getAlternates(lang, ""),
           alt: "Tribeca Dental Studio 4 kids Interior",
         },
       ],
-      locale: isEs ? "es_ES" : "en_US",
+      locale: isZh ? "zh_CN" : isEs ? "es_ES" : "en_US",
       type: "website",
     },
     robots: {
@@ -59,7 +65,7 @@ export default async function RootLayout(props: {
 }) {
   const params = await props.params;
   const { children } = props;
-  const lang = params.lang === "es" ? "es" : "en";
+  const lang = ["es", "zh"].includes(params.lang) ? params.lang : "en";
   const dict = await getDictionary(lang);
 
   const jsonLd = {
@@ -133,7 +139,7 @@ export default async function RootLayout(props: {
             style={{ display: "none", visibility: "hidden" }}
           ></iframe>
         </noscript>
-      
+
         <NextTopLoader
           color="#C5A059"
           initialPosition={0.08}

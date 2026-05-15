@@ -8,25 +8,32 @@ interface TestimonialProps {
 
 export default function PediatricTestimonial({ lang }: TestimonialProps) {
   const isEs = lang === "es";
+  const isZh = lang === "zh";
 
   const testimonials = [
     {
-      quote: isEs 
+      quote: isZh
+        ? "看到孩子在发育上的进步真是太棒了。他们终于能安稳入睡，白天的精力也充沛了许多。"
+        : isEs 
         ? "Ver el progreso en el desarrollo de mi hijo ha sido increíble. Ahora duerme profundamente y tiene mucha más energía durante el día."
         : "Watching the progress in my child’s development has been incredible. They are finally sleeping soundly and have so much more energy during the day.",
-      author: isEs ? "Padre de Familia" : "Family Member"
+      author: isZh ? "来自家长的真实评价" : isEs ? "Padre de Familia" : "Family Member"
     },
     {
-      quote: isEs
+      quote: isZh
+        ? "这家位于曼哈顿下城的专业诊所改变了我们的看法。他们不仅是在看诊，更是在保障我孩子的未来健康。"
+        : isEs
         ? "El enfoque preventivo de Tribeca cambió nuestra perspectiva. No solo están tratando a un paciente; están asegurando el futuro de mi hijo."
         : "The preventative approach at Tribeca Dental Studio 4 kids changed our perspective. They aren’t just treating a patient; they are securing my child’s future.",
-      author: isEs ? "Cuidado Preventivo" : "Preventative Care Parent"
+      author: isZh ? "曼哈顿下城家长" : isEs ? "Cuidado Preventivo" : "Preventative Care Parent"
     },
     {
-      quote: isEs
+      quote: isZh
+        ? "环境非常安静且专业。我女儿从第一刻起就感到很安全，她呼吸质量的改善非常显著。"
+        : isEs
         ? "Un ambiente tan tranquilo y profesional. Mi hija se sintió segura desde el primer momento, y los resultados en su respiración son notables."
         : "Such a calm and professional environment. My daughter felt safe from the first moment, and the results in her breathing are remarkable.",
-      author: isEs ? "Salud de las Vías Respiratorias" : "Airway Health Patient"
+      author: isZh ? "气道健康患者家长" : isEs ? "Salud de las Vías Respiratorias" : "Airway Health Patient"
     }
   ];
 
@@ -40,12 +47,12 @@ export default function PediatricTestimonial({ lang }: TestimonialProps) {
               whileInView={{ opacity: 1 }}
               className="text-[10px] uppercase tracking-[0.8em] text-[#C5A059] font-bold block mb-6"
             >
-              {isEs ? "Testimonios de Padres" : "Parental Testimonials"}
+              {isZh ? "曼哈顿家长的信赖评价" : isEs ? "Testimonios de Padres" : "Parental Testimonials"}
             </motion.span>
             <h2 className="text-black font-serif text-5xl md:text-6xl tracking-tight leading-tight">
-              {isEs ? "Confianza en el" : "Confidence in"} <br />
+              {isZh ? "信赖成长" : isEs ? "Confianza en el" : "Confidence in"} <br />
               <span className="italic font-light text-gray-400">
-                {isEs ? "Crecimiento" : "Development"}
+                {isZh ? "发育与健康" : isEs ? "Crecimiento" : "Development"}
               </span>
             </h2>
           </div>

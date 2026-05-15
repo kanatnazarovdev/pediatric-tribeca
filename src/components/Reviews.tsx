@@ -24,9 +24,12 @@ interface Review {
   relative_time_description: string;
 }
 
-const ReviewCard = ({ review, index }: { review: Review; index: number }) => {
+const ReviewCard = ({ review, index, lang }: { review: Review; index: number; lang: string }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const isLongText = review.text.length > 280;
+  
+  const isZh = lang === "zh";
+  const isEs = lang === "es";
 
   return (
     <div className="flex flex-col h-full bg-white transition-all duration-300">
@@ -51,11 +54,11 @@ const ReviewCard = ({ review, index }: { review: Review; index: number }) => {
             >
               {isExpanded ? (
                 <>
-                  <Minus size={12} /> Read Less
+                  <Minus size={12} /> {isZh ? "收起" : isEs ? "Leer Menos" : "Read Less"}
                 </>
               ) : (
                 <>
-                  <Plus size={12} /> Read More
+                  <Plus size={12} /> {isZh ? "阅读更多" : isEs ? "Leer Más" : "Read More"}
                 </>
               )}
             </button>
@@ -68,16 +71,19 @@ const ReviewCard = ({ review, index }: { review: Review; index: number }) => {
           {review.author_name}
         </h4>
         <p className="text-[10px] text-[#c5a367] uppercase tracking-widest mt-1">
-          Verified Parent • {review.relative_time_description}
+          {isZh ? "验证家长" : isEs ? "Padre Verificado" : "Verified Parent"} • {review.relative_time_description}
         </p>
       </div>
     </div>
   );
 };
 
-const Reviews = () => {
+const Reviews = ({ lang }: { lang: string }) => {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(true);
+  
+  const isZh = lang === "zh";
+  const isEs = lang === "es";
 
   useEffect(() => {
     const fetchReviews = async () => {
@@ -112,10 +118,10 @@ const Reviews = () => {
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col items-center text-center mb-20">
           <span className="text-[10px] uppercase tracking-[0.4em] text-[#c5a367] font-bold mb-4">
-            Testimonials
+            {isZh ? "客户好评" : isEs ? "Testimonios" : "Testimonials"}
           </span>
           <h2 className="text-4xl md:text-5xl font-light text-slate-900 tracking-tight lowercase">
-            patient stories
+            {isZh ? "患者的故事" : isEs ? "historias de pacientes" : "patient stories"}
           </h2>
           <div className="mt-8 flex items-center gap-2 bg-slate-50/50 px-5 py-2.5 rounded-full border border-slate-100">
             <div className="flex gap-0.5">
@@ -130,7 +136,7 @@ const Reviews = () => {
             </div>
             <span className="text-[10px] font-bold text-slate-400 tracking-[0.15em] uppercase">
               <a href="https://share.google/GKKk9kco6LieCVFiz" target="_blank">
-                5 Google Rating
+                {isZh ? "谷歌 5.0 评分" : isEs ? "5 Calificación de Google" : "5 Google Rating"}
               </a>
             </span>
           </div>
@@ -141,7 +147,7 @@ const Reviews = () => {
             modules={[Navigation, Pagination, A11y]}
             spaceBetween={60}
             slidesPerView={1}
-            autoHeight={true} // Crucial: This adjusts the slider height when text expands
+            autoHeight={true}
             breakpoints={{
               768: { slidesPerView: 2 },
               1024: { slidesPerView: 3 },
@@ -155,7 +161,7 @@ const Reviews = () => {
           >
             {reviews.map((review, i) => (
               <SwiperSlide key={i} className="h-auto">
-                <ReviewCard review={review} index={i} />
+                <ReviewCard review={review} index={i} lang={lang} />
               </SwiperSlide>
             ))}
           </Swiper>

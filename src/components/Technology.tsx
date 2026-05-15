@@ -8,27 +8,34 @@ interface TechnologyProps {
 
 export default function PediatricTechnology({ lang }: TechnologyProps) {
   const isEs = lang === "es";
+  const isZh = lang === "zh";
 
   const features = [
     {
-      title: isEs ? "Crecimiento Guiado" : "Guided Growth",
-      description: isEs 
+      title: isZh ? "引导发育" : isEs ? "Crecimiento Guiado" : "Guided Growth",
+      description: isZh 
+        ? "通过早期干预引导面部自然发育，确保孩子终身拥有宽敞健康的呼吸道。" 
+        : isEs 
         ? "Intervención temprana para moldear el desarrollo natural, asegurando vías respiratorias amplias y saludables." 
         : "Early intervention to guide natural facial development, ensuring wide and healthy airways for life.",
       step: "01",
       image: "/childcbct2.webp"
     },
     {
-      title: isEs ? "Cuidado Sin Estrés" : "Stress-Free Care",
-      description: isEs 
+      title: isZh ? "舒适化诊疗" : isEs ? "Cuidado Sin Estrés" : "Stress-Free Care",
+      description: isZh 
+        ? "我们采用静音、温和的诊疗技术，专为提升孩子的安全感和舒适度而设计。" 
+        : isEs 
         ? "Nuestra tecnología es silenciosa y suave, diseñada para que los niños se sientan seguros." 
         : "Silent, gentle technology specifically designed to make children feel safe and at ease.",
       step: "02",
       image: "/stressfree2.webp" 
     },
     {
-      title: isEs ? "Vitalidad de Por Vida" : "Lifetime Vitality",
-      description: isEs 
+      title: isZh ? "终身活力" : isEs ? "Vitalidad de Por Vida" : "Lifetime Vitality",
+      description: isZh 
+        ? "改善当下的呼吸质量，意味着孩子未来将拥有更好的专注力、精力和发育状态。" 
+        : isEs 
         ? "Mejorar la respiración hoy significa un mejor enfoque y desarrollo para el futuro de su hijo." 
         : "Improving breathing today means better focus, energy, and development for your child's future.",
       step: "03",
@@ -41,10 +48,10 @@ export default function PediatricTechnology({ lang }: TechnologyProps) {
       <Container>
         <div className="mb-24">
           <span className="text-[10px] tracking-[0.5em] text-[#C5A059] font-bold uppercase mb-4 block">
-            {isEs ? "Tecnología Avanzada" : "Advanced Technology"}
+            {isZh ? "先进诊疗技术" : isEs ? "Tecnología Avanzada" : "Advanced Technology"}
           </span>
           <h2 className="text-5xl md:text-7xl font-serif tracking-tight text-black">
-            {isEs ? "El Estándar Tribeca Dental Studio"  : "The Tribeca Dental Studio Standard"}
+            {isZh ? "Tribeca Dental Studio 行业标准" : isEs ? "El Estándar Tribeca Dental Studio"  : "The Tribeca Dental Studio Standard"}
           </h2>
         </div>
 

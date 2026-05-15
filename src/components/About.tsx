@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 
 export default function About({ lang }: { lang: string }) {
   const isEs = lang === "es";
+  const isZh = lang === "zh";
 
   return (
     <section className="bg-[#F9F8F6] w-full overflow-hidden py-24 md:py-40" id="secondBlock">
@@ -14,7 +15,7 @@ export default function About({ lang }: { lang: string }) {
             whileInView={{ opacity: 1, y: 0 }}
             className="text-[10px] uppercase tracking-[0.6em] text-[#C5A059] font-bold mb-8"
           >
-            {isEs ? "Cuidado Especializado" : "Specialized Pediatric Care"}
+            {isZh ? "专业儿童牙科护理" : isEs ? "Cuidado Especializado" : "Specialized Pediatric Care"}
           </motion.span>
           <div className="relative w-full max-w-6xl mx-auto">
             <motion.h2
@@ -23,7 +24,7 @@ export default function About({ lang }: { lang: string }) {
               whileInView={{ opacity: 1 }}
               transition={{ duration: 1 }}
             >
-              {isEs ? "Sonrisas Sanas," : "Healthy Smiles,"}
+              {isZh ? "健康笑容," : isEs ? "Sonrisas Sanas," : "Healthy Smiles,"}
             </motion.h2>
 
             <motion.h2
@@ -32,7 +33,7 @@ export default function About({ lang }: { lang: string }) {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 1.2, delay: 0.3 }}
             >
-              {isEs ? "Comienzos Felices." : "Happy Beginnings."}
+              {isZh ? "美好起点。" : isEs ? "Comienzos Felices." : "Happy Beginnings."}
             </motion.h2>
 
             <motion.div
@@ -41,7 +42,9 @@ export default function About({ lang }: { lang: string }) {
               whileInView={{ opacity: 1, y: 0 }}
             >
               <p className="text-sm md:text-base text-[#4A4A4A] leading-relaxed font-light">
-                {isEs
+                {isZh
+                  ? "在 Tribeca Dental Studio，孩子的首次就诊是开启终身口腔健康和自信笑容的关键。"
+                  : isEs
                   ? "En Tribeca Dental Studio, la primera visita de un niño marca el camino hacia una vida de salud oral duradera."
                   : "At Tribeca Dental Studio, a child’s first visit sets the path for a lifetime of healthy growth and bright smiles."}
               </p>
@@ -52,20 +55,26 @@ export default function About({ lang }: { lang: string }) {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-32">
           {[
             {
-              title: isEs ? "Cuidado Preventivo" : "Preventative First",
-              desc: isEs
+              title: isZh ? "预防优先" : isEs ? "Cuidado Preventivo" : "Preventative First",
+              desc: isZh
+                ? "早期干预与监测，确保牙齿自然健康发育。"
+                : isEs
                 ? "Detección temprana para un crecimiento saludable."
                 : "Early intervention for natural, healthy dental growth.",
             },
             {
-              title: isEs ? "Experiencia Sin Miedo" : "Fear-Free Visits",
-              desc: isEs
+              title: isZh ? "无惧就诊" : isEs ? "Experiencia Sin Miedo" : "Fear-Free Visits",
+              desc: isZh
+                ? "采用柔和的诊疗技术，消除孩子的看牙焦虑。"
+                : isEs
                 ? "Tecnología suave para citas libres de ansiedad."
                 : "Gentle, patient-centered technology for stress-free visits.",
             },
             {
-              title: isEs ? "Crecimiento y Vías" : "Growth & Airway",
-              desc: isEs
+              title: isZh ? "气道与发育" : isEs ? "Crecimiento y Vías" : "Growth & Airway",
+              desc: isZh
+                ? "关注儿童呼吸健康，助力孩子全面茁壮成长。"
+                : isEs
                 ? "Ayudamos a su hijo a respirar y prosperar mejor."
                 : "Focusing on airway health to help your child thrive.",
             },
