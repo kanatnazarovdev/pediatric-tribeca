@@ -11,7 +11,7 @@ export default function CommunityPage({
 }) {
   const { lang } = use(params);
   const containerRef = useRef(null);
-  
+
   const isZh = lang === "zh";
   const isEs = lang === "es";
 
@@ -19,8 +19,16 @@ export default function CommunityPage({
     {
       id: "1",
       slug: "pre-k-visit",
-      title: isZh ? "幼儿园走进诊所工作坊" : isEs ? "Taller para Pre-Kinder" : "The Pre-K Workshop",
-      location: isZh ? "翠贝卡幼儿园" : isEs ? "Preescolar de TriBeCa" : "TriBeCa Preschool",
+      title: isZh
+        ? "幼儿园走进诊所工作坊"
+        : isEs
+          ? "Taller para Pre-Kinder"
+          : "The Pre-K Workshop",
+      location: isZh
+        ? "翠贝卡幼儿园"
+        : isEs
+          ? "Preescolar de TriBeCa"
+          : "TriBeCa Preschool",
       date: isZh ? "2026年3月" : isEs ? "MARZO 2026" : "MARCH 2026",
       thumbnail: "/stills/thumbnail.webp",
     },
@@ -30,37 +38,61 @@ export default function CommunityPage({
     {
       num: "01",
       title: isZh ? "消除恐惧" : isEs ? "Desmitificación" : "Demystification",
-      text: isZh 
-        ? "将临床知识带进教室，在孩子第一次就诊前，将“恐惧”转化为好奇心。" 
-        : isEs 
-        ? "Llevamos el conocimiento clínico a las aulas para convertir el 'miedo' en curiosidad antes de la primera visita." 
-        : "Bringing clinical knowledge into classrooms to turn 'fear' into curiosity before the first visit.",
+      text: isZh
+        ? "将临床知识带进教室，在孩子第一次就诊前，将“恐惧”转化为好奇心。"
+        : isEs
+          ? "Llevamos el conocimiento clínico a las aulas para convertir el 'miedo' en curiosidad antes de la primera visita."
+          : "Bringing clinical knowledge into classrooms to turn 'fear' into curiosity before the first visit.",
     },
     {
       num: "02",
       title: isZh ? "社区伙伴" : isEs ? "Alianzas" : "Partnership",
-      text: isZh 
-        ? "通过与当地幼儿园和学校建立联盟，在孩子们最舒适的环境中与他们见面。" 
-        : isEs 
-        ? "Nos encontramos con los niños en sus entornos más cómodos a través de alianzas con escuelas y Pre-K locales." 
-        : "Meeting children in their most comfortable environments through local Pre-K and school alliances.",
+      text: isZh
+        ? "通过与当地幼儿园和学校建立联盟，在孩子们最舒适的环境中与他们见面。"
+        : isEs
+          ? "Nos encontramos con los niños en sus entornos más cómodos a través de alianzas con escuelas y Pre-K locales."
+          : "Meeting children in their most comfortable environments through local Pre-K and school alliances.",
     },
     {
       num: "03",
       title: isZh ? "视觉真实" : isEs ? "Verdad Visual" : "Visual Truth",
-      text: isZh 
-        ? "利用电影级影像记录并分享高端儿童牙科诊疗的真实过程。" 
-        : isEs 
-        ? "Utilizamos producción cinematográfica para documentar y compartir la realidad del cuidado pediátrico de alta gama." 
-        : "Utilizing cinematic production to document and share the reality of high-end pediatric care.",
+      text: isZh
+        ? "利用电影级影像记录并分享高端儿童牙科诊疗的真实过程。"
+        : isEs
+          ? "Utilizamos producción cinematográfica para documentar y compartir la realidad del cuidado pediátrico de alta gama."
+          : "Utilizing cinematic production to document and share the reality of high-end pediatric care.",
     },
   ];
 
   const STATS = [
-    { val: "12+", label: isZh ? "合作学校" : isEs ? "Escuelas Asociadas" : "Partner Schools" },
-    { val: "500+", label: isZh ? "受教儿童" : isEs ? "Niños Educados" : "Kids Educated" },
-    { val: "100%", label: isZh ? "临床透明度" : isEs ? "Transparencia Clínica" : "Clinical Transparency" },
-    { val: "NYC", label: isZh ? "扎根翠贝卡" : isEs ? "Raíces en TriBeCa" : "TriBeCa Rooted" },
+    {
+      val: "12+",
+      label: isZh
+        ? "合作学校"
+        : isEs
+          ? "Escuelas Asociadas"
+          : "Partner Schools",
+    },
+    {
+      val: "500+",
+      label: isZh ? "受教儿童" : isEs ? "Niños Educados" : "Kids Educated",
+    },
+    {
+      val: "100%",
+      label: isZh
+        ? "临床透明度"
+        : isEs
+          ? "Transparencia Clínica"
+          : "Clinical Transparency",
+    },
+    {
+      val: "NYC",
+      label: isZh
+        ? "扎根翠贝卡"
+        : isEs
+          ? "Raíces en TriBeCa"
+          : "TriBeCa Rooted",
+    },
   ];
 
   const { scrollYProgress } = useScroll({
@@ -100,7 +132,7 @@ export default function CommunityPage({
           </video>
         </motion.div>
 
-        <motion.div 
+        <motion.div
           style={{ opacity: contentFade }}
           className="max-w-6xl mx-auto px-6 relative z-20"
         >
@@ -119,11 +151,11 @@ export default function CommunityPage({
               transition={{ duration: 1.2, delay: 0.4 }}
               className="text-white text-5xl md:text-7xl lg:text-8xl font-light leading-[0.95] italic tracking-tighter max-w-5xl"
             >
-              {isZh 
-                ? "“我们不只是在行医，我们是在构建儿童健康的未来。”" 
-                : isEs 
-                ? "“No solo practicamos la odontología; diseñamos el futuro del bienestar infantil”." 
-                : "“We don't just practice dentistry; we architect the future of childhood wellness.”"}
+              {isZh
+                ? "“我们不只是在行医，我们是在构建儿童健康的未来。”"
+                : isEs
+                  ? "“No solo practicamos la odontología; diseñamos el futuro del bienestar infantil”."
+                  : "“We don't just practice dentistry; we architect the future of childhood wellness.”"}
             </motion.p>
           </motion.div>
 
@@ -151,17 +183,24 @@ export default function CommunityPage({
 
       {/* RECENT STORIES SECTION */}
       <section className="max-w-6xl mx-auto px-6 py-24 md:py-48 bg-white relative z-30">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
           className="flex flex-col md:flex-row justify-between items-start md:items-baseline mb-24 md:mb-40 border-b border-black/10 pb-10 gap-6"
         >
           <h2 className="text-5xl md:text-7xl font-light tracking-tighter uppercase text-black leading-none">
-            {isZh ? "近期" : isEs ? "Historias" : "Recent"} <span className="italic font-serif">{isZh ? "故事" : isEs ? "Recientes" : "Stories"}</span>
+            {isZh ? "近期" : isEs ? "Historias" : "Recent"}{" "}
+            <span className="italic font-serif">
+              {isZh ? "故事" : isEs ? "Recientes" : "Stories"}
+            </span>
           </h2>
           <span className="text-[10px] md:text-[12px] uppercase tracking-[0.5em] text-gray-400 font-bold">
-            {isZh ? "纪实系列" : isEs ? "Serie Documental" : "Documentation Series"}
+            {isZh
+              ? "纪实系列"
+              : isEs
+                ? "Serie Documental"
+                : "Documentation Series"}
           </span>
         </motion.div>
 
@@ -204,13 +243,21 @@ export default function CommunityPage({
           className="max-w-2xl mx-auto px-6"
         >
           <p className="text-gray-400 text-[12px] uppercase tracking-[0.6em] mb-8">
-            {isZh ? "准备好开启这段旅程了吗？" : isEs ? "¿Listo para comenzar el viaje?" : "Ready to start the journey?"}
+            {isZh
+              ? "准备好开启这段旅程了吗？"
+              : isEs
+                ? "¿Listo para comenzar el viaje?"
+                : "Ready to start the journey?"}
           </p>
-          <a 
-            href={`/${lang}/booking`}
+          <a
+            href={`https://booking.adit.com/4dcced5c-07a5-4e12-b80f-d470bca99a63`}
             className="text-2xl md:text-3xl font-serif italic border-b border-black/20 pb-2 hover:border-black transition-colors"
           >
-            {isZh ? "预约学校访问" : isEs ? "Programar una Visita Escolar" : "Schedule a School Visit"}
+            {isZh
+              ? "预约学校访问"
+              : isEs
+                ? "Programar una Visita Escolar"
+                : "Schedule a School Visit"}
           </a>
         </motion.div>
       </section>

@@ -20,7 +20,9 @@ export async function generateMetadata({
   return {
     title: `${post.title} | TDS 4 Kids`,
     description: post.excerpt || post.title,
-    alternates: getAlternates(lang, `blog/${slug}`),
+    alternates: {
+      ...getAlternates(lang, `blog/${slug}`),
+    },
     openGraph: {
       title: post.title,
       description: post.excerpt,

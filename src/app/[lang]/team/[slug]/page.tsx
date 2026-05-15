@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link"; 
 import { client } from "@/sanity/lib/client";
 import { PortableText } from "@portabletext/react";
+import { Metadata } from "next";
 
 async function getDoctor(slug: string) {
   return await client.fetch(
@@ -19,15 +20,14 @@ async function getDoctor(slug: string) {
   );
 }
 
-import { Metadata } from "next";
-
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string; lang: string };
+  params: Promise<{ slug: string; lang: string }>;
 }): Promise<Metadata> {
   const { slug, lang } = await params;
   const isEs = lang === "es";
+  const isZh = lang === "zh";
 
   const doctor = await client.fetch(
     `*[_type == "doctor" && slug.current == $slug][0]{ name, role }`,
@@ -36,11 +36,15 @@ export async function generateMetadata({
 
   if (!doctor) return { title: "Doctor Not Found" };
 
-  const title = isEs
+  const title = isZh
+    ? `${doctor.name} | ${doctor.role} | 纽约曼哈顿专家`
+    : isEs
     ? `${doctor.name} | ${doctor.role} en Tribeca NYC`
     : `${doctor.name} | ${doctor.role} in Tribeca NYC`;
 
-  const description = isEs
+  const description = isZh
+    ? `了解 ${doctor.name}，他是 Tribeca Dental Studio 4 kids 的专业 ${doctor.role}。在曼哈顿翠贝卡提供顶尖的儿童牙科和气道健康护理。`
+    : isEs
     ? `Conozca a ${doctor.name}, ${doctor.role} en Tribeca Dental Studio 4 kids. Especialista en odontopediatría y cuidado dental para niños en Manhattan.`
     : `Meet ${doctor.name}, a specialized ${doctor.role} at Tribeca Dental Studio 4 kids. Providing expert pediatric dental care and airway health in Tribeca, NYC.`;
 
@@ -52,6 +56,7 @@ export async function generateMetadata({
       languages: {
         "en-US": `https://pediatrics.tribecadentalstudio.com/en/team/${slug}`,
         "es-ES": `https://pediatrics.tribecadentalstudio.com/es/team/${slug}`,
+        "zh-CN": `https://pediatrics.tribecadentalstudio.com/zh/team/${slug}`,
       },
     },
     openGraph: {
@@ -61,6 +66,7 @@ export async function generateMetadata({
     },
   };
 }
+
 export default async function DoctorProfile({
   params,
 }: {
@@ -68,11 +74,14 @@ export default async function DoctorProfile({
 }) {
   const { slug, lang } = await params;
   const doctor = await getDoctor(slug);
+  
+  const isEs = lang === "es";
+  const isZh = lang === "zh";
 
   if (!doctor)
     return (
       <div className="h-screen flex items-center justify-center uppercase tracking-[0.5em] text-[10px] text-gray-400">
-        Doctor not found
+        {isZh ? "未找到医生" : isEs ? "Doctor no encontrado" : "Doctor not found"}
       </div>
     );
 
@@ -89,7 +98,7 @@ export default async function DoctorProfile({
                 <span className="mr-2 transition-transform group-hover:-translate-x-1">
                   ←
                 </span>
-                Back to Team
+                {isZh ? "返回团队" : isEs ? "Volver al Equipo" : "Back to Team"}
               </Link>
             </nav>
 
@@ -101,7 +110,7 @@ export default async function DoctorProfile({
               <div className="flex flex-col space-y-6 border-l border-gray-200 pl-8 py-2">
                 <div>
                   <p className="text-[9px] tracking-[0.3em] uppercase text-gray-400 font-bold mb-2">
-                    Location
+                    {isZh ? "办公地点" : isEs ? "Ubicación" : "Location"}
                   </p>
                   <p className="text-[11px] tracking-widest uppercase font-medium text-gray-800">
                     {doctor.location || "New York"}
@@ -109,7 +118,7 @@ export default async function DoctorProfile({
                 </div>
                 <div>
                   <p className="text-[9px] tracking-[0.3em] uppercase text-gray-400 font-bold mb-2">
-                    Position
+                    {isZh ? "职位职务" : isEs ? "Cargo" : "Position"}
                   </p>
                   <p className="text-[11px] tracking-widest uppercase font-medium text-gray-800">
                     {doctor.role}
@@ -129,7 +138,7 @@ export default async function DoctorProfile({
               >
                 <button className="group relative text-[10px] tracking-[0.4em] uppercase font-bold py-5 px-12 border border-black overflow-hidden transition-all duration-500">
                   <span className="relative z-10 group-hover:text-white transition-colors duration-500">
-                    Schedule a Consultation
+                    {isZh ? "立即预约咨询" : isEs ? "Programar una Consulta" : "Schedule a Consultation"}
                   </span>
                   <div className="absolute inset-0 bg-black translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
                 </button>
