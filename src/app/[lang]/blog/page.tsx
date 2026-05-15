@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: any) {
   const isZh = lang === "zh";
 
   return {
-    alternates: getAlternates(lang, "blog"),
+    alternates: getAlternates(lang, "blog"), 
     title: isZh 
       ? "儿童牙科博客 | 曼哈顿翠贝卡专家资讯" 
       : isEs

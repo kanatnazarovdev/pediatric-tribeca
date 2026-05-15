@@ -20,9 +20,7 @@ export async function generateMetadata({
   return {
     title: `${post.title} | TDS 4 Kids`,
     description: post.excerpt || post.title,
-    alternates: {
-      ...getAlternates(lang, `blog/${slug}`),
-    },
+    alternates: getAlternates(lang, `blog/${slug}`),
     openGraph: {
       title: post.title,
       description: post.excerpt,
@@ -31,7 +29,6 @@ export async function generateMetadata({
     },
   };
 }
-
 const portableTextComponents: any = {
   block: {
     h2: ({ children }: any) => (
@@ -99,7 +96,7 @@ async function getPost(slug: string, lang: string) {
         title 
       }
     }`,
-    { slug, lang }, // Pass lang to the query
+    { slug, lang }, 
   );
 }
 
