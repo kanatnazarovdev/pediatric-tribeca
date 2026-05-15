@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { PortableText } from "@portabletext/react";
 import { Metadata } from "next";
-import { getAlternates } from "@/hooks/helper";
+import { baseUrl } from "@/hooks/helper";
 export async function generateMetadata({
   params,
 }: {
@@ -17,10 +17,24 @@ export async function generateMetadata({
 
   if (!post) return {};
 
+  const slugMap: Record<string, string> = { en: slug, es: slug, zh: slug };
+
+  post.translations?.forEach((t: { language: string; slug: string }) => {
+    if (t.language) slugMap[t.language] = t.slug;
+  });
+
   return {
     title: `${post.title} | TDS 4 Kids`,
     description: post.excerpt || post.title,
-    alternates: getAlternates(lang, `blog/${slug}`),
+    alternates: {
+      canonical: `${baseUrl}/${lang}/blog/${slug}/`,
+      languages: {
+        "en-US": `${baseUrl}/en/blog/${slugMap.en}/`,
+        "es-ES": `${baseUrl}/es/blog/${slugMap.es}/`,
+        "zh-Hans": `${baseUrl}/zh/blog/${slugMap.zh}/`,
+        "x-default": `${baseUrl}/en/blog/${slugMap.en}/`,
+      },
+    },
     openGraph: {
       title: post.title,
       description: post.excerpt,
@@ -82,6 +96,12 @@ async function getPost(slug: string, lang: string) {
       body,
       publishedAt,
       "excerpt": array::join(string::split((pt::text(body)), "")[0..160], ""),
+      
+      // 1. Fetch translations if this is the source document
+      "translations": *[_type == "post" && references(^._id) || _id == ^.translationOf._ref]{
+        language,
+        "slug": slug.current
+      },
       
       // Filter next post by SAME language
       "next": *[_type == "post" && language == $lang && publishedAt > ^.publishedAt] | order(publishedAt asc)[0]{ 
