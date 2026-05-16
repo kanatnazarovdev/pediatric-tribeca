@@ -17,23 +17,25 @@ export async function generateMetadata({
 
   if (!post) return {};
 
-  const slugMap: Record<string, string> = { en: slug, es: slug, zh: slug };
+  const languagesMap: Record<string, string> = {
+    [lang]: `${baseUrl}/${lang}/blog/${slug}/`,
+  };
 
   post.translations?.forEach((t: { language: string; slug: string }) => {
-    if (t.language) slugMap[t.language] = t.slug;
+    if (t.language && t.slug) {
+      // Map 'en', 'es', 'zh' dynamically based on Sanity data
+      languagesMap[t.language] = `${baseUrl}/${t.language}/blog/${t.slug}/`;
+    }
   });
+  const englishSlug = post.translations?.find((t: any) => t.language === 'en')?.slug || slug;
+  languagesMap["x-default"] = `${baseUrl}/en/blog/${englishSlug}/`;
 
   return {
     title: `${post.title} | TDS 4 Kids`,
     description: post.excerpt || post.title,
     alternates: {
       canonical: `${baseUrl}/${lang}/blog/${slug}/`,
-      languages: {
-        en: `${baseUrl}/en/blog/${slugMap.en}/`, 
-        es: `${baseUrl}/es/blog/${slugMap.es}/`, 
-        zh: `${baseUrl}/zh/blog/${slugMap.zh}/`, // Changed from "zh-Hans"
-        "x-default": `${baseUrl}/en/blog/${slugMap.en}/`,
-      },
+      languages: languagesMap, // Pushes the clean, verified links only
     },
     openGraph: {
       title: post.title,
