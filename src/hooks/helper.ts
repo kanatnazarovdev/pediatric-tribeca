@@ -8,9 +8,9 @@ export function getAlternates(lang: string, path: string = "") {
   return {
     canonical: `${baseUrl}/${lang}${segment}`,
     languages: {
-      "en-US": `${baseUrl}/en${segment}`,
-      "es-ES": `${baseUrl}/es${segment}`,
-      "zh-Hans": `${baseUrl}/zh${segment}`, 
+      "en": `${baseUrl}/en${segment}`,       // Changed from "en-US"
+      "es": `${baseUrl}/es${segment}`,       // Changed from "es-ES"
+      "zh": `${baseUrl}/zh${segment}`,       // Changed from "zh-Hans"
       "x-default": `${baseUrl}/en${segment}`, 
     },
   };
