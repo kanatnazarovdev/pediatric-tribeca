@@ -18,22 +18,20 @@ export async function generateMetadata({
 
   if (!post) return {};
 
-  // 1. Initialize with the absolute path of the current page being crawled
   const languagesMap: Record<string, string> = {
     [lang]: `${baseUrl}/${lang}/blog/${slug}/`,
   };
 
-  // 2. Loop through every single cluster sibling fetched from Sanity
   post.translations?.forEach((t: { language: string; slug: string }) => {
     if (t.language && t.slug) {
       languagesMap[t.language] = `${baseUrl}/${t.language}/blog/${t.slug}/`;
     }
   });
 
-  // 3. Robust x-default logic: Find explicit English translation slug, 
-  // if current language is English use current slug, otherwise fall back to current slug.
+  // FIX: If we can't find an explicit English translation slug, check if the current page
+  // is English. If not, use the parent main slug retrieved directly from Sanity.
   const explicitEnglishSlug = post.translations?.find((t: any) => t.language === 'en')?.slug;
-  const englishSlug = explicitEnglishSlug || (lang === 'en' ? slug : slug);
+  const englishSlug = explicitEnglishSlug || (lang === 'en' ? slug : post.parentSlug || slug);
   
   languagesMap["x-default"] = `${baseUrl}/en/blog/${englishSlug}/`;
 
@@ -107,7 +105,9 @@ async function getPost(slug: string, lang: string) {
       publishedAt,
       "excerpt": array::join(string::split((pt::text(body)), "")[0..160], ""),
       
-      // Fixed Translation Query: Grabs ALL cluster siblings across all language variations
+      // FIX: Fetch the parent master document slug directly so translations know the root English URL
+      "parentSlug": *[_type == "post" && _id == ^.translationOf._ref][0].slug.current,
+
       "translations": coalesce(
         *[_type == "post" && translationOf._ref == ^._id || _id == ^.translationOf._ref || (translationOf._ref == ^.translationOf._ref && defined(translationOf._ref))],
         *[_type == "post" && _id == ^._id]
@@ -120,7 +120,7 @@ async function getPost(slug: string, lang: string) {
         "slug": slug.current, 
         title 
       },
-      "previous": *[_type == "post" && language == $lang && publishedAt < ^.stimulatedAt] | order(publishedAt desc)[0]{ 
+      "previous": *[_type == "post" && language == $lang && publishedAt < ^.publishedAt] | order(publishedAt desc)[0]{ 
         "slug": slug.current, 
         title 
       }
