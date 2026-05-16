@@ -23,15 +23,15 @@ export async function generateMetadata({
     if (t.language) slugMap[t.language] = t.slug;
   });
 
-return {
+  return {
     title: `${post.title} | TDS 4 Kids`,
     description: post.excerpt || post.title,
     alternates: {
       canonical: `${baseUrl}/${lang}/blog/${slug}/`,
       languages: {
-        "en": `${baseUrl}/en/blog/${slugMap.en}/`,       // Changed from "en-US"
-        "es": `${baseUrl}/es/blog/${slugMap.es}/`,       // Changed from "es-ES"
-        "zh": `${baseUrl}/zh/blog/${slugMap.zh}/`,       // Changed from "zh-Hans"
+        en: `${baseUrl}/en/blog/${slugMap.en}/`, 
+        es: `${baseUrl}/es/blog/${slugMap.es}/`, 
+        zh: `${baseUrl}/zh/blog/${slugMap.zh}/`, // Changed from "zh-Hans"
         "x-default": `${baseUrl}/en/blog/${slugMap.en}/`,
       },
     },
