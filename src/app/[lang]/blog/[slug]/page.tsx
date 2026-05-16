@@ -7,6 +7,7 @@ import Link from "next/link";
 import { PortableText } from "@portabletext/react";
 import { Metadata } from "next";
 import { baseUrl } from "@/hooks/helper";
+
 export async function generateMetadata({
   params,
 }: {
@@ -17,17 +18,23 @@ export async function generateMetadata({
 
   if (!post) return {};
 
+  // 1. Initialize with the absolute path of the current page being crawled
   const languagesMap: Record<string, string> = {
     [lang]: `${baseUrl}/${lang}/blog/${slug}/`,
   };
 
+  // 2. Loop through every single cluster sibling fetched from Sanity
   post.translations?.forEach((t: { language: string; slug: string }) => {
     if (t.language && t.slug) {
-      // Map 'en', 'es', 'zh' dynamically based on Sanity data
       languagesMap[t.language] = `${baseUrl}/${t.language}/blog/${t.slug}/`;
     }
   });
-  const englishSlug = post.translations?.find((t: any) => t.language === 'en')?.slug || slug;
+
+  // 3. Robust x-default logic: Find explicit English translation slug, 
+  // if current language is English use current slug, otherwise fall back to current slug.
+  const explicitEnglishSlug = post.translations?.find((t: any) => t.language === 'en')?.slug;
+  const englishSlug = explicitEnglishSlug || (lang === 'en' ? slug : slug);
+  
   languagesMap["x-default"] = `${baseUrl}/en/blog/${englishSlug}/`;
 
   return {
@@ -35,7 +42,7 @@ export async function generateMetadata({
     description: post.excerpt || post.title,
     alternates: {
       canonical: `${baseUrl}/${lang}/blog/${slug}/`,
-      languages: languagesMap, // Pushes the clean, verified links only
+      languages: languagesMap, 
     },
     openGraph: {
       title: post.title,
@@ -44,6 +51,7 @@ export async function generateMetadata({
     },
   };
 }
+
 const portableTextComponents: any = {
   block: {
     h2: ({ children }: any) => (
@@ -99,25 +107,25 @@ async function getPost(slug: string, lang: string) {
       publishedAt,
       "excerpt": array::join(string::split((pt::text(body)), "")[0..160], ""),
       
-      // 1. Fetch translations if this is the source document
-      "translations": *[_type == "post" && references(^._id) || _id == ^.translationOf._ref]{
+      // Fixed Translation Query: Grabs ALL cluster siblings across all language variations
+      "translations": coalesce(
+        *[_type == "post" && translationOf._ref == ^._id || _id == ^.translationOf._ref || (translationOf._ref == ^.translationOf._ref && defined(translationOf._ref))],
+        *[_type == "post" && _id == ^._id]
+      ){
         language,
         "slug": slug.current
       },
       
-      // Filter next post by SAME language
       "next": *[_type == "post" && language == $lang && publishedAt > ^.publishedAt] | order(publishedAt asc)[0]{ 
         "slug": slug.current, 
         title 
       },
-      
-      // Filter previous post by SAME language
-      "previous": *[_type == "post" && language == $lang && publishedAt < ^.publishedAt] | order(publishedAt desc)[0]{ 
+      "previous": *[_type == "post" && language == $lang && publishedAt < ^.stimulatedAt] | order(publishedAt desc)[0]{ 
         "slug": slug.current, 
         title 
       }
     }`,
-    { slug, lang },
+    { slug, lang }, 
   );
 }
 
