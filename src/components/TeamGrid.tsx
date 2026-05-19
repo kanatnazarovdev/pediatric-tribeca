@@ -8,7 +8,7 @@ import { motion } from 'framer-motion'
 
 export default function TeamGrid({ doctors }: { doctors: any[] }) {
   const params = useParams()
-  const lang = params.lang || 'en' // Get 'en' or 'es' from the URL
+  const lang = params.lang || 'en' 
 
   return (
     <section className="bg-white">
@@ -30,7 +30,7 @@ export default function TeamGrid({ doctors }: { doctors: any[] }) {
           {doctors.map((doctor, index) => (
             <Link 
               key={doctor.slug} 
-              href={`/${lang}/team/${doctor.slug}`} // This creates the path: /en/team/dr-lisa-schneider
+              href={`/${lang}/team/${doctor.slug}`} 
               className="block group"
             >
               <motion.div 
@@ -47,7 +47,7 @@ export default function TeamGrid({ doctors }: { doctors: any[] }) {
                     alt={doctor.name}
                     fill
                     sizes="(max-width: 768px) 100vw, 25vw"
-                    className="object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-1000 ease-in-out group-hover:scale-105"
+                    className="object-cover object-top  transition-all duration-1000 ease-in-out group-hover:scale-105"
                   />
                   
                   {/* Signature "Apa Box" Overlay */}

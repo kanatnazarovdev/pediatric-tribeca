@@ -155,7 +155,7 @@ export default async function DoctorProfile({
               fill
               priority
               sizes="(max-width: 1024px) 100vw, 50vw"
-              className="object-cover object-top grayscale hover:grayscale-0 transition-all duration-1000 ease-in-out hover:scale-105"
+              className="object-cover object-top transition-all duration-1000 ease-in-out hover:scale-105"
             />
           </div>
         </div>

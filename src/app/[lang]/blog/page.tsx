@@ -1,10 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { client } from "@/sanity/lib/client";
-import { postsQuery } from "@/sanity/lib/queries";
+import { postsQuery } from "@/sanity/lib/queries"; // Make sure your GROQ query handles variables or appends slice dynamically
 import Image from "next/image";
 import Link from "next/link";
 import { urlFor } from "@/sanity/lib/image";
 import { getAlternates } from "@/hooks/helper";
+import { groq } from "next-sanity";
+
+const POSTS_PER_PAGE = 9;
 
 export async function generateMetadata({ params }: any) {
   const { lang: rawLang } = await params;
@@ -30,16 +33,40 @@ export async function generateMetadata({ params }: any) {
 
 export default async function BlogPage({
   params,
+  searchParams,
 }: {
-  params: Promise<{ lang: string }>; // Fixed type to match Next.js 15 async params if needed
+  params: Promise<{ lang: string }>;
+  searchParams: Promise<{ page?: string }>; // Catching the ?page= X query parameter
 }) {
   const resolvedParams = await params;
+  const resolvedSearchParams = await searchParams;
+  
   const lang = resolvedParams.lang;
+  const currentPage = Math.max(1, parseInt(resolvedSearchParams.page || "1", 10));
   
   const isEs = lang === "es";
   const isZh = lang === "zh";
   
-  const posts = await client.fetch(postsQuery, { lang });
+  // Calculate index ranges for Sanity slicing
+  const startIdx = (currentPage - 1) * POSTS_PER_PAGE;
+  const endIdx = startIdx + POSTS_PER_PAGE;
+
+  // Fetch paginated posts count along with the specific batch to avoid double page calls
+  // Make sure your baseline query matches this. Or you can use your custom imported `postsQuery` appending `[$start...$end]` 
+  const paginatedPostsQuery = groq`
+    {
+      "posts": *[_type == "post" && language == $lang] | order(publishedAt desc) [$start...$end],
+      "total": count(*[_type == "post" && language == $lang])
+    }
+  `;
+
+  const { posts, total } = await client.fetch(paginatedPostsQuery, { 
+    lang, 
+    start: startIdx, 
+    end: endIdx 
+  });
+
+  const totalPages = Math.ceil(total / POSTS_PER_PAGE);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-24 px-6 bg-[#fafaf4]">
@@ -58,7 +85,7 @@ export default async function BlogPage({
         </header>
       </div>
 
-      {/* SEO Intro Section: This fixes the "Low Word Count" Error */}
+      {/* SEO Intro Section */}
       <div className="max-w-3xl w-full mt-16 text-center border-b border-zinc-200 pb-12">
         <h2
           className="text-2xl font-light uppercase tracking-widest mb-6 text-black"
@@ -98,7 +125,8 @@ export default async function BlogPage({
         </div>
       </div>
 
-      <div className="max-w-7xl w-full mt-10 lg:mt-15 mb-10 lg:mb-18">
+      {/* Blog Post Grid */}
+      <div className="max-w-7xl w-full mt-10 lg:mt-15 mb-10 lg:mb-14">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
           {posts.map((post: any) => {
             const postHref = `/${lang}/blog/${post.slug.current}`;
@@ -136,6 +164,45 @@ export default async function BlogPage({
           })}
         </div>
       </div>
+
+      {/* Pagination UI Control Controls */}
+      {totalPages > 1 && (
+        <div className="flex justify-center items-center gap-6 mt-8 border-t border-zinc-200 pt-8 w-full max-w-7xl">
+          {currentPage > 1 ? (
+            <Link
+              href={`/${lang}/blog?page=${currentPage - 1}`}
+              className="text-sm uppercase tracking-widest text-zinc-800 hover:text-[#C5A059] transition-colors font-medium"
+            >
+              {isZh ? "← 上一页" : isEs ? "← Anterior" : "← Previous"}
+            </Link>
+          ) : (
+            <span className="text-sm uppercase tracking-widest text-zinc-300 pointer-events-none font-light">
+              {isZh ? "← 上一页" : isEs ? "← Anterior" : "← Previous"}
+            </span>
+          )}
+
+          <div className="text-sm tracking-wider text-zinc-600 font-light">
+            {isZh 
+              ? `第 ${currentPage} 页，共 ${totalPages} 页` 
+              : isEs 
+              ? `Página ${currentPage} de ${totalPages}` 
+              : `Page ${currentPage} of ${totalPages}`}
+          </div>
+
+          {currentPage < totalPages ? (
+            <Link
+              href={`/${lang}/blog?page=${currentPage + 1}`}
+              className="text-sm uppercase tracking-widest text-zinc-800 hover:text-[#C5A059] transition-colors font-medium"
+            >
+              {isZh ? "下一页 →" : isEs ? "Siguiente →" : "Next →"}
+            </Link>
+          ) : (
+            <span className="text-sm uppercase tracking-widest text-zinc-300 pointer-events-none font-light">
+              {isZh ? "下一页 →" : isEs ? "Siguiente →" : "Next →"}
+            </span>
+          )}
+        </div>
+      )}
     </div>
   );
 }
