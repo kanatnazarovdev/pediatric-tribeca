@@ -33,7 +33,6 @@ const categories = (lang: string) => [
     services: [
       lang === "zh" ? "Biolase 激光技术" : "Biolase Laser", 
       lang === "zh" ? "数码印模技术" : "Digital Impressioning", 
-      lang === "zh" ? "AI 智能辅助诊断" : "AI Diagnostics"
     ],
   },
   {
