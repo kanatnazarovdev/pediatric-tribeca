@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { client } from "@/sanity/lib/client";
-import { postsQuery } from "@/sanity/lib/queries"; 
 import Image from "next/image";
 import Link from "next/link";
 import { urlFor } from "@/sanity/lib/image";
@@ -9,20 +8,35 @@ import { groq } from "next-sanity";
 
 const POSTS_PER_PAGE = 9;
 
-// 1. Updated generateMetadata to accept searchParams
 export async function generateMetadata({ params, searchParams }: any) {
   const { lang: rawLang } = await params;
   const resolvedSearchParams = await searchParams;
-  const page = resolvedSearchParams?.page; // Grab the current page query if it exists
+  
+  // Safely normalize the page query string
+  const rawPage = resolvedSearchParams?.page;
+  const pageNum = rawPage ? parseInt(rawPage, 10) : 1;
 
   const lang = rawLang === "es" ? "es" : rawLang === "zh" ? "zh" : "en";
-  
   const isEs = lang === "es";
   const isZh = lang === "zh";
 
-  // Pass the page parameter into your helper so it can generate URLs like /en/blog?page=2
+  // Use the helper config base settings
+  const alternatesConfig = getAlternates(lang, "blog", rawPage);
+
+  // CRITICAL FIX: Ensure the output tags mirror EXACTLY what URL is being viewed to avoid SEMrush 308/Mismatches
+  // If the URL contains an explicit page parameter greater than 1, append it.
+  const querySuffix = pageNum > 1 ? `?page=${pageNum}` : "";
+
   return {
-    alternates: getAlternates(lang, "blog", page), 
+    alternates: {
+      canonical: `${alternatesConfig.canonical.replace(/\/$/, "")}${querySuffix}`,
+      languages: {
+        "en": `${alternatesConfig.languages.en.replace(/\/$/, "")}${querySuffix}`,
+        "es": `${alternatesConfig.languages.es.replace(/\/$/, "")}${querySuffix}`,
+        "zh": `${alternatesConfig.languages.zh.replace(/\/$/, "")}${querySuffix}`,
+        "x-default": `${alternatesConfig.languages["x-default"].replace(/\/$/, "")}${querySuffix}`,
+      }
+    }, 
     title: isZh 
       ? "儿童牙科博客 | 曼哈顿翠贝卡专家资讯" 
       : isEs
@@ -172,7 +186,7 @@ export default async function BlogPage({
         <div className="flex justify-center items-center gap-6 mt-8 border-t border-zinc-200 pt-8 w-full max-w-7xl">
           {currentPage > 1 ? (
             <Link
-              href={`/${lang}/blog?page=${currentPage - 1}`}
+              href={`/${lang}/blog${currentPage - 1 > 1 ? `?page=${currentPage - 1}` : ""}`}
               className="text-sm uppercase tracking-widest text-zinc-800 hover:text-[#C5A059] transition-colors font-medium"
             >
               {isZh ? "← 上一页" : isEs ? "← Anterior" : "← Previous"}
