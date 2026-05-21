@@ -1,17 +1,33 @@
 // src/hooks/helper.ts
 export const baseUrl = "https://pediatrics.tribecadentalstudio.com";
 
-export function getAlternates(lang: string, path: string = "") {
+export function getAlternates(lang: string, path: string = "", page?: string) {
   const cleanPath = path.replace(/^\/+|\/+$/g, "");
   const segment = cleanPath ? `/${cleanPath}/` : "/"; 
 
+  let canonicalUrl = `${baseUrl}/${lang}${segment}`;
+  let enUrl = `${baseUrl}/en${segment}`;
+  let esUrl = `${baseUrl}/es${segment}`;
+  let zhUrl = `${baseUrl}/zh${segment}`;
+  let defaultUrl = `${baseUrl}/en${segment}`;
+
+  if (page) {
+    const query = `?page=${page}`;
+    
+    canonicalUrl = canonicalUrl.replace(/\/$/, "") + query;
+    enUrl = enUrl.replace(/\/$/, "") + query;
+    esUrl = esUrl.replace(/\/$/, "") + query;
+    zhUrl = zhUrl.replace(/\/$/, "") + query;
+    defaultUrl = defaultUrl.replace(/\/$/, "") + query;
+  }
+
   return {
-    canonical: `${baseUrl}/${lang}${segment}`,
+    canonical: canonicalUrl,
     languages: {
-      "en": `${baseUrl}/en${segment}`,       // Changed from "en-US"
-      "es": `${baseUrl}/es${segment}`,       // Changed from "es-ES"
-      "zh": `${baseUrl}/zh${segment}`,       // Changed from "zh-Hans"
-      "x-default": `${baseUrl}/en${segment}`, 
+      "en": enUrl,
+      "es": esUrl,
+      "zh": zhUrl,
+      "x-default": defaultUrl,
     },
   };
 }

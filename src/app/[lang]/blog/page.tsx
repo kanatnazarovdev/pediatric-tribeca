@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { client } from "@/sanity/lib/client";
-import { postsQuery } from "@/sanity/lib/queries"; // Make sure your GROQ query handles variables or appends slice dynamically
+import { postsQuery } from "@/sanity/lib/queries"; 
 import Image from "next/image";
 import Link from "next/link";
 import { urlFor } from "@/sanity/lib/image";
@@ -9,15 +9,20 @@ import { groq } from "next-sanity";
 
 const POSTS_PER_PAGE = 9;
 
-export async function generateMetadata({ params }: any) {
+// 1. Updated generateMetadata to accept searchParams
+export async function generateMetadata({ params, searchParams }: any) {
   const { lang: rawLang } = await params;
+  const resolvedSearchParams = await searchParams;
+  const page = resolvedSearchParams?.page; // Grab the current page query if it exists
+
   const lang = rawLang === "es" ? "es" : rawLang === "zh" ? "zh" : "en";
   
   const isEs = lang === "es";
   const isZh = lang === "zh";
 
+  // Pass the page parameter into your helper so it can generate URLs like /en/blog?page=2
   return {
-    alternates: getAlternates(lang, "blog"), 
+    alternates: getAlternates(lang, "blog", page), 
     title: isZh 
       ? "儿童牙科博客 | 曼哈顿翠贝卡专家资讯" 
       : isEs
@@ -36,7 +41,7 @@ export default async function BlogPage({
   searchParams,
 }: {
   params: Promise<{ lang: string }>;
-  searchParams: Promise<{ page?: string }>; // Catching the ?page= X query parameter
+  searchParams: Promise<{ page?: string }>; 
 }) {
   const resolvedParams = await params;
   const resolvedSearchParams = await searchParams;
@@ -47,12 +52,9 @@ export default async function BlogPage({
   const isEs = lang === "es";
   const isZh = lang === "zh";
   
-  // Calculate index ranges for Sanity slicing
   const startIdx = (currentPage - 1) * POSTS_PER_PAGE;
   const endIdx = startIdx + POSTS_PER_PAGE;
 
-  // Fetch paginated posts count along with the specific batch to avoid double page calls
-  // Make sure your baseline query matches this. Or you can use your custom imported `postsQuery` appending `[$start...$end]` 
   const paginatedPostsQuery = groq`
     {
       "posts": *[_type == "post" && language == $lang] | order(publishedAt desc) [$start...$end],
