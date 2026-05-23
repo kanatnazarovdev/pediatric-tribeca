@@ -21,12 +21,12 @@ export async function POST(req: Request) {
           email,
           phone: cleanPhone,
           locationId: process.env.GHL_LOCATION_ID,
-          tags: ['Implant Lead', lang === 'es' ? 'Spanish' : 'English'],
-          source: 'Implants Funnel'
+          tags: ['Pediatric Lead', lang === 'es' ? 'Spanish' : 'English'],
+          source: 'Pediatric Tribeca Dental Studio 4 Kids'
         }),
       }),
 
-      fetch('https://api.seeb.ai/api/v1/webhook/outbound/6998c24d6c47d28eb827bb40', {
+      fetch('https://api.seeb.ai/api/v1/webhook/outbound/69d14beb460239db4ba376fe', {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json', 
