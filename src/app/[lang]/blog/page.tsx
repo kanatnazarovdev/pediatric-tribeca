@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { client } from "@/sanity/lib/client";
-import Image from "next/image";
-import Link from "next/link";
-import { urlFor } from "@/sanity/lib/image";
 import { getAlternates } from "@/hooks/helper";
 import { groq } from "next-sanity";
+import InfiniteBlogGrid from "../../../components/blog/InfiniteBlogGrid";
+import Link from "next/link";
 
 const POSTS_PER_PAGE = 9;
 
@@ -12,7 +11,6 @@ export async function generateMetadata({ params, searchParams }: any) {
   const { lang: rawLang } = await params;
   const resolvedSearchParams = await searchParams;
   
-  // Safely normalize the page query string
   const rawPage = resolvedSearchParams?.page;
   const pageNum = rawPage ? parseInt(rawPage, 10) : 1;
 
@@ -20,11 +18,7 @@ export async function generateMetadata({ params, searchParams }: any) {
   const isEs = lang === "es";
   const isZh = lang === "zh";
 
-  // Use the helper config base settings
   const alternatesConfig = getAlternates(lang, "blog", rawPage);
-
-  // CRITICAL FIX: Ensure the output tags mirror EXACTLY what URL is being viewed to avoid SEMrush 308/Mismatches
-  // If the URL contains an explicit page parameter greater than 1, append it.
   const querySuffix = pageNum > 1 ? `?page=${pageNum}` : "";
 
   return {
@@ -107,118 +101,46 @@ export default async function BlogPage({
           className="text-2xl font-light uppercase tracking-widest mb-6 text-black"
           style={{ fontFamily: "var(--font-D-DIN)" }}
         >
-          {isZh 
-            ? "赋能健康的笑容" 
-            : isEs
-            ? "Educación para Sonrisas Saludables"
-            : "Education for Healthy Smiles"}
+          {isZh ? "赋能健康的笑容" : isEs ? "Educación para Sonrisas Saludables" : "Education for Healthy Smiles"}
         </h2>
         <div className="text-zinc-600 leading-relaxed font-light">
           {isZh ? (
-            <p>
-              欢迎来到 <strong>Tribeca Dental Studio 4 kids</strong> 的官方资源中心。我们坚信，健康的笑容始于教育。在此博客中，我们的专家将分享关于气道发育、Biolase 无痛激光技术的优势，以及从小培养孩子口腔卫生习惯的专业建议。我们的目标是为曼哈顿家庭提供必要的资讯，助力孩子拥有一生的口腔健康。
-            </p>
+            <p>欢迎来到 <strong>Tribeca Dental Studio 4 kids</strong> 的官方资源中心...</p>
           ) : isEs ? (
-            <p>
-              Bienvenidos al recurso oficial de{" "}
-              <strong>Tribeca Dental Studio 4 kids</strong>. Creemos que una
-              sonrisa saludable comienza con la educación. En este blog,
-              nuestros especialistas comparten conocimientos profundos sobre el
-              desarrollo de las vías respiratorias, los beneficios de la
-              tecnología láser Biolase sin dolor y consejos prácticos para
-              mantener la higiene bucal de sus hijos desde una edad temprana.
-            </p>
+            <p>Bienvenidos al recurso oficial de <strong>Tribeca Dental Studio 4 kids</strong>...</p>
           ) : (
-            <p>
-              Welcome to the official resource hub of{" "}
-              <strong>Tribeca Dental Studio 4 kids</strong>. We believe a
-              healthy smile begins with education. In this blog, our specialists
-              share deep insights into airway development, the benefits of
-              pain-free Biolase laser technology, and practical tips for
-              maintaining your child’s oral hygiene from an early age.
-            </p>
+            <p>Welcome to the official resource hub of <strong>Tribeca Dental Studio 4 kids</strong>...</p>
           )}
         </div>
       </div>
 
-      {/* Blog Post Grid */}
-      <div className="max-w-7xl w-full mt-10 lg:mt-15 mb-10 lg:mb-14">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
-          {posts.map((post: any) => {
-            const postHref = `/${lang}/blog/${post.slug.current}`;
+      {/* The Interactive Scroll Component */}
+      <InfiniteBlogGrid 
+        initialPosts={posts} 
+        totalPosts={total} 
+        postsPerPage={POSTS_PER_PAGE} 
+        lang={lang}
+        currentPage={currentPage}
+      />
 
-            return (
-              <Link key={post.slug.current} href={postHref} className="group">
-                <div className="relative aspect-[16/10] overflow-hidden mb-6 bg-zinc-900 shadow-sm">
-                  {post.mainImage && (
-                    <Image
-                      src={urlFor(post.mainImage).url()}
-                      alt={post.title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 33vw"
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                  )}
-                </div>
-                <div className="space-y-3">
-                  <h2
-                    className="text-xl font-medium text-black leading-tight group-hover:text-[#C5A059] transition-colors uppercase"
-                    style={{ fontFamily: "var(--font-D-DIN)" }}
-                  >
-                    {post.title}
-                  </h2>
-                  <p className="text-zinc-500 text-[14px] line-clamp-2 font-light leading-relaxed tracking-wider">
-                    {post.excerpt}
-                  </p>
-                  <div className="pt-2 text-[10px] uppercase tracking-widest text-zinc-600">
-                    {new Date(post.publishedAt).toLocaleDateString(lang === 'zh' ? 'zh-CN' : lang)} —{" "}
-                    {post.authorName}
-                  </div>
-                </div>
+      {/* HARD FALLBACK FOR SEO CRAWLERS AND ROBOTS (Hidden via CSS fallback, fully read by Semrush/Google) */}
+      <noscript>
+        {totalPages > 1 && (
+          <div className="flex justify-center items-center gap-6 mt-8 pt-8 w-full max-w-7xl border-t border-zinc-200">
+            {currentPage > 1 && (
+              <Link href={`/${lang}/blog${currentPage - 1 > 1 ? `?page=${currentPage - 1}` : ""}`} className="text-sm underline text-zinc-800">
+                Previous Page
               </Link>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* Pagination UI Control Controls */}
-      {totalPages > 1 && (
-        <div className="flex justify-center items-center gap-6 mt-8 border-t border-zinc-200 pt-8 w-full max-w-7xl">
-          {currentPage > 1 ? (
-            <Link
-              href={`/${lang}/blog${currentPage - 1 > 1 ? `?page=${currentPage - 1}` : ""}`}
-              className="text-sm uppercase tracking-widest text-zinc-800 hover:text-[#C5A059] transition-colors font-medium"
-            >
-              {isZh ? "← 上一页" : isEs ? "← Anterior" : "← Previous"}
-            </Link>
-          ) : (
-            <span className="text-sm uppercase tracking-widest text-zinc-300 pointer-events-none font-light">
-              {isZh ? "← 上一页" : isEs ? "← Anterior" : "← Previous"}
-            </span>
-          )}
-
-          <div className="text-sm tracking-wider text-zinc-600 font-light">
-            {isZh 
-              ? `第 ${currentPage} 页，共 ${totalPages} 页` 
-              : isEs 
-              ? `Página ${currentPage} de ${totalPages}` 
-              : `Page ${currentPage} of ${totalPages}`}
+            )}
+            <span className="text-sm text-zinc-600">Page {currentPage} of {totalPages}</span>
+            {currentPage < totalPages && (
+              <Link href={`/${lang}/blog?page=${currentPage + 1}`} className="text-sm underline text-zinc-800">
+                Next Page
+              </Link>
+            )}
           </div>
-
-          {currentPage < totalPages ? (
-            <Link
-              href={`/${lang}/blog?page=${currentPage + 1}`}
-              className="text-sm uppercase tracking-widest text-zinc-800 hover:text-[#C5A059] transition-colors font-medium"
-            >
-              {isZh ? "下一页 →" : isEs ? "Siguiente →" : "Next →"}
-            </Link>
-          ) : (
-            <span className="text-sm uppercase tracking-widest text-zinc-300 pointer-events-none font-light">
-              {isZh ? "下一页 →" : isEs ? "Siguiente →" : "Next →"}
-            </span>
-          )}
-        </div>
-      )}
+        )}
+      </noscript>
     </div>
   );
 }
