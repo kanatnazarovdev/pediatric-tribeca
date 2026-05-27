@@ -180,7 +180,7 @@ export default async function PostPage({
         </div>
       </div>
 
-      <div className="max-w-3xl mx-auto px-6 font-light leading-relaxed text-zinc-800">
+      <div className="max-w-5xl mx-auto px-6 font-light leading-relaxed text-zinc-800">
         <div className="prose prose-zinc lg:prose-xl max-w-none mb-20">
           <PortableText value={post.body} components={portableTextComponents} />
         </div>
