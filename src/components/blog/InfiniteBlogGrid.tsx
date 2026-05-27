@@ -32,7 +32,6 @@ export default function InfiniteBlogGrid({
   const isZh = lang === "zh";
   const isEs = lang === "es";
 
-  // Watch for changes in server props to reset state properly if the user changes languages
   useEffect(() => {
     setPosts(initialPosts);
     setPage(currentPage);
@@ -50,7 +49,6 @@ export default function InfiniteBlogGrid({
           const nextPage = page + 1;
 
           try {
-            // Fetch next page via Next.js Route Handler or an internal API route
             const response = await fetch(`/api/blog-posts?lang=${lang}&page=${nextPage}`);
             const data = await response.json();
 
@@ -59,9 +57,9 @@ export default function InfiniteBlogGrid({
               setPage(nextPage);
               setHasMore(nextPage < totalPages);
 
-              // Dynamically append the clean query string to the browser bar without reloading
-              const newUrl = `/${lang}/blog?page=${nextPage}`;
-              window.history.pushState({ path: newUrl }, "", newUrl);
+              // REMOVED/COMMENTED OUT TO KEEP THE URL CLEAN AND FREE OF ?page= PARAMETERS:
+              // const newUrl = `/${lang}/blog?page=${nextPage}`;
+              // window.history.pushState({ path: newUrl }, "", newUrl);
             } else {
               setHasMore(false);
             }
@@ -72,7 +70,7 @@ export default function InfiniteBlogGrid({
           }
         }
       },
-      { threshold: 0.1, rootMargin: "200px" } // Pre-fetches 200px before reaching screen bottom
+      { threshold: 0.1, rootMargin: "200px" }
     );
 
     const currentRef = observerRef.current;
@@ -85,7 +83,6 @@ export default function InfiniteBlogGrid({
 
   return (
     <div className="max-w-7xl w-full mt-10 lg:mt-15 mb-10 lg:mb-14">
-      {/* Dynamic Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
         {posts.map((post: any) => {
           const postHref = `/${lang}/blog/${post.slug.current}`;
@@ -122,7 +119,6 @@ export default function InfiniteBlogGrid({
         })}
       </div>
 
-      {/* Scroll Trigger Sentinel */}
       {hasMore && (
         <div ref={observerRef} className="w-full flex justify-center py-10 text-zinc-400 font-light text-sm uppercase tracking-widest">
           {loading ? (
