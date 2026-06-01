@@ -155,6 +155,28 @@ export default async function RootLayout(props: {
         <Header lang={lang} dict={dict} />
         {children}
         <Footer />
+        <Script 
+          src="https://truelark.com/dental-chat-widget/js/config.js" 
+          strategy="lazyOnload" 
+        />
+        <Script 
+          src="https://truelark.com/dental-chat-widget/js/loader.js" 
+          strategy="lazyOnload" 
+        />
+        <Script 
+          id="truelark-init" 
+          strategy="lazyOnload" 
+          dangerouslySetInnerHTML={{
+            __html: `
+              var truelarkInterval = setInterval(function() {
+                if (typeof fdchat === 'function') {
+                  fdchat({ clientId: 80613 });
+                  clearInterval(truelarkInterval);
+                }
+              }, 500);
+            `
+          }} 
+        />
       </body>
     </html>
   );

@@ -133,7 +133,7 @@ export default async function DoctorProfile({
 
             <div className="mt-20 pt-10 border-t border-gray-100">
               <a
-                href="https://booking.adit.com/4dcced5c-07a5-4e12-b80f-d470bca99a63"
+                href="https://truelark.com/bookonline/#/location?businessId=80613"
                 target="_blank"
               >
                 <button className="group relative text-[10px] tracking-[0.4em] uppercase font-bold py-5 px-12 border border-black overflow-hidden transition-all duration-500">

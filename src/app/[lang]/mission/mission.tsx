@@ -250,7 +250,7 @@ export default function CommunityPage({
                 : "Ready to start the journey?"}
           </p>
           <a
-            href={`https://booking.adit.com/4dcced5c-07a5-4e12-b80f-d470bca99a63`}
+            href={`https://truelark.com/bookonline/#/location?businessId=80613`}
             className="text-2xl md:text-3xl font-serif italic border-b border-black/20 pb-2 hover:border-black transition-colors"
           >
             {isZh

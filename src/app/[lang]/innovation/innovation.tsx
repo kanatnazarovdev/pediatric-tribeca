@@ -172,7 +172,7 @@ export default function InnovationPage() {
           {isZh ? "准备好体验未来了吗？" : isEs ? "¿Listo para experimentar el futuro?" : "Ready to experience the future?"}
         </h3>
         <a
-          href="https://booking.adit.com/4dcced5c-07a5-4e12-b80f-d470bca99a63"
+          href="https://truelark.com/bookonline/#/location?businessId=80613"
           target="_blank"
           rel="noopener noreferrer"
         >
