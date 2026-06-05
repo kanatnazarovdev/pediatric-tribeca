@@ -95,7 +95,7 @@ export default function Footer() {
             {isZh ? "版权所有。" : isEs ? "Todos los derechos reservados." : "All Rights Reserved."}
             <br />
             <a
-              href="https://kenzy.vercel.app/developer"
+              href="https://kanatnazarov.com"
               target="_blank"
               className="hover:text-black transition-colors"
             >
