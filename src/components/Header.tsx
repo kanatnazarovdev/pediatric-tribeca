@@ -151,8 +151,9 @@ export default function Header({ dict, lang }: HeaderProps) {
               </div>
 
               {/* Booking CTA */}
-              <Link
-                href={`/${lang}#leadForm`}
+              <a
+              target="_blank"
+                href={`https://truelark.com/bookonline/#/location?businessId=80613`}
                 className={`px-6 py-2 border text-[10px] uppercase tracking-[0.3em] relative overflow-hidden group
                 ${shouldBeActive ? "border-black text-black" : "border-white/30 text-white"}`}
               >
@@ -164,7 +165,7 @@ export default function Header({ dict, lang }: HeaderProps) {
                       : "Book"}
                 </span>
                 <div className="absolute inset-0 bg-[#C5A059] translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
-              </Link>
+              </a>
 
               {/* Mobile Menu Toggle */}
               <button
