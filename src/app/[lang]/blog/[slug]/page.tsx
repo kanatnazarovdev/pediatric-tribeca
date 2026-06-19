@@ -57,7 +57,7 @@ export async function generateMetadata({
   };
 }
 
-const portableTextComponents: any = {
+export const portableTextComponents: any = {
   block: {
     h2: ({ children }: any) => (
       <h2
