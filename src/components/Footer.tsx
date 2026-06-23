@@ -23,13 +23,12 @@ export default function Footer() {
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 mb-24">
           <div className="relative h-[400px] w-full bg-gray-100 overflow-hidden group border border-black/5">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3024.16223253509!2d-74.0116349234237!3d40.71444393747065!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a1e8462551b%3A0x11e929a9dc910430!2sTribeca%20Dental%20Studio!5e0!3m2!1sen!2sus!4v1715793400000!5m2!1sen!2sus"
-              className="absolute inset-0 w-full h-full grayscale contrast-125 opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-1000"
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            ></iframe>
+           <iframe 
+src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyDZvkuB9PQa9z_GLSZD_FBuIbAUWWTjHRg&q=Tribeca+Dental+Studio+4+Kids,54+Warren+St,New+York,NY+10007`}  className="absolute inset-0 w-full h-full grayscale contrast-125 opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-1000"
+  allowFullScreen
+  loading="lazy"
+  referrerPolicy="no-referrer-when-downgrade"
+></iframe>
           </div>
 
           {/* Right: Studio Details */}
