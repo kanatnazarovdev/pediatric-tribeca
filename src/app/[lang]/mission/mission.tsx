@@ -250,7 +250,7 @@ export default function CommunityPage({
                 : "Ready to start the journey?"}
           </p>
           <a
-            href={`https://truelark.com/bookonline/#/location?businessId=80613`}
+            href={`https://www.patientsreach.com/schedule/TribecaDentalStudio/patient_types/`}
             className="text-2xl md:text-3xl font-serif italic border-b border-black/20 pb-2 hover:border-black transition-colors"
           >
             {isZh

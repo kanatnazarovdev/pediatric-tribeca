@@ -153,7 +153,7 @@ export default function Header({ dict, lang }: HeaderProps) {
               {/* Booking CTA */}
               <a
               target="_blank"
-                href={`https://truelark.com/bookonline/#/location?businessId=80613`}
+                href={`https://www.patientsreach.com/schedule/TribecaDentalStudio/patient_types/`}
                 className={`px-6 py-2 border text-[10px] uppercase tracking-[0.3em] relative overflow-hidden group
                 ${shouldBeActive ? "border-black text-black" : "border-white/30 text-white"}`}
               >

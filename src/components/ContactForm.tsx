@@ -75,7 +75,7 @@ export default function PediatricContactForm() {
               </p>
               <div className="flex flex-wrap justify-center gap-6 items-center">
                 <a 
-                  href="https://truelark.com/bookonline/#/location?businessId=80613"
+                  href="https://www.patientsreach.com/schedule/TribecaDentalStudio/patient_types/"
                   target="_blank"
                   className="text-[11px] uppercase tracking-[0.3em] font-bold text-[#C5A059] border-b border-[#C5A059] pb-1 hover:text-black hover:border-black transition-all duration-300"
                 >

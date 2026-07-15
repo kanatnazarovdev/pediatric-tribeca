@@ -172,7 +172,7 @@ export default function InnovationPage() {
           {isZh ? "准备好体验未来了吗？" : isEs ? "¿Listo para experimentar el futuro?" : "Ready to experience the future?"}
         </h3>
         <a
-          href="https://truelark.com/bookonline/#/location?businessId=80613"
+          href="https://www.patientsreach.com/schedule/TribecaDentalStudio/"
           target="_blank"
           rel="noopener noreferrer"
         >

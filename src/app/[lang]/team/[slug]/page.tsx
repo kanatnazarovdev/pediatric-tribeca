@@ -229,7 +229,7 @@ export default async function DoctorProfile({
 
             <div className="mt-12">
               <a
-                href="https://truelark.com/bookonline/#/location?businessId=80613"
+                href="https://www.patientsreach.com/schedule/TribecaDentalStudio/patient_types/"
                 target="_blank"
                 rel="noopener noreferrer"
               >

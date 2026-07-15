@@ -156,7 +156,7 @@ const Curodont = ({ lang }: CurodontProps) => {
 
             <div className="flex flex-col sm:flex-row gap-6 pt-6">
               {/* Internal Link to Booking or Contact */}
-              <a href="https://truelark.com/bookonline/#/location?businessId=80613">
+              <a href="https://www.patientsreach.com/schedule/TribecaDentalStudio/">
                 <button className="bg-[#1A1A1A] text-white px-10 py-5 rounded-full uppercase tracking-[0.2em] text-[10px] font-bold hover:bg-[#C5A059] transition-all duration-500 w-full sm:w-auto">
                   {isEs ? "Reservar Experiencia" : "Reserve Experience"}
                 </button>

@@ -20,15 +20,17 @@ export default function Footer() {
       id="contact"
       className="bg-white border-t border-black/5 pt-24 pb-8"
     >
+      
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 mb-24">
           <div className="relative h-[400px] w-full bg-gray-100 overflow-hidden group border border-black/5">
-           <iframe 
-src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyDZvkuB9PQa9z_GLSZD_FBuIbAUWWTjHRg&q=Tribeca+Dental+Studio+4+Kids,54+Warren+St,New+York,NY+10007`}  className="absolute inset-0 w-full h-full grayscale contrast-125 opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-1000"
-  allowFullScreen
-  loading="lazy"
-  referrerPolicy="no-referrer-when-downgrade"
-></iframe>
+            <iframe
+              src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyDZvkuB9PQa9z_GLSZD_FBuIbAUWWTjHRg&q=Tribeca+Dental+Studio+4+Kids,54+Warren+St,New+York,NY+10007`}
+              className="absolute inset-0 w-full h-full grayscale contrast-125 opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-1000"
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            ></iframe>
           </div>
 
           {/* Right: Studio Details */}
@@ -59,7 +61,11 @@ src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyDZvkuB9PQa9z_GLSZD_FB
                 <div className="space-y-6">
                   <div>
                     <p className="text-[10px] uppercase tracking-[0.2em] text-gray-400 mb-1">
-                      {isZh ? "办公电话" : isEs ? "Línea Directa" : "Office Line"}
+                      {isZh
+                        ? "办公电话"
+                        : isEs
+                          ? "Línea Directa"
+                          : "Office Line"}
                     </p>
                     <a
                       href="tel:2125615303"
@@ -72,7 +78,11 @@ src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyDZvkuB9PQa9z_GLSZD_FB
                   {/* Added: Instagram Social Link Block */}
                   <div>
                     <p className="text-[10px] uppercase tracking-[0.2em] text-gray-400 mb-1">
-                      {isZh ? "社交媒体" : isEs ? "Redes Sociales" : "Social Media"}
+                      {isZh
+                        ? "社交媒体"
+                        : isEs
+                          ? "Redes Sociales"
+                          : "Social Media"}
                     </p>
                     <a
                       href="https://www.instagram.com/tds4kids/"
@@ -100,10 +110,18 @@ src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyDZvkuB9PQa9z_GLSZD_FB
               </span>
               <div className="flex flex-wrap gap-x-12 gap-y-4 text-[13px] text-gray-500 font-light italic">
                 <span>
-                  {isZh ? "周一 – 周五: 8am – 7pm" : isEs ? "Lun – Vie: 8am – 7pm" : "Mon – Fri: 8am – 7pm"}
+                  {isZh
+                    ? "周一 – 周五: 8am – 7pm"
+                    : isEs
+                      ? "Lun – Vie: 8am – 7pm"
+                      : "Mon – Fri: 8am – 7pm"}
                 </span>
                 <span>
-                  {isZh ? "周六 – 周日: 9am – 4pm" : isEs ? "Sáb – Dom: 9am – 4pm" : "Sat – Sun: 9am – 4pm"}
+                  {isZh
+                    ? "周六 – 周日: 9am – 4pm"
+                    : isEs
+                      ? "Sáb – Dom: 9am – 4pm"
+                      : "Sat – Sun: 9am – 4pm"}
                 </span>
               </div>
             </div>
@@ -113,7 +131,11 @@ src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyDZvkuB9PQa9z_GLSZD_FB
         <div className="flex flex-col md:flex-row justify-between items-center gap-6 pt-12 border-t border-black/5">
           <p className="text-[11px] md:text-[13px] uppercase tracking-[0.3em] text-gray-300 text-center md:text-left">
             © 2026 Tribeca Dental Studio.{" "}
-            {isZh ? "版权所有。" : isEs ? "Todos los derechos reservados." : "All Rights Reserved."}
+            {isZh
+              ? "版权所有。"
+              : isEs
+                ? "Todos los derechos reservados."
+                : "All Rights Reserved."}
             <br />
             <a
               href="https://kanatnazarov.com"
