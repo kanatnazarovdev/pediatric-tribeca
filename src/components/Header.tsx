@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { ContainerHeader } from "./Container";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Phone } from "lucide-react"; // Added Phone icon for clean mobile UI
 import { usePathname, useRouter } from "next/navigation";
 
 interface HeaderProps {
@@ -42,22 +42,6 @@ export default function Header({ dict, lang }: HeaderProps) {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  // Re-trigger Practice by Numbers script whenever the mobile menu opens
-  useEffect(() => {
-    if (isOpen) {
-      const timer = setTimeout(() => {
-        if (typeof window !== "undefined" && (window as any).pbn_replace_numbers_all) {
-          try {
-            (window as any).pbn_replace_numbers_all();
-          } catch (e) {
-            console.error("PBN dynamic swap error:", e);
-          }
-        }
-      }, 250); // Slightly increased to ensure clean DOM rendering
-      return () => clearTimeout(timer);
-    }
-  }, [isOpen]);
 
   const isStudio =
     pathname.startsWith(`/${lang}/studio`) || pathname.startsWith("/studio");
@@ -108,10 +92,11 @@ export default function Header({ dict, lang }: HeaderProps) {
         ${shouldBeActive ? "bg-white/90 backdrop-blur-md border-b border-black/5" : "bg-transparent text-white"}`}
       >
         <ContainerHeader>
-          <div className="flex items-center justify-between">
-            <Link href={`/${lang}`} className="z-[70]">
+          <div className="flex items-center justify-between gap-2">
+            <Link href={`/${lang}`} className="z-[70] flex-shrink-0">
+              {/* FIXED: Scaled mobile logo font size down to clear layout footprint */}
               <span
-                className={`text-[20px] md:text-[24px] font-serif tracking-tight leading-[1.1] 
+                className={`text-[16px] sm:text-[20px] md:text-[24px] font-serif tracking-tight leading-[1.1] block
                 ${shouldBeActive ? "text-black" : "text-white"}`}
               >
                 Tribeca Dental Studio{" "}
@@ -132,9 +117,9 @@ export default function Header({ dict, lang }: HeaderProps) {
               ))}
             </div>
 
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 sm:gap-4">
               {/* Desktop Language Toggle */}
-              <div className="hidden md:flex items-center gap-2 mr-4 border-r border-black/10 pr-4">
+              <div className="hidden md:flex items-center gap-2 mr-2 border-r border-black/10 pr-4">
                 <button
                   onClick={() => toggleLanguage("en")}
                   className={`text-[12px] font-bold transition-colors ${lang === "en" ? "text-[#C5A059]" : shouldBeActive ? "text-black/40" : "text-white/40"}`}
@@ -165,13 +150,26 @@ export default function Header({ dict, lang }: HeaderProps) {
                 </button>
               </div>
 
-              {/* Desktop Phone Header Link */}
-              <div className="hidden sm:block mr-2">
+              {/* FIXED: Removed explicit raw number display. Now unified globally into dynamic action links */}
+              {/* Desktop Call Asset */}
+              <div className="hidden sm:block mr-1">
                 <a
                   href="tel:+12125615303"
-                  className={`pbn-phone text-[14px] font-brandon font-bold tracking-[1px] hover:text-[#C5A059] transition-colors ${shouldBeActive ? "text-black" : "text-white"}`}
+                  className={`pbn-phone text-[13px] uppercase tracking-[0.2em] font-brandon font-bold hover:text-[#C5A059] transition-colors ${shouldBeActive ? "text-black" : "text-white"}`}
                 >
-                  212.561.5303
+                  Call Now
+                </a>
+              </div>
+
+              {/* Mobile Dedicated Call Now Link (Always displays on main bar) */}
+              <div className="block sm:hidden">
+                <a
+                  href="tel:+12125615303"
+                  className={`pbn-phone flex items-center justify-center p-2 border rounded-full transition-colors
+                  ${shouldBeActive ? "border-black text-black hover:bg-black/5" : "border-white/30 text-white hover:bg-white/5"}`}
+                  aria-label="Call Now"
+                >
+                  <Phone size={14} />
                 </a>
               </div>
 
@@ -179,7 +177,7 @@ export default function Header({ dict, lang }: HeaderProps) {
               <a
                 target="_blank"
                 href={`https://www.patientsreach.com/schedule/TribecaDentalStudio/patient_types/`}
-                className={`px-6 py-2 border text-[10px] uppercase tracking-[0.3em] relative overflow-hidden group
+                className={`px-4 sm:px-6 py-2 border text-[10px] uppercase tracking-[0.3em] relative overflow-hidden group flex-shrink-0
                 ${shouldBeActive ? "border-black text-black" : "border-white/30 text-white"}`}
               >
                 <span className="relative z-10 group-hover:text-white">
@@ -234,16 +232,7 @@ export default function Header({ dict, lang }: HeaderProps) {
               </button>
             </div>
 
-            {/* FIXED: Formatted text token to match standard fallback tracker criteria */}
-            <div className="mb-4">
-              <a
-                href="tel:+12125615303"
-                className="pbn-phone text-3xl font-serif italic text-[#C5A059]"
-                onClick={() => setIsOpen(false)}
-              >
-                212 561 5303
-              </a>
-            </div>
+            {/* FIXED: Cleaned out raw number block per specifications to prevent dynamic mounting errors */}
 
             {navItems.map((item) => (
               <Link
