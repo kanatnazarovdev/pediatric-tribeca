@@ -20,7 +20,6 @@ export default function Footer() {
       id="contact"
       className="bg-white border-t border-black/5 pt-24 pb-8"
     >
-      
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 mb-24">
           <div className="relative h-[400px] w-full bg-gray-100 overflow-hidden group border border-black/5">
@@ -38,7 +37,7 @@ export default function Footer() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
               <div className="space-y-6">
                 <span className="text-[10px] uppercase tracking-[0.5em] text-gray-400">
-                  {isZh ? "诊所地址" : isEs ? "Ubicación" : "The Location"}
+                  {isZh ? "诊 clinic 地址" : isEs ? "Ubicación" : "The Location"}
                 </span>
                 <h3 className="text-2xl font-serif">
                   Tribeca <br />
@@ -67,9 +66,10 @@ export default function Footer() {
                           ? "Línea Directa"
                           : "Office Line"}
                     </p>
+                    {/* Added pbn-phone class and standardized text string formatting */}
                     <a
-                      href="tel:2125615303"
-                      className="text-lg font-light hover:text-[#4add30] transition-colors"
+                      href="tel:+12125615303"
+                      className="pbn-phone text-lg font-light hover:text-[#4add30] transition-colors"
                     >
                       212.561.5303
                     </a>

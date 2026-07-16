@@ -8,6 +8,7 @@ import Footer from "@/components/Footer";
 import NextTopLoader from "nextjs-toploader";
 import { baseUrl, getAlternates } from "@/hooks/helper";
 import Script from "next/script";
+
 export async function generateMetadata({
   params,
 }: {
@@ -112,6 +113,20 @@ export default async function RootLayout(props: {
           name="google-site-verification"
           content="nLaRiqhDNEihAjZvM41oA3QZTgOteabWMXMuWiMcSsU"
         />
+        {/* Practice By Numbers Dynamic Number Insertion Script */}
+      <Script id="pbn-dni-script" strategy="afterInteractive">
+        {`
+          (function() {
+              var d = document;
+              var s = d.createElement('script');
+              s.type = 'text/javascript';
+              s.async = true;
+              s.src = '//appcontent.practicenumbers.com/phone_number_replace_305fcb9753294ecebd02aba6da9b76c4.js';
+              var x = d.getElementsByTagName('script')[0];
+              x.parentNode.insertBefore(s, x);
+          })();
+        `}
+      </Script>
         <Script
           id="gtm-script"
           strategy="afterInteractive"

@@ -143,16 +143,25 @@ export default function Header({ dict, lang }: HeaderProps) {
                 </span>
                 <button
                   onClick={() => toggleLanguage("zh")}
-                  // Check that this says lang === "zh"
                   className={`text-[12px] font-bold transition-colors ${lang === "zh" ? "text-[#C5A059]" : shouldBeActive ? "text-black/40" : "text-white/40"}`}
                 >
                   中文
                 </button>
               </div>
 
+              {/* Added: Dynamic Phone Header Track Link Asset with pbn-phone target class */}
+              <div className="hidden sm:block mr-2">
+                <a
+                  href="tel:+12125615303"
+                  className={`pbn-phone text-[14px] font-brandon font-bold tracking-[1px] hover:text-[#C5A059] transition-colors ${shouldBeActive ? "text-black" : "text-white"}`}
+                >
+                  212.561.5303
+                </a>
+              </div>
+
               {/* Booking CTA */}
               <a
-              target="_blank"
+                target="_blank"
                 href={`https://www.patientsreach.com/schedule/TribecaDentalStudio/patient_types/`}
                 className={`px-6 py-2 border text-[10px] uppercase tracking-[0.3em] relative overflow-hidden group
                 ${shouldBeActive ? "border-black text-black" : "border-white/30 text-white"}`}
@@ -208,6 +217,18 @@ export default function Header({ dict, lang }: HeaderProps) {
                 中文
               </button>
             </div>
+
+            {/* Added: Mobile Menu Phone Link tracking block */}
+            <div className="mb-4">
+              <a
+                href="tel:+12125615303"
+                className="pbn-phone text-3xl font-serif italic text-[#C5A059]"
+                onClick={() => setIsOpen(false)}
+              >
+                212.561.5303
+              </a>
+            </div>
+
             {navItems.map((item) => (
               <Link
                 key={item.id}
