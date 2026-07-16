@@ -43,6 +43,23 @@ export default function Header({ dict, lang }: HeaderProps) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // 🚀 ADDED: Re-trigger Practice by Numbers script whenever the mobile menu opens
+  useEffect(() => {
+    if (isOpen) {
+      // Small timeout allows Framer Motion to inject the DOM nodes completely before scanning
+      const timer = setTimeout(() => {
+        if (typeof window !== "undefined" && (window as any).pbn_replace_numbers_all) {
+          try {
+            (window as any).pbn_replace_numbers_all();
+          } catch (e) {
+            console.error("PBN dynamic swap error:", e);
+          }
+        }
+      }, 150);
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen]);
+
   const isStudio =
     pathname.startsWith(`/${lang}/studio`) || pathname.startsWith("/studio");
   if (isStudio) return null;
@@ -149,7 +166,7 @@ export default function Header({ dict, lang }: HeaderProps) {
                 </button>
               </div>
 
-              {/* Added: Dynamic Phone Header Track Link Asset with pbn-phone target class */}
+              {/* Dynamic Phone Header Track Link Asset with pbn-phone target class */}
               <div className="hidden sm:block mr-2">
                 <a
                   href="tel:+12125615303"
@@ -218,7 +235,7 @@ export default function Header({ dict, lang }: HeaderProps) {
               </button>
             </div>
 
-            {/* Added: Mobile Menu Phone Link tracking block */}
+            {/* Mobile Menu Phone Link tracking block */}
             <div className="mb-4">
               <a
                 href="tel:+12125615303"
