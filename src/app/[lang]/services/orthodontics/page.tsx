@@ -212,7 +212,7 @@ export default function PediatricOrthodonticsPage({ lang }: PediatricOrthoPagePr
 
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
             <a
-              href="https://truelark.com/bookonline/#/location?businessId=80613"
+              href="https://www.patientsreach.com/schedule/TribecaDentalStudio/"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center bg-[#C5A059] hover:bg-white text-black font-ddin font-bold uppercase tracking-[0.2em] text-xs px-8 py-4 transition-all duration-300"
@@ -310,7 +310,7 @@ export default function PediatricOrthodonticsPage({ lang }: PediatricOrthoPagePr
             {t.bannerDesc}
           </p>
           <a
-            href="https://truelark.com/bookonline/#/location?businessId=80613"
+            href="https://www.patientsreach.com/schedule/TribecaDentalStudio/"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block bg-[#C5A059] hover:bg-white text-black font-ddin font-bold uppercase tracking-[0.2em] text-xs px-10 py-5 transition-all duration-300"
