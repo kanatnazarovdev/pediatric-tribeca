@@ -54,14 +54,14 @@ export default function Header({ dict, lang }: HeaderProps) {
       href: `/${lang}/mission`,
     },
     {
-      id: "innovation",
+      id: "Services",
       label:
         lang === "zh"
-          ? "技术创新"
+          ? "服务"
           : lang === "es"
-            ? "Innovación"
-            : "Innovation",
-      href: `/${lang}/innovation`,
+            ? "services"
+            : "services",
+      href: `/${lang}/services`,
     },
     {
       id: "blog",
