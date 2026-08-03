@@ -85,7 +85,7 @@ export default async function Home({
                 Tribeca Dental Studio 4 kids
                 为纽约市中心的儿童提供革命性的牙科体验。 探索我们的
                 <Link href="/zh/mission">使命</Link>， 了解我们的
-                <Link href="/zh/innovation">技术创新</Link>， 并查看我们的
+                <Link href="/zh/mission">技术创新</Link>， 并查看我们的
                 <Link href="/zh/testimonials">患者评价</Link>。
               </p>
               <p>
@@ -111,7 +111,7 @@ export default async function Home({
                 Tribeca Dental Studio 4 kids ofrece una experiencia dental
                 revolucionaria. Explore nuestra{" "}
                 <Link href="/es/mission">misión</Link>, aprenda sobre nuestra
-                <Link href="/es/innovation">innovación tecnológica</Link> y vea
+                <Link href="/es/mission">innovación tecnológica</Link> y vea
                 nuestros
                 <Link href="/es/testimonials">testimonios de pacientes</Link>.
               </p>
@@ -146,7 +146,7 @@ export default async function Home({
                 Tribeca Dental Studio 4 kids provides a revolutionary
                 experience. Discover our <Link href="/en/mission">mission</Link>
                 , see our
-                <Link href="/en/innovation">dental innovation</Link>, and read
+                <Link href="/en/mission">dental innovation</Link>, and read
                 our
                 <Link href="/en/testimonials">patient success stories</Link>.
                 Check our latest{" "}

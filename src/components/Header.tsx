@@ -24,7 +24,7 @@ export default function Header({ dict, lang }: HeaderProps) {
   const isBlogRoute =
     pathname.includes(`/blog`) ||
     pathname.includes(`/testimonials`) ||
-    pathname.includes(`/innovation/curodont`) ||
+    pathname.includes(`/mission/curodont`) ||
     pathname.includes(`/team/`);
   const shouldBeActive = isScrolled || isOpen || isBlogRoute;
 

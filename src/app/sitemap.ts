@@ -6,7 +6,7 @@ import { groq } from "next-sanity";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://pediatrics.tribecadentalstudio.com";
   const languages = ["en", "es"];
-  const staticPages = ["mission", "innovation", "blog", "testimonials", "team"];
+  const staticPages = ["mission", "mission", "blog", "testimonials", "team"];
 
   const currentCrawlDate = new Date();
 
@@ -25,7 +25,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         url: `${baseUrl}/${lang}/${page}/`, // Added slash
         lastModified: currentCrawlDate,
         changeFrequency: page === "blog" ? "daily" : "weekly",
-        priority: page === "innovation" ? 0.9 : 0.8,
+        priority: page === "mission" ? 0.9 : 0.8,
       });
     });
     return routes;

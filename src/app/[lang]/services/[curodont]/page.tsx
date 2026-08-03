@@ -26,7 +26,7 @@ export async function generateMetadata({
   return {
     title,
     description,
-    alternates: getAlternates(lang, "innovation/curodont"),
+    alternates: getAlternates(lang, "mission/curodont"),
     keywords: isEs
       ? [
           "caries sin torno NYC",
