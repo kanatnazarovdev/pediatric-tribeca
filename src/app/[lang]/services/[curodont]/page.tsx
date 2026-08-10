@@ -26,7 +26,6 @@ export async function generateMetadata({
   return {
     title,
     description,
-    alternates: getAlternates(lang, "mission/curodont"),
     keywords: isEs
       ? [
           "caries sin torno NYC",
@@ -161,7 +160,6 @@ const Curodont = ({ lang }: CurodontProps) => {
                   {isEs ? "Reservar Experiencia" : "Reserve Experience"}
                 </button>
               </a>
-              {/* External Link to Curodont (vVARDIS) */}
               <a
                 href="https://professional.vvardis.us/product/curodont-repair-fluoride-plus/"
                 target="_blank"
